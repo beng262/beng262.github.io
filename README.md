@@ -1,4 +1,3 @@
-![Bengisu Sarac](https://assets.onecompiler.app/438dg3d7r/438dg5wd8/BPic.png)        
 # Bengisu Sarac
 
 ## Computer Engineering Student | AI & Design Enthusiast
