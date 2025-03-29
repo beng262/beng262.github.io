@@ -1,126 +1,438 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bengisu Sarac</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <style>
-        :root {
-            --light-blue: #89CFF0;
-            --light-pink: #FFB6C1;
-        }
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        body {
-            font-family: 'Arial', sans-serif;
-            background: linear-gradient(135deg, var(--light-blue), var(--light-pink));
-            color: white;
-            min-height: 100vh;
-            padding: 20px;
-        }
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            text-align: center;
-            padding: 30px 20px;
-        }
-        .profile-img {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            border: 3px solid white;
-            margin-bottom: 20px;
-            object-fit: cover;
-        }
-        .links {
-            display: flex;
-            justify-content: center;
-            gap: 25px;
-            margin: 25px 0;
-            flex-wrap: wrap;
-        }
-        .links a {
-            color: white;
-            font-size: 24px;
-            transition: transform 0.3s;
-            text-decoration: none;
-        }
-        .links a:hover {
-            transform: translateY(-5px);
-        }
-        h1 {
-            font-size: 2.3em;
-            margin-bottom: 8px;
-        }
-        h2 {
-            font-size: 1.2em;
-            font-weight: 300;
-            margin-bottom: 25px;
-        }
-        .brief {
-            max-width: 600px;
-            margin: 0 auto 25px;
-            line-height: 1.6;
-        }
-        .cv-download {
-            margin-top: 20px;
-        }
-        .cv-button {
-            background:transparent ;
-            color: white;
-            padding: 12px 25px;
-            border-radius: 25px;
-            text-decoration: none;
-            font-weight: bold;
-            transition: all 0.3s;
-            display: inline-block;
-            border: 2px solid white;
-        }
-        .cv-button:hover {
-            background: transparent;
-            color: white;
-            transform: translateY(-3px);
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bengisu Sarac</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+  <style>
+    :root {
+      --light-blue: #89cff0;
+      --light-pink: #ffb6c1;
+      --gradient: linear-gradient(135deg, var(--light-blue), var(--light-pink));
+      --transition-speed: 0.5s;
+    }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: Arial, sans-serif;
+      background: var(--gradient);
+      color: white;
+      min-height: 100vh;
+      padding: 20px;
+    }
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      text-align: center;
+      padding: 30px 20px;
+    }
+    .profile-img {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      border: 3px solid white;
+      margin-bottom: 20px;
+      object-fit: cover;
+    }
+    h1 {
+      font-size: 2.3em;
+      margin-bottom: 8px;
+    }
+    h2 {
+      font-size: 1.2em;
+      font-weight: 300;
+      margin-bottom: 25px;
+    }
+    .brief {
+      max-width: 600px;
+      margin: 0 auto 25px;
+      line-height: 1.6;
+    }
+    .links {
+      display: flex;
+      justify-content: center;
+      gap: 25px;
+      margin: 25px 0;
+      flex-wrap: wrap;
+    }
+    .links a {
+      color: white;
+      font-size: 24px;
+      transition: transform 0.3s;
+      text-decoration: none;
+    }
+    .links a:hover {
+      transform: translateY(-5px);
+    }
+    .cv-download {
+      margin-top: 20px;
+    }
+    .cv-button {
+      background: transparent;
+      color: white;
+      padding: 12px 25px;
+      border-radius: 25px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: all 0.3s;
+      display: inline-block;
+      border: 2px solid white;
+    }
+    .cv-button:hover {
+      transform: translateY(-3px);
+    }
+    /* Featured Projects heading */
+    .featured-projects-title {
+      font-size: 2em;
+      margin: 40px 0 20px;
+    }
+    /* Gallery View */
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+    }
+    .gallery-item {
+      position: relative;
+      border: 2px solid white;
+      border-radius: 10px;
+      cursor: pointer;
+      overflow: hidden;
+      background: #000;
+    }
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      background: #000;
+      display: block;
+    }
+    .gallery-item .overlay {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      background: rgba(0, 0, 0, 0.6);
+      padding: 10px;
+      text-align: center;
+      font-size: 1.1em;
+    }
+    /* Modal Styles */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 100;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+      align-items: center;
+      justify-content: center;
+    }
+    .modal-content {
+      position: relative;
+      background: var(--gradient);
+      padding: 20px;
+      width: 90%;
+      max-width: 900px;
+      border: 2px solid white;
+      border-radius: 10px;
+    }
+    .modal-content h2 {
+      margin-bottom: 15px;
+      text-align: center;
+    }
+    .close {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      font-size: 28px;
+      cursor: pointer;
+    }
+    /* Slider Container */
+    .slider-container {
+      position: relative;
+      overflow: hidden;
+      margin-bottom: 10px;
+    }
+    .slider-media {
+      width: 100%;
+      height: 500px;
+      background: rgba(0, 0, 0, 0.5); /* Semi-transparent black */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .slider-media img,
+    .slider-media video {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+    }
+    /* Navigation Buttons */
+    .nav-button {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      font-size: 30px;
+      color: white;
+      cursor: pointer;
+      transition: opacity 0.3s;
+      z-index: 1;
+    }
+    .nav-button:hover {
+      opacity: 0.7;
+    }
+    .nav-left {
+      left: 10px;
+    }
+    .nav-right {
+      right: 10px;
+    }
+    /* Thumbnail Gallery */
+    .thumbnail-gallery {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 15px;
+      flex-wrap: wrap;
+    }
+    .thumbnail-gallery img {
+      width: 60px;
+      height: 60px;
+      object-fit: cover;
+      border: 2px solid white;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: transform 0.3s, border-color 0.3s;
+    }
+    .thumbnail-gallery img:hover {
+      transform: scale(1.1);
+      border-color: var(--light-pink);
+    }
+    .thumbnail-gallery img.active {
+      border-color: var(--light-blue);
+      transform: scale(1.15);
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <img src="https://assets.onecompiler.app/438dg3d7r/438dg5wd8/BPic.png" alt="Bengisu Sarac" class="profile-img">
-        <h1>Bengisu Sarac</h1>
-        <h2>Computer Engineering Student | AI & Design Enthusiast</h2>
-        
-        <p class="brief">4th-year student blending technical expertise with creative design. Passionate about innovation at the intersection of art and technology.</p>
-        
-        <div class="links">
-            <a href="tel:+905316112140" title="Call">
-                <i class="fas fa-phone"></i>
-            </a>
-            <a href="mailto:bengisu.sarac@bilgiedu.net" title="Email">
-                <i class="fas fa-envelope"></i>
-            </a>
-            <a href="https://github.com/beng262" target="_blank" title="GitHub">
-                <i class="fab fa-github"></i>
-            </a>
-            <a href="https://linkedin.com/in/bengisarac14697" target="_blank" title="LinkedIn">
-                <i class="fab fa-linkedin"></i>
-            </a>
-            <a href="https://bengisrc.artstation.com" target="_blank" title="ArtStation">
-                <i class="fab fa-artstation"></i>
-            </a>
-            <a href="https://www.figma.com/design/cfYIqVr6bICi37Y1FilpQa/Figma-Portfolio?node-id=0-1&t=ScNDVolUz8QFxUXT-1" target="_blank" title="Figma">
-                <i class="fab fa-figma"></i>
-            </a>
-        </div>
-
-        <div class="cv-download">
-            <a href="https://drive.google.com/file/d/1GHFreu0C9-bgY39Ll-aR9U_-3Vd7pI7H/view?usp=sharing" class="cv-button" download>
-                <i class="fas fa-download"></i> Download CV
-            </a>
-        </div>
+  <div class="container">
+    <!-- Portfolio Header -->
+    <img src="https://assets.onecompiler.app/438dg3d7r/438dg5wd8/BPic.png" alt="Bengisu Sarac" class="profile-img" />
+    <h1>Bengisu Sarac</h1>
+    <h2>Computer Engineering Student | AI & Design Enthusiast</h2>
+    <p class="brief">
+      4th-year student blending technical expertise with creative design.
+      Passionate about innovation at the intersection of art and technology.
+    </p>
+    <div class="links">
+      <a href="tel:+905316112140" title="Call"><i class="fas fa-phone"></i></a>
+      <a href="mailto:bengisu.sarac@bilgiedu.net" title="Email"><i class="fas fa-envelope"></i></a>
+      <a href="https://github.com/beng262" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+      <a href="https://linkedin.com/in/bengisarac14697" target="_blank" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+      <a href="https://bengisrc.artstation.com" target="_blank" title="ArtStation"><i class="fab fa-artstation"></i></a>
+      <a href="https://www.figma.com/design/cfYIqVr6bICi37Y1FilpQa/Figma-Portfolio?node-id=0-1&t=ScNDVolUz8QFxUXT-1" target="_blank" title="Figma"><i class="fab fa-figma"></i></a>
     </div>
+    <div class="cv-download">
+      <a href="https://drive.google.com/file/d/1GHFreu0C9-bgY39Ll-aR9U_-3Vd7pI7H/view?usp=sharing" class="cv-button" download>
+        <i class="fas fa-download"></i> Download CV
+      </a>
+    </div>
+    
+    <!-- Featured Projects Heading -->
+    <h2 class="featured-projects-title">Featured Projects</h2>
+    
+    <!-- Gallery View -->
+    <section class="projects">
+      <div class="gallery" id="gallery"></div>
+    </section>
+  </div>
+
+  <!-- Modal for Project Details (Full Screen) -->
+  <div id="modal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h2 id="modalTitle"></h2>
+      <div class="slider-container">
+        <button class="nav-button nav-left" id="navLeft" style="display: none;">&#10094;</button>
+        <div class="slider-media" id="sliderMedia"></div>
+        <button class="nav-button nav-right" id="navRight" style="display: none;">&#10095;</button>
+      </div>
+      <!-- Thumbnail Gallery Below Main Media -->
+      <div class="thumbnail-gallery" id="thumbnailGallery"></div>
+    </div>
+  </div>
+
+  <script>
+    // Project data – update with your own URLs and titles.
+    const projects = [
+      {
+        title: "Arcane Style Drawing",
+        mainImage: "https://assets.onecompiler.app/438dg3d7r/43d5w35zq/bengi-src-1000001715%20(1).jpg",
+        media: [
+          "https://assets.onecompiler.app/438dg3d7r/43d5w35zq/bengi-src-1000001715%20(1).jpg",
+          "https://assets.onecompiler.app/438dg3d7r/43d5w35zq/bengi-src-1000001714.jpg"
+        ]
+      },
+      {
+        title: "Scarlet Witch",
+        mainImage: "https://assets.onecompiler.app/438dg3d7r/43d5w35zq/bengi-src-1000001305.jpg",
+        media: [
+          "https://assets.onecompiler.app/438dg3d7r/43d5w35zq/bengi-src-1000001305.jpg",
+          "https://assets.onecompiler.app/438dg3d7r/43d5w35zq/bengi-src-20220919-065646.jpg"
+        ]
+      },
+      {
+        title: "Skyrim Miraak",
+        mainImage: "https://assets.onecompiler.app/438dg3d7r/43d5w35zq/bengi-src-1549655700007.jpg",
+        media: [
+          "https://assets.onecompiler.app/438dg3d7r/43d5w35zq/bengi-src-1549655700007.jpg",
+          "https://assets.onecompiler.app/438dg3d7r/43d5w35zq/bengi-src-1549567656014.jpg",
+          "https://assets.onecompiler.app/438dg3d7r/43d5w35zq/bengi-src-20221227-233651.jpg"
+        ]
+      },
+      {
+        title: "Pastels",
+        mainImage: "https://assets.onecompiler.app/438dg3d7r/43d5w35zq/bengi-src-untitled77-20220123224135.jpg",
+        media: [
+          "https://assets.onecompiler.app/438dg3d7r/43d5w35zq/bengi-src-untitled77-20220123224135.jpg",
+          "https://assets.onecompiler.app/438dg3d7r/43d5w35zq/bengi-src-untitled77-20220123224216.jpg",
+          "https://assets.onecompiler.app/438dg3d7r/43d5w35zq/bengi-src-untitled77-20220123224226.jpg",
+          "https://assets.onecompiler.app/438dg3d7r/43d5w35zq/bengi-src-untitled77-20220123224142.jpg"
+        ]
+      },
+      {
+        title: "Animals",
+        mainImage: "https://assets.onecompiler.app/438dg3d7r/43d5w35zq/bengi-src-1533201409907.jpg",
+        media: [
+          "https://assets.onecompiler.app/438dg3d7r/43d5w35zq/bengi-src-1533201409907.jpg",
+          "https://assets.onecompiler.app/438dg3d7r/43d5w35zq/bengi-src-20200203-205907.jpg"
+        ]
+      },
+      {
+        title: "Eye",
+        mainImage: "https://assets.onecompiler.app/438dg3d7r/43d5w35zq/bengi-src-20200203-205832%20(1).jpg",
+        media: [
+          "https://assets.onecompiler.app/438dg3d7r/43d5w35zq/bengi-src-20200203-205832%20(1).jpg"
+        ]
+      }
+    ];
+
+    // Build Gallery View
+    const galleryContainer = document.getElementById("gallery");
+    projects.forEach((project, index) => {
+      const item = document.createElement("div");
+      item.className = "gallery-item";
+      item.dataset.index = index;
+      
+      const img = document.createElement("img");
+      img.src = project.mainImage;
+      img.alt = project.title;
+      img.style.objectFit = "contain";
+      
+      const overlay = document.createElement("div");
+      overlay.className = "overlay";
+      overlay.textContent = project.title;
+      
+      item.appendChild(img);
+      item.appendChild(overlay);
+      
+      item.addEventListener("click", () => openModal(index));
+      galleryContainer.appendChild(item);
+    });
+
+    let currentProject = null;
+    let currentIndex = 0;
+    const modal = document.getElementById("modal");
+    const modalTitle = document.getElementById("modalTitle");
+    const sliderMedia = document.getElementById("sliderMedia");
+    const thumbnailGallery = document.getElementById("thumbnailGallery");
+    const navLeft = document.getElementById("navLeft");
+    const navRight = document.getElementById("navRight");
+    const closeBtn = document.querySelector(".close");
+
+    function openModal(projectIndex) {
+      currentProject = projects[projectIndex];
+      currentIndex = 0;
+      modalTitle.textContent = currentProject.title;
+      updateMedia();
+      updateThumbnails();
+      modal.style.display = "flex";
+    }
+
+    function updateMedia() {
+      sliderMedia.innerHTML = "";
+      if (!currentProject || !currentProject.media.length) return;
+      const src = currentProject.media[currentIndex];
+      let mediaElem;
+      if (src.match(/\.(mp4|webm|ogg)$/i)) {
+        mediaElem = document.createElement("video");
+        mediaElem.src = src;
+        mediaElem.controls = true;
+        mediaElem.autoplay = true;
+      } else {
+        mediaElem = document.createElement("img");
+        mediaElem.src = src;
+        mediaElem.alt = currentProject.title;
+      }
+      sliderMedia.appendChild(mediaElem);
+      updateNavButtons();
+    }
+
+    function updateNavButtons() {
+      navLeft.style.display = currentIndex > 0 ? "block" : "none";
+      navRight.style.display = currentIndex < currentProject.media.length - 1 ? "block" : "none";
+    }
+
+    function updateThumbnails() {
+      thumbnailGallery.innerHTML = "";
+      currentProject.media.forEach((src, idx) => {
+        const thumb = document.createElement("img");
+        thumb.src = src;
+        thumb.alt = `Thumbnail ${idx + 1}`;
+        if (idx === currentIndex) thumb.classList.add("active");
+        thumb.onclick = () => {
+          currentIndex = idx;
+          updateMedia();
+          updateThumbnails();
+        };
+        thumbnailGallery.appendChild(thumb);
+      });
+    }
+
+    navLeft.addEventListener("click", () => {
+      if (currentIndex > 0) {
+        currentIndex--;
+        updateMedia();
+        updateThumbnails();
+      }
+    });
+
+    navRight.addEventListener("click", () => {
+      if (currentIndex < currentProject.media.length - 1) {
+        currentIndex++;
+        updateMedia();
+        updateThumbnails();
+      }
+    });
+
+    closeBtn.addEventListener("click", () => {
+      modal.style.display = "none";
+    });
+
+    // Optional: Close modal when clicking outside modal content
+    window.addEventListener("click", (e) => {
+      if (e.target === modal) {
+        modal.style.display = "none";
+      }
+    });
+  </script>
 </body>
 </html>
