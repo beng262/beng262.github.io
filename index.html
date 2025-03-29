@@ -7,8 +7,9 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
   <style>
     :root {
-      --light-blue: #89cff0;
-      --light-pink: #ffb6c1;
+      --light-blue: #99CDEB;
+      --light-pink: #FFB6D9;
+      --light-purple: #DAEDFF;
       --gradient: linear-gradient(135deg, var(--light-blue), var(--light-pink));
       --transition-speed: 0.5s;
     }
@@ -115,7 +116,7 @@
       position: absolute;
       bottom: 0;
       width: 100%;
-      background: rgba(0, 0, 0, 0.6);
+      background: rgba(150, 207, 236, 0.6);
       padding: 10px;
       text-align: center;
       font-size: 1.1em;
@@ -129,7 +130,7 @@
       top: 0;
       width: 100%;
       height: 100%;
-      background: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+      background: rgba(0, 0, 0, 0.2); /* Semi-transparent background */
       align-items: center;
       justify-content: center;
     }
@@ -271,7 +272,7 @@
   </div>
 
   <script>
-    // Project data – update with your own URLs and titles.
+    // Project data:
     const projects = [
       {
         title: "Arcane Style Drawings",
@@ -427,7 +428,7 @@
       modal.style.display = "none";
     });
 
-    // Optional: Close modal when clicking outside modal content
+    // Close modal when clicking outside modal content
     window.addEventListener("click", (e) => {
       if (e.target === modal) {
         modal.style.display = "none";
