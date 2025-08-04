@@ -1,8 +1,8 @@
 # Bengisu Sarac
 
-## Computer Engineering Student | AI & Design Enthusiast
+## Junior Computer Engineer | Arts & Design Enthusiast
 
-4th-year student blending technical expertise with creative design. Passionate about
+Blending technical expertise with creative design. Passionate about
 innovation at the intersection of art and technology.
 
 ## Contact & Links
