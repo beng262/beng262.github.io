@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>UI/UX Projects — Bengisu Sarac</title>
+<style>
+  :root{
+    --light-blue:#99CDEB;--light-pink:#FFB6D9;--gradient:linear-gradient(135deg,var(--light-blue),var(--light-pink));
+    --muted: rgba(255,255,255,0.95);
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--gradient);color:white;padding:20px;
+  }
+  .top{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap}
+  h1{margin:0}
+  .back{color:white;text-decoration:none;border:1px solid rgba(255,255,255,0.08);padding:8px 12px;border-radius:8px}
+  .gallery{margin-top:18px;display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:18px}
+  .gallery-item{position:relative;border:2px solid white;border-radius:10px;overflow:hidden;background:#000;cursor:pointer}
+  .gallery-item img{width:100%;height:260px;object-fit:contain;background:#000;display:block}
+  .overlay{position:absolute;bottom:0;width:100%;background:rgba(150,207,236,0.6);padding:10px;text-align:center;font-size:1.1em}
+  /* modal */
+  .modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.25);align-items:center;justify-content:center;padding:18px}
+  .modal-inner{background:var(--gradient);padding:18px;border-radius:10px;max-width:900px;width:100%;border:2px solid white;position:relative}
+  .close{position:absolute;right:18px;top:12px;font-size:20px;cursor:pointer}
+  .slider-media{height:450px;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.4)}
+  .slider-media img{max-width:100%;max-height:100%;object-fit:contain}
+  .thumbnail-gallery{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap;justify-content:center}
+  .thumbnail-gallery img{width:60px;height:60px;object-fit:cover;border:2px solid white;border-radius:6px;cursor:pointer}
+  .thumbnail-gallery img.active{transform:scale(1.15);border-color:var(--light-blue)}
+  .modal-desc{margin-top:10px;color:rgba(255,255,255,0.95);line-height:1.4}
+</style>
+</head>
+<body>
+  <div class="top">
+    <h1>UI / UX Projects</h1>
+    <a class="back" href="index.html">← Back</a>
+  </div>
+
+  <div class="gallery" id="gallery"></div>
+
+  <div id="modal" class="modal" aria-hidden="true">
+    <div class="modal-inner" role="dialog" aria-modal="true">
+      <span id="close" class="close">✕</span>
+      <h2 id="modalTitle"></h2>
+      <div class="slider-media" id="sliderMedia"></div>
+      <div class="thumbnail-gallery" id="thumbnailGallery"></div>
+      <div id="modalDesc" class="modal-desc"></div>
+    </div>
+  </div>
+
+<script>
+  // Helper to build a Google-Drive-viewable URL from an ID
+  const gdrive = id => `https://drive.google.com/uc?export=view&id=${id}`;
+
+  // Ordered: Wallpaper -> Fortune Teller -> WhatNow
+  const uiux = [
+    // Wallpaper App (6 images)
+    {
+      title: "Wallpaper App",
+      images: [
+        gdrive("1bDgGU2A958kVs1TAt9YP9hGFX8nyux5J"),
+        gdrive("1rcCKFctKFV0-YxKgvEHrXof7U9c3ONp-"),
+        gdrive("1zqSOula12ncMjtgi1g2kRH9o7DYPkkuh"),
+        gdrive("1qTb6kzOpGOrR7zzkNsKxYhwgdh4LUkw2"),
+        gdrive("1hnirIo66WPq_-YJj9Hdnftbheiwy2Tw6"),
+        gdrive("1vrKyjBVBxwnhTwIT4O5a2v4uc2b_1_yY")
+      ],
+      desc: "A wallpaper app showcasing curated artwork and responsive image previews."
+    },
+
+    // Fortune Teller App (7 images)
+    {
+      title: "Fortune Teller App",
+      images: [
+        gdrive("1sZcYusVQqeB3gsdAqvAW1_SUI_XDB8Oh"),
+        gdrive("1DijhVXreh0L8eTB4gSkcBqbg00aZr-gM"),
+        gdrive("15gDH6oe6X9pm1Vi4i82zjgMdqaxcEmt8"),
+        gdrive("1gAzIwiM1KwwYoZurAhWB3gC68-r4H9qy"),
+        gdrive("15-BPaLSXeYpF0P51USodRxWNBVgBY4Fp"),
+        gdrive("1-DoudpYv8LXpjuTxyfvagKHoLtzQRTbR"),
+        gdrive("18uBEIZeDvV4tqUBSxaNH_ajIsR8tR7ql")
+      ],
+      desc: "A fortune-teller style app with unique fortunes and shareable results."
+    },
+
+    // WhatNow (6 images)
+    {
+      title: "WhatNow",
+      images: [
+        gdrive("1cPw3p6KlpdtCiUSElyzRxB6IDJzMQ6K4"),
+        gdrive("1LCvYEBJx-fKmUi-4IxscWZb_l9PWEbBC"),
+        gdrive("1ycoGu2caSjUn0P6-J9xnUmOlbgg1CqUy"),
+        gdrive("1dvwNhGvaJpWS87Ke4pljI1QgsZaK-4bS"),
+        gdrive("1yYXw0AGye9ib4pYBB2_Vh-8QeXXDmwgR"),
+        gdrive("1Wakcb0GTomwQxajOc80UWvs7jf1s36kw")
+      ],
+      desc: "Decision-making app (WhatNow) — clean UI and API-driven suggestions."
+    }
+  ];
+
+  // Build gallery thumbnails
+  const gallery = document.getElementById("gallery");
+  uiux.forEach((p, i) => {
+    const item = document.createElement("div");
+    item.className = "gallery-item";
+    item.dataset.index = i;
+
+    const img = document.createElement("img");
+    img.src = p.images[0]; // first image as preview
+    img.alt = p.title;
+    img.loading = "lazy";
+
+    const overlay = document.createElement("div");
+    overlay.className = "overlay";
+    overlay.textContent = p.title;
+
+    item.appendChild(img);
+    item.appendChild(overlay);
+    item.addEventListener("click", ()=> openModal(i));
+    gallery.appendChild(item);
+  });
+
+  // Modal logic (image slider + thumbnails)
+  let currentMediaArray = [];
+  let currentMediaIndex = 0;
+
+  function openModal(index){
+    const p = uiux[index];
+    currentMediaArray = p.images.slice();
+    currentMediaIndex = 0;
+    document.getElementById("modalTitle").textContent = p.title;
+    document.getElementById("modalDesc").textContent = p.desc || "";
+    renderMedia();
+    buildThumbs();
+    const modal = document.getElementById("modal");
+    modal.style.display = "flex";
+    modal.setAttribute("aria-hidden","false");
+  }
+
+  function renderMedia(){
+    const container = document.getElementById("sliderMedia");
+    container.innerHTML = "";
+    const src = currentMediaArray[currentMediaIndex];
+    const el = document.createElement("img");
+    el.src = src;
+    el.alt = "image " + (currentMediaIndex+1);
+    el.loading = "eager";
+    container.appendChild(el);
+    refreshThumbs();
+  }
+
+  function buildThumbs(){
+    const thumbs = document.getElementById("thumbnailGallery");
+    thumbs.innerHTML = "";
+    currentMediaArray.forEach((s,idx) => {
+      const t = document.createElement("img");
+      t.src = s;
+      t.alt = "thumb " + (idx+1);
+      t.onclick = ()=> { currentMediaIndex = idx; renderMedia(); };
+      if (idx === 0) t.classList.add("active");
+      thumbs.appendChild(t);
+    });
+  }
+
+  function refreshThumbs(){
+    const t = document.querySelectorAll("#thumbnailGallery img");
+    t.forEach((el,i)=> el.classList.toggle("active", i === currentMediaIndex));
+  }
+
+  // close handling
+  document.getElementById("close").addEventListener("click", closeModal);
+  window.addEventListener("click", e => { if (e.target === document.getElementById("modal")) closeModal(); });
+  function closeModal(){ const modal = document.getElementById("modal"); modal.style.display="none"; modal.setAttribute("aria-hidden","true"); }
+</script>
+</body>
+</html>
