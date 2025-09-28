@@ -11,7 +11,7 @@
     --gradient:linear-gradient(135deg,var(--light-blue),var(--light-pink));
     --muted: rgba(255,255,255,0.95);
     --card-radius:12px;
-    --max-viewer-width:420px;
+    --max-viewer-width:220px;
     --viewer-vertical-gap:160px; 
   }
   *{box-sizing:border-box}
@@ -26,12 +26,70 @@
     color:white;text-decoration:none;padding:8px 12px;border-radius:8px;transition:background .2s,transform .12s;display:inline-flex;gap:8px;align-items:center
   }
   .back:hover{background:rgba(255,255,255,0.12);transform:translateY(-2px)}
-  .gallery{margin-top:18px;display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:18px}
-  .gallery-item{position:relative;border-radius:var(--card-radius);overflow:hidden;background:#000;cursor:pointer;display:flex;align-items:center;justify-content:center;outline:none}
-  .gallery-item{aspect-ratio:9/16;min-height:0}
-  .gallery-item img{width:100%;height:100%;object-fit:cover;display:block;background:#000}
-  .overlay{position:absolute;bottom:0;width:100%;background:linear-gradient(180deg,rgba(0,0,0,0.0),rgba(0,0,0,0.45));padding:10px;text-align:center;font-size:1.05em}
-  .placeholder{width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:#111;border-radius:6px;color:#9CC7EB;font-weight:700;padding:12px;text-align:center}
+
+.gallery{
+  margin:18px auto;
+  max-width:1100px;                      /* center the gallery */
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(140px,1fr)); /* smaller tiles */
+  gap:14px;
+  align-items:start;
+}
+
+.gallery-item{
+  position:relative;
+  border-radius:var(--card-radius);
+  overflow:hidden;
+  background:linear-gradient(180deg, rgba(0,0,0,0.06), rgba(0,0,0,0.06));
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  outline:none;
+  border:1px solid rgba(255,255,255,0.04);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.18);
+  aspect-ratio:9/16;
+  transition: transform .14s, box-shadow .14s;
+}
+.gallery-item:hover{
+  transform: translateY(-6px);
+  box-shadow: 0 14px 30px rgba(0,0,0,0.24);
+}
+
+.gallery-item img{
+  width:100%;
+  height:100%;
+  object-fit:cover; /* ensures the tile fills and avoids color bleed */
+  display:block;
+  background:#000;
+}
+
+.overlay{
+  position:absolute;
+  bottom:0;
+  width:100%;
+  background:linear-gradient(180deg,rgba(0,0,0,0.0),rgba(0,0,0,0.45));
+  padding:8px;
+  text-align:center;
+  font-size:0.95em;
+  line-height:1;
+  font-weight:600;
+}
+
+.placeholder{
+  width:100%;
+  height:100%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:#111;
+  border-radius:6px;
+  color:#9CC7EB;
+  font-weight:700;
+  padding:12px;
+  text-align:center;
+}
+
   .modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.65);align-items:center;justify-content:center;padding:18px;z-index:1000}
   --modal-vertical-gap:60px; 
   --modal-horizontal-gap:18px; 
