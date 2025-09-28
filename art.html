@@ -1,208 +1,196 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Art — Bengisu Sarac</title>
-<style>
-  :root{
-    --light-blue:#99CDEB;--light-pink:#FFB6D9;--gradient:linear-gradient(135deg,var(--light-blue),var(--light-pink));
-  }
-  *{box-sizing:border-box}
-  body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--gradient);color:white;padding:20px}
-  .top{display:flex;justify-content:space-between;align-items:center}
-  .back{
-    color:white;text-decoration:none;padding:8px 12px;border-radius:8px;transition:background .2s,transform .12s;display:inline-flex;gap:8px;align-items:center
-  }
-  .back:hover{background:rgba(255,255,255,0.12);transform:translateY(-2px)}
-  .gallery{margin-top:18px;display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:18px}
-  .gallery-item{position:relative;border:2px solid white;border-radius:10px;overflow:hidden;background:#000;cursor:pointer;height:260px;display:block}
-  
-  .gallery-item img{width:100%;height:100%;object-fit:cover;display:block}
-  .overlay{position:absolute;bottom:0;width:100%;background:rgba(150,207,236,0.6);padding:10px;text-align:center;font-size:1.1em}
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bengisu Sarac</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+  <style>
+    :root {
+      --light-blue: #99CDEB;
+      --light-pink: #FFB6D9;
+      --light-purple: #DAEDFF;
+      --gradient: linear-gradient(135deg, var(--light-blue), var(--light-pink));
+      --transition-speed: 0.5s;
+      --card-bg: rgba(255,255,255,0.06);
+      --muted: rgba(255,255,255,0.85);
+      --button-bg: rgba(255,255,255,0.08);
+    }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: Arial, sans-serif;
+      background: var(--gradient);
+      color: white;
+      min-height: 100vh;
+      padding: 20px;
+    }
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      text-align: center;
+      padding: 30px 20px;
+    }
+    .profile-img {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      border: 3px solid white;
+      margin-bottom: 20px;
+      object-fit: cover;
+    }
+    h1 {
+      font-size: 2.3em;
+      margin-bottom: 8px;
+    }
+    h2 {
+      font-size: 1.2em;
+      font-weight: 300;
+      margin-bottom: 25px;
+    }
+    .brief {
+      max-width: 600px;
+      margin: 0 auto 25px;
+      line-height: 1.6;
+    }
+    .links {
+      display: flex;
+      justify-content: center;
+      gap: 25px;
+      margin: 25px 0;
+      flex-wrap: wrap;
+    }
+    .links a {
+      color: white;
+      font-size: 24px;
+      transition: transform 0.3s;
+      text-decoration: none;
+    }
+    .links a:hover {
+      transform: translateY(-5px);
+    }
+    .cv-download {
+      margin-top: 20px;
+    }
+    .cv-button {
+      background: transparent;
+      color: white;
+      padding: 12px 25px;
+      border-radius: 25px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: all 0.3s;
+      display: inline-block;
+      border: 2px solid white;
+    }
+    .cv-button:hover {
+      transform: translateY(-3px);
+    }
 
-  
-  .modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.25);align-items:center;justify-content:center;padding:18px}
-  .modal-inner{background:var(--gradient);padding:18px;border-radius:10px;max-width:900px;width:100%;border:2px solid white;position:relative}
-  --modal-vertical-gap:48px; 
-  --modal-horizontal-gap:18px; 
-  .slider-media{height:500px;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.4)}
-  
-  .slider-media img{max-width:100%;max-height:100%;object-fit:contain;display:block}
-  .thumbnail-gallery{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap;justify-content:center}
-  .thumbnail-gallery img{width:60px;height:60px;object-fit:cover;border:2px solid white;border-radius:6px;cursor:pointer}
-  .thumbnail-gallery img.active{transform:scale(1.15);border-color:var(--light-blue)}
-  .close{position:absolute;right:18px;top:12px;font-size:20px;cursor:pointer}
+    .featured-projects-title {
+      font-size: 2em;
+      margin: 40px 0 20px;
+    }
+    
+    .feature-buttons {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 18px;
+      align-items: center;
+      justify-items: center;
+      margin-bottom: 40px;
+    }
+    @media (min-width: 740px) {
+      .feature-buttons {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+    .feature-btn {
+      width: 100%;
+      max-width: 320px;
+      background: var(--button-bg);
+      border: 2px solid rgba(255,255,255,0.12);
+      padding: 20px;
+      border-radius: 14px;
+      text-decoration: none;
+      color: white;
+      font-weight: 700;
+      font-size: 18px;
+      display: inline-flex;
+      gap: 12px;
+      align-items: center;
+      justify-content: center;
+      transition: transform var(--transition-speed), box-shadow var(--transition-speed);
+    }
+    .feature-btn:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.18);
+    }
+    .feature-btn .icon {
+      background: rgba(255,255,255,0.06);
+      padding: 10px;
+      border-radius: 10px;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      min-width:38px;
+      min-height:38px;
+    }
+    .feature-note {
+      margin-top: 14px;
+      color: rgba(255,255,255,0.95);
+      font-size: 14px;
+    }
 
-  
-.nav-button{background:rgba(0,0,0,0.30);border:none;padding:10px 14px;border-radius:8px;cursor:pointer;font-size:20px;color:white;}
-  .nav-left{position:absolute;left:8px;top:50%;transform:translateY(-50%)}
-  .nav-right{position:absolute;right:8px;top:50%;transform:translateY(-50%)}
-</style>
+    .center-row { display:flex; gap:12px; justify-content:center; align-items:center; flex-wrap:wrap; margin-top:18px; }
+  </style>
 </head>
 <body>
-  <div class="top">
-    <h1>Art Portfolio</h1>
-    <a class="back" href="index.html">← Back</a>
-  </div>
+  <div class="container">
 
-  <div class="gallery" id="gallery"></div>
-
-  <div id="modal" class="modal">
-    <div class="modal-inner">
-      <button class="nav-button nav-left" id="navLeft" style="display:none">&#10094;</button>
-      <button class="nav-button nav-right" id="navRight" style="display:none">&#10095;</button>
-      <span id="close" class="close">✕</span>
-      <h2 id="modalTitle"></h2>
-      <div class="slider-media" id="sliderMedia"></div>
-      <div class="thumbnail-gallery" id="thumbnailGallery"></div>
+    <img src="https://uploads.onecompiler.io/438dg3d7r/438dg5wd8/BPic.png" alt="Bengisu Sarac" class="profile-img" />
+    <h1>Bengisu Sarac</h1>
+    <h2>Computer Engineer/Scientist | Technology & Design Enthusiast</h2>
+    <p class="brief">
+      Jr. Computer Scientist blending technical expertise with creative design.
+      Passionate about innovation at the intersection of art and technology.
+    </p>
+    <div class="links">
+      <a href="tel:+905316112140" title="Call"><i class="fas fa-phone"></i></a>
+      <a href="mailto:bengisu.sarac@bilgiedu.net" title="Email"><i class="fas fa-envelope"></i></a>
+      <a href="https://github.com/beng262" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+      <a href="https://linkedin.com/in/bengisarac14697" target="_blank" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+      <a href="https://bengisrc.artstation.com" target="_blank" title="ArtStation"><i class="fab fa-artstation"></i></a>
+      <a href="https://www.figma.com/design/cfYIqVr6bICi37Y1FilpQa/Figma-Portfolio?node-id=0-1&t=ScNDVolUz8QFxUXT-1" target="_blank" title="Figma"><i class="fab fa-figma"></i></a>
     </div>
+    <div class="cv-download">
+      <a href="https://drive.google.com/file/d/15oH0CYgk0YsIZLbqNvHkg4cGzW2810-0/view?usp=drive_link" class="cv-button" download>
+        <i class="fas fa-download"></i> Download CV
+      </a>
+    </div>
+    
+    <h2 class="featured-projects-title">Featured Projects</h2>
+
+    <div class="feature-buttons" role="navigation" aria-label="Featured Project categories">
+      <a class="feature-btn" href="development.html" title="Development projects">
+        <span class="icon"><i class="fas fa-code"></i></span>
+        <span>Development</span>
+      </a>
+
+      <a class="feature-btn" href="uiux.html" title="UI / UX projects">
+        <span class="icon"><i class="fas fa-object-group"></i></span>
+        <span>UI / UX</span>
+      </a>
+
+      <a class="feature-btn" href="art.html" title="Art portfolio">
+        <span class="icon"><i class="fas fa-palette"></i></span>
+        <span>Art</span>
+      </a>
+    </div>
+
   </div>
-
-<script>
-  const projects = [
-    {
-      title: "Arcane Style Drawings",
-      mainImage: "https://uploads.onecompiler.io/438dg3d7r/43d5w35zq/bengi-src-1000001715%20(1).jpg",
-      media: [
-        "https://uploads.onecompiler.io/438dg3d7r/43d5w35zq/bengi-src-1000001715%20(1).jpg",
-        "https://uploads.onecompiler.io/438dg3d7r/43d5w35zq/bengi-src-1000001714.jpg"
-      ]
-    },
-    {
-      title: "Scarlet Witch",
-      mainImage: "https://uploads.onecompiler.io/438dg3d7r/43d5w35zq/bengi-src-1000001305.jpg",
-      media: [
-        "https://uploads.onecompiler.io/438dg3d7r/43d5w35zq/bengi-src-1000001305.jpg",
-        "https://uploads.onecompiler.io/438dg3d7r/43d5w35zq/bengi-src-20220919-065646.jpg"
-      ]
-    },
-    {
-      title: "Skyrim Miraak",
-      mainImage: "https://uploads.onecompiler.io/438dg3d7r/43d5w35zq/bengi-src-1549655700007.jpg",
-      media: [
-        "https://uploads.onecompiler.io/438dg3d7r/43d5w35zq/bengi-src-1549655700007.jpg",
-        "https://uploads.onecompiler.io/438dg3d7r/43d5w35zq/bengi-src-1549567656014.jpg",
-        "https://uploads.onecompiler.io/438dg3d7r/43d5w35zq/bengi-src-20221227-233651.jpg"
-      ]
-    },
-    {
-      title: "Pastels",
-      mainImage: "https://uploads.onecompiler.io/438dg3d7r/43d5w35zq/bengi-src-untitled77-20220123224135.jpg",
-      media: [
-        "https://uploads.onecompiler.io/438dg3d7r/43d5w35zq/bengi-src-untitled77-20220123224135.jpg",
-        "https://uploads.onecompiler.io/438dg3d7r/43d5w35zq/bengi-src-untitled77-20220123224216.jpg",
-        "https://uploads.onecompiler.io/438dg3d7r/43d5w35zq/bengi-src-untitled77-20220123224226.jpg",
-        "https://uploads.onecompiler.io/438dg3d7r/43d5w35zq/bengi-src-untitled77-20220123224142.jpg"
-      ]
-    },
-    {
-      title: "Animals",
-      mainImage: "https://uploads.onecompiler.io/438dg3d7r/43d5w35zq/bengi-src-1533201409907.jpg",
-      media: [
-        "https://uploads.onecompiler.io/438dg3d7r/43d5w35zq/bengi-src-1533201409907.jpg",
-        "https://uploads.onecompiler.io/438dg3d7r/43d5w35zq/bengi-src-20200203-205907.jpg"
-      ]
-    },
-    {
-      title: "Eye",
-      mainImage: "https://uploads.onecompiler.io/438dg3d7r/43d5w35zq/bengi-src-20200203-205832%20(1).jpg",
-      media: [
-        "https://uploads.onecompiler.io/438dg3d7r/43d5w35zq/bengi-src-20200203-205832%20(1).jpg"
-      ]
-    }
-  ];
-
-  // Build gallery view
-  const gallery = document.getElementById('gallery');
-  projects.forEach((p, i) => {
-    const item = document.createElement('div');
-    item.className = 'gallery-item';
-    item.dataset.index = i;
-
-    const img = document.createElement('img');
-    img.src = p.mainImage;
-    img.alt = p.title;
-
-    const overlay = document.createElement('div');
-    overlay.className = 'overlay';
-    overlay.textContent = p.title;
-
-    item.appendChild(img);
-    item.appendChild(overlay);
-    item.addEventListener('click', () => openModal(i));
-    gallery.appendChild(item);
-  });
-
-  // Modal logic
-  const modal = document.getElementById('modal');
-  const modalTitle = document.getElementById('modalTitle');
-  const sliderMedia = document.getElementById('sliderMedia');
-  const thumbnailGallery = document.getElementById('thumbnailGallery');
-  const navLeft = document.getElementById('navLeft');
-  const navRight = document.getElementById('navRight');
-  const closeBtn = document.getElementById('close');
-
-  let currentProject = null;
-  let currentIndex = 0;
-
-  function openModal(index){
-    currentProject = projects[index];
-    currentIndex = 0;
-    modalTitle.textContent = currentProject.title;
-    updateMedia();
-    updateThumbnails();
-    modal.style.display = 'flex';
-  }
-
-  function updateMedia(){
-    sliderMedia.innerHTML = '';
-    if(!currentProject || !currentProject.media.length) return;
-    const src = currentProject.media[currentIndex];
-    let el;
-    if(src.match(/\.(mp4|webm|ogg)$/i)){
-      el = document.createElement('video');
-      el.src = src; el.controls = true; el.autoplay = true; el.style.maxWidth='100%'; el.style.maxHeight='100%';
-    } else {
-      el = document.createElement('img');
-      el.src = src; el.alt = currentProject.title;
-    }
-    sliderMedia.appendChild(el);
-    updateNavButtons();
-  }
-
-  function updateNavButtons(){
-    navLeft.style.display = currentIndex > 0 ? 'block' : 'none';
-    navRight.style.display = currentIndex < currentProject.media.length - 1 ? 'block' : 'none';
-  }
-
-  function updateThumbnails(){
-    thumbnailGallery.innerHTML = '';
-    currentProject.media.forEach((src, idx) => {
-      const t = document.createElement('img');
-      t.src = src; t.alt = `thumb-${idx}`;
-      if(idx === currentIndex) t.classList.add('active');
-      t.addEventListener('click', ()=>{ currentIndex = idx; updateMedia(); updateThumbnails(); });
-      thumbnailGallery.appendChild(t);
-    });
-  }
-
-  navLeft.addEventListener('click', ()=>{
-    if(currentIndex > 0){ currentIndex--; updateMedia(); updateThumbnails(); }
-  });
-  navRight.addEventListener('click', ()=>{
-    if(currentIndex < currentProject.media.length - 1){ currentIndex++; updateMedia(); updateThumbnails(); }
-  });
-
-  closeBtn.addEventListener('click', ()=> modal.style.display = 'none');
-  window.addEventListener('click', e => { if(e.target === modal) modal.style.display = 'none' });
-
-  window.addEventListener('keydown', (e)=>{
-    if(modal.style.display !== 'flex') return;
-    if(e.key === 'ArrowLeft') navLeft.click();
-    if(e.key === 'ArrowRight') navRight.click();
-    if(e.key === 'Escape') closeBtn.click();
-  });
-</script>
 </body>
 </html>
