@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Art — Bengisu Sarac</title>
+<style>
+  :root{
+    --light-blue:#99CDEB;--light-pink:#FFB6D9;--gradient:linear-gradient(135deg,var(--light-blue),var(--light-pink));
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--gradient);color:white;padding:20px}
+  .top{display:flex;justify-content:space-between;align-items:center}
+  .back{color:white;text-decoration:none;border:1px solid rgba(255,255,255,0.08);padding:8px 12px;border-radius:8px}
+  .gallery{margin-top:18px;display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:18px}
+  .gallery-item{position:relative;border:2px solid white;border-radius:10px;overflow:hidden;background:#000;cursor:pointer}
+  .gallery-item img{width:100%;height:260px;object-fit:contain;background:#000;display:block}
+  .overlay{position:absolute;bottom:0;width:100%;background:rgba(150,207,236,0.6);padding:10px;text-align:center;font-size:1.1em}
+  .modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.25);align-items:center;justify-content:center;padding:18px}
+  .modal-inner{background:var(--gradient);padding:18px;border-radius:10px;max-width:900px;width:100%;border:2px solid white}
+  .slider-media{height:500px;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.4)}
+  .thumbnail-gallery{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap;justify-content:center}
+  .thumbnail-gallery img{width:60px;height:60px;object-fit:cover;border:2px solid white;border-radius:6px;cursor:pointer}
+  .thumbnail-gallery img.active{transform:scale(1.15);border-color:var(--light-blue)}
+  .close{position:absolute;right:18px;top:12px;font-size:20px;cursor:pointer}
+</style>
+</head>
+<body>
+  <div class="top">
+    <h1>Art Portfolio</h1>
+    <a class="back" href="index.html">← Back</a>
+  </div>
+
+  <div class="gallery" id="gallery"></div>
+
+  <div id="modal" class="modal">
+    <div class="modal-inner">
+      <span id="close" class="close">✕</span>
+      <h2 id="modalTitle"></h2>
+      <div class="slider-media" id="sliderMedia"></div>
+      <div class="thumbnail-gallery" id="thumbnailGallery"></div>
+    </div>
+  </div>
+
+<script>
+  const artProjects = [
+    { title:"Arcane Style Drawings", media:["https://uploads.onecompiler.io/438dg3d7r/43d5w35zq/bengi-src-1000001715%20(1).jpg","https://uploads.onecompiler.io/438dg3d7r/43d5w35zq/bengi-src-1000001714.jpg"] },
+    { title:"Scarlet Witch", media:["https://uploads.onecompiler.io/438dg3d7r/43d5w35zq/bengi-src-1000001305.jpg","https://uploads.onecompiler.io/438dg3d7r/43d5w35zq/bengi-src-20220919-065646.jpg"] },
+    { title:"Skyrim Miraak", media:["https://uploads.onecompiler.io/438dg3d7r/43d5w35zq/bengi-src-1549655700007.jpg","https://uploads.onecompiler.io/438dg3d7r/43d5w35zq/bengi-src-1549567656014.jpg"] },
+    { title:"Pastels", media:["https://uploads.onecompiler.io/438dg3d7r/43d5w35zq/bengi-src-untitled77-20220123224135.jpg"] },
+    { title:"Animals", media:["https://uploads.onecompiler.io/438dg3d7r/43d5w35zq/bengi-src-1533201409907.jpg"] }
+  ];
+
+  const gallery = document.getElementById("gallery");
+  artProjects.forEach((p, i) => {
+    const item = document.createElement("div"); item.className="gallery-item";
+    const img = document.createElement("img"); img.src=p.media[0]; img.alt=p.title;
+    const overlay = document.createElement("div"); overlay.className="overlay"; overlay.textContent=p.title;
+    item.appendChild(img); item.appendChild(overlay);
+    item.addEventListener("click", ()=>openModal(i));
+    gallery.appendChild(item);
+  });
+
+  let currentMediaArray = [];
+  let currentMediaIndex = 0;
+  function openModal(index){
+    const p = artProjects[index];
+    currentMediaArray = p.media.slice();
+    currentMediaIndex = 0;
+    document.getElementById("modalTitle").textContent = p.title;
+    renderMedia(); buildThumbs();
+    document.getElementById("modal").style.display="flex";
+  }
+  function renderMedia(){
+    const container = document.getElementById("sliderMedia");
+    container.innerHTML = "";
+    const src = currentMediaArray[currentMediaIndex];
+    const el = document.createElement("img"); el.src = src; el.style.maxWidth="100%"; el.style.maxHeight="100%";
+    container.appendChild(el); refreshThumbs();
+  }
+  function buildThumbs(){
+    const thumbs = document.getElementById("thumbnailGallery");
+    thumbs.innerHTML = "";
+    currentMediaArray.forEach((s,idx) => {
+      const t = document.createElement("img"); t.src=s; t.onclick = ()=>{ currentMediaIndex=idx; renderMedia(); };
+      if(idx===0) t.classList.add("active");
+      thumbs.appendChild(t);
+    });
+  }
+  function refreshThumbs(){ const list=document.querySelectorAll("#thumbnailGallery img"); list.forEach((el,i)=>el.classList.toggle("active", i===currentMediaIndex)) }
+
+  document.getElementById("close").addEventListener("click", ()=>document.getElementById("modal").style.display="none");
+  window.addEventListener("click", e => { if (e.target === document.getElementById("modal")) document.getElementById("modal").style.display="none" });
+</script>
+</body>
+</html>
