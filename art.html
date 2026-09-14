@@ -1,196 +1,163 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Bengisu Sarac</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
-  <style>
-    :root {
-      --light-blue: #99CDEB;
-      --light-pink: #FFB6D9;
-      --light-purple: #DAEDFF;
-      --gradient: linear-gradient(135deg, var(--light-blue), var(--light-pink));
-      --transition-speed: 0.5s;
-      --card-bg: rgba(255,255,255,0.06);
-      --muted: rgba(255,255,255,0.85);
-      --button-bg: rgba(255,255,255,0.08);
-    }
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-    body {
-      font-family: Arial, sans-serif;
-      background: var(--gradient);
-      color: white;
-      min-height: 100vh;
-      padding: 20px;
-    }
-    .container {
-      max-width: 1100px;
-      margin: 0 auto;
-      text-align: center;
-      padding: 30px 20px;
-    }
-    .profile-img {
-      width: 150px;
-      height: 150px;
-      border-radius: 50%;
-      border: 3px solid white;
-      margin-bottom: 20px;
-      object-fit: cover;
-    }
-    h1 {
-      font-size: 2.3em;
-      margin-bottom: 8px;
-    }
-    h2 {
-      font-size: 1.2em;
-      font-weight: 300;
-      margin-bottom: 25px;
-    }
-    .brief {
-      max-width: 600px;
-      margin: 0 auto 25px;
-      line-height: 1.6;
-    }
-    .links {
-      display: flex;
-      justify-content: center;
-      gap: 25px;
-      margin: 25px 0;
-      flex-wrap: wrap;
-    }
-    .links a {
-      color: white;
-      font-size: 24px;
-      transition: transform 0.3s;
-      text-decoration: none;
-    }
-    .links a:hover {
-      transform: translateY(-5px);
-    }
-    .cv-download {
-      margin-top: 20px;
-    }
-    .cv-button {
-      background: transparent;
-      color: white;
-      padding: 12px 25px;
-      border-radius: 25px;
-      text-decoration: none;
-      font-weight: bold;
-      transition: all 0.3s;
-      display: inline-block;
-      border: 2px solid white;
-    }
-    .cv-button:hover {
-      transform: translateY(-3px);
-    }
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Art — Bengisu Sarac</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+<style>
+  :root{
+    --gradient: linear-gradient(135deg,#99CDEB,#FFB6D9);
+    --card-bg: rgba(255,255,255,0.04);
+    --muted: rgba(255,255,255,0.9);
+    --btn-hover: rgba(255,255,255,0.12);
+  }
+  html, body { height: 100%; }
+  *{box-sizing:border-box}
+  body{
+    margin:0;
+    font-family:Arial,Helvetica,sans-serif;
+    background:var(--gradient);
+    background-size: cover;
+    color:white;
+    padding:22px;
+    min-height:100vh;
+  }
+  .top{
+    display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;
+  }
+  h1{margin:0}
+  .back{
+    color:white;
+    text-decoration:none;
+    padding:8px 12px;
+    border-radius:8px;
+    transition:background 0.22s ease, transform 0.12s ease;
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+  }
+  .back:hover{
+    background:var(--btn-hover);
+    transform:translateY(-2px);
+  }
+  .intro{
+    margin-top:14px;
+    max-width:680px;
+    line-height:1.6;
+    color:var(--muted);
+  }
+  .cta-row{
+    margin-top:18px;
+    display:flex;
+    gap:12px;
+    flex-wrap:wrap;
+  }
+  .cta{
+    background:rgba(255,255,255,0.08);
+    border:2px solid rgba(255,255,255,0.16);
+    color:white;
+    text-decoration:none;
+    padding:12px 20px;
+    border-radius:25px;
+    font-weight:700;
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    transition:transform .2s, box-shadow .2s;
+  }
+  .cta:hover{transform:translateY(-3px); box-shadow:0 10px 30px rgba(0,0,0,0.18)}
 
-    .featured-projects-title {
-      font-size: 2em;
-      margin: 40px 0 20px;
-    }
-    
-    .feature-buttons {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 18px;
-      align-items: center;
-      justify-items: center;
-      margin-bottom: 40px;
-    }
-    @media (min-width: 740px) {
-      .feature-buttons {
-        grid-template-columns: repeat(3, 1fr);
-      }
-    }
-    .feature-btn {
-      width: 100%;
-      max-width: 320px;
-      background: var(--button-bg);
-      border: 2px solid rgba(255,255,255,0.12);
-      padding: 20px;
-      border-radius: 14px;
-      text-decoration: none;
-      color: white;
-      font-weight: 700;
-      font-size: 18px;
-      display: inline-flex;
-      gap: 12px;
-      align-items: center;
-      justify-content: center;
-      transition: transform var(--transition-speed), box-shadow var(--transition-speed);
-    }
-    .feature-btn:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 10px 30px rgba(0,0,0,0.18);
-    }
-    .feature-btn .icon {
-      background: rgba(255,255,255,0.06);
-      padding: 10px;
-      border-radius: 10px;
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      min-width:38px;
-      min-height:38px;
-    }
-    .feature-note {
-      margin-top: 14px;
-      color: rgba(255,255,255,0.95);
-      font-size: 14px;
-    }
-
-    .center-row { display:flex; gap:12px; justify-content:center; align-items:center; flex-wrap:wrap; margin-top:18px; }
-  </style>
+  .grid{
+    margin-top:26px;
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+    gap:16px;
+  }
+  .card{
+    background:var(--card-bg);
+    border-radius:10px;
+    overflow:hidden;
+    border:1px solid rgba(255,255,255,0.06);
+    transition:transform .15s, box-shadow .15s;
+    display:flex;
+    flex-direction:column;
+  }
+  .card:hover{transform:translateY(-6px); box-shadow:0 10px 30px rgba(0,0,0,0.2)}
+  .thumb{width:100%;height:200px;display:block;background:rgba(255,255,255,0.03)}
+  .thumb img{width:100%;height:100%;object-fit:cover;display:block}
+  .card-body{padding:12px;text-align:left}
+  .title{font-weight:700;margin-bottom:4px}
+  .meta{font-size:13px;color:var(--muted)}
+</style>
 </head>
 <body>
-  <div class="container">
 
-    <img src="https://uploads.onecompiler.io/438dg3d7r/438dg5wd8/BPic.png" alt="Bengisu Sarac" class="profile-img" />
-    <h1>Bengisu Sarac</h1>
-    <h2>Computer Engineer/Scientist | Technology & Design Enthusiast</h2>
-    <p class="brief">
-      Jr. Computer Scientist blending technical expertise with creative design.
-      Passionate about innovation at the intersection of art and technology.
-    </p>
-    <div class="links">
-      <a href="tel:+905316112140" title="Call"><i class="fas fa-phone"></i></a>
-      <a href="mailto:bengisu.sarac@bilgiedu.net" title="Email"><i class="fas fa-envelope"></i></a>
-      <a href="https://github.com/beng262" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
-      <a href="https://linkedin.com/in/bengisarac14697" target="_blank" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
-      <a href="https://bengisrc.artstation.com" target="_blank" title="ArtStation"><i class="fab fa-artstation"></i></a>
-      <a href="https://www.figma.com/design/cfYIqVr6bICi37Y1FilpQa/Figma-Portfolio?node-id=0-1&t=ScNDVolUz8QFxUXT-1" target="_blank" title="Figma"><i class="fab fa-figma"></i></a>
+  <div class="top">
+    <h1>Art</h1>
+    <div>
+      <a class="back" href="index.html" aria-label="Back to home">← Back</a>
     </div>
-    <div class="cv-download">
-      <a href="https://drive.google.com/file/d/15oH0CYgk0YsIZLbqNvHkg4cGzW2810-0/view?usp=drive_link" class="cv-button" download>
-        <i class="fas fa-download"></i> Download CV
-      </a>
-    </div>
-    
-    <h2 class="featured-projects-title">Featured Projects</h2>
-
-    <div class="feature-buttons" role="navigation" aria-label="Featured Project categories">
-      <a class="feature-btn" href="development.html" title="Development projects">
-        <span class="icon"><i class="fas fa-code"></i></span>
-        <span>Development</span>
-      </a>
-
-      <a class="feature-btn" href="uiux.html" title="UI / UX projects">
-        <span class="icon"><i class="fas fa-object-group"></i></span>
-        <span>UI / UX</span>
-      </a>
-
-      <a class="feature-btn" href="art.html" title="Art portfolio">
-        <span class="icon"><i class="fas fa-palette"></i></span>
-        <span>Art</span>
-      </a>
-    </div>
-
   </div>
+
+  <p class="intro">
+    Illustration, 2D and 3D work. I draw and model outside of engineering, and it feeds
+    directly into how I approach interface and product design. The full, regularly updated
+    gallery lives on ArtStation.
+  </p>
+
+  <div class="cta-row">
+    <a class="cta" href="https://bengisrc.artstation.com" target="_blank" rel="noopener">
+      <i class="fab fa-artstation"></i> View full portfolio on ArtStation
+    </a>
+    <a class="cta" href="uiux.html">
+      <i class="fas fa-object-group"></i> See UI / UX work
+    </a>
+  </div>
+
+  <!-- TODO Bengisu: replace the three src values below with real image URLs
+       (drop the files into this repo, e.g. /img/piece-1.jpg, and use a relative path).
+       Until then each card falls back to a neutral placeholder. -->
+  <div class="grid" id="grid"></div>
+
+<script>
+  const pieces = [
+    { title: "Digital Illustration", meta: "Photoshop", image: "" },
+    { title: "Character Work",       meta: "Photoshop", image: "" },
+    { title: "3D Modeling",          meta: "Blender",   image: "" }
+  ];
+
+  const grid = document.getElementById("grid");
+  pieces.forEach(p => {
+    const card = document.createElement("a");
+    card.className = "card";
+    card.href = "https://bengisrc.artstation.com";
+    card.target = "_blank";
+    card.rel = "noopener";
+    card.style.textDecoration = "none";
+    card.style.color = "white";
+
+    const thumb = document.createElement("div");
+    thumb.className = "thumb";
+    const img = document.createElement("img");
+    img.alt = p.title;
+    const fallback = 'data:image/svg+xml;utf8,' + encodeURIComponent(
+      `<svg xmlns='http://www.w3.org/2000/svg' width='1200' height='800'><rect width='100%' height='100%' fill='#0F1724'/><text x='50%' y='50%' fill='#9CC7EB' font-family='Arial' font-size='34' text-anchor='middle' dominant-baseline='middle'>${p.title}</text></svg>`
+    );
+    img.src = p.image || fallback;
+    img.onerror = () => { img.src = fallback; };
+    thumb.appendChild(img);
+
+    const body = document.createElement("div");
+    body.className = "card-body";
+    const t = document.createElement("div"); t.className = "title"; t.textContent = p.title;
+    const m = document.createElement("div"); m.className = "meta"; m.textContent = p.meta;
+    body.appendChild(t); body.appendChild(m);
+
+    card.appendChild(thumb); card.appendChild(body);
+    grid.appendChild(card);
+  });
+</script>
+
 </body>
 </html>
