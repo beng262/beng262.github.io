@@ -1,10 +1,12 @@
 # Bengisu Saraç
 
-## AI Engineer | Azure, Applied ML & Design
+## Computer Scientist | Applied AI, Cloud & On-Premise
 
-I build enterprise AI systems on Microsoft Azure: retrieval-augmented generation, agent
-workflows, and computer vision, integrated with real business data sources. Microsoft
-Certified Trainer and Azure Solutions Architect Expert. I design and draw, too.
+I build enterprise AI systems across cloud and on-premise environments:
+retrieval-augmented generation, agent workflows, and computer vision, integrated with real
+business data sources. I work across Azure, AWS and Google Cloud, and deliver locally
+hosted deployments where data residency requires it. Microsoft Certified Trainer and Azure
+Solutions Architect Expert. I design and draw, too.
 
 Live site: **[beng262.github.io](https://beng262.github.io)**
 
@@ -18,8 +20,11 @@ Live site: **[beng262.github.io](https://beng262.github.io)**
 
 ## Stack
 
-`Python` `TypeScript` `C++` `Azure AI Foundry` `Azure OpenAI` `Azure AI Search`
-`Azure Functions` `Cosmos DB` `Entra ID` `PyTorch` `OpenCV` `React` `Flutter`
+`Python` `TypeScript` `C++` `PyTorch` `OpenCV` `React` `Flutter`
+
+**Cloud** `Azure (AI Foundry, OpenAI, AI Search, Functions, Cosmos DB, Entra ID)` `AWS` `Google Cloud`
+
+**On-premise** self-hosted and locally deployed AI services, for data-residency and air-gapped requirements
 
 ## Contact & Links
 
