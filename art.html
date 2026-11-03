@@ -3,8 +3,13 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Art — Bengisu Sarac</title>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+<title>Art – Bengisu Saraç</title>
+<link rel="icon" href="favicon.svg" type="image/svg+xml" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500&family=Instrument+Serif:ital@1&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+<link rel="stylesheet" href="assets/site.css" />
 <style>
   :root{
     --gradient: linear-gradient(135deg,#99CDEB,#FFB6D9);
@@ -85,13 +90,42 @@
   }
   .card:hover{transform:translateY(-6px); box-shadow:0 10px 30px rgba(0,0,0,0.2)}
   .thumb{width:100%;height:200px;display:block;background:rgba(255,255,255,0.03)}
-  .thumb img{width:100%;height:100%;object-fit:cover;display:block}
+  .thumb img{width:100%;height:100%;object-fit:contain;display:block;background:#f5f5f5}
   .card-body{padding:12px;text-align:left}
   .title{font-weight:700;margin-bottom:4px}
   .meta{font-size:13px;color:var(--muted)}
+
+  /* Site theme overrides (assets/site.css holds the shared tokens) */
+  body{background:var(--bg)!important;font-family:var(--body)!important;padding:0!important;color:var(--text)}
+  main.sub{padding:56px 0 40px}
+  .top{margin-bottom:8px}
+  .top h1{font-family:var(--display);font-size:clamp(36px,5vw,56px);letter-spacing:-.03em}
+  .back{border:1px solid var(--line-2);border-radius:999px!important;padding:8px 16px!important;background:var(--surface)}
+  .intro{color:var(--muted)!important;font-size:17px}
+  .cta{border-radius:999px!important;border:1px solid var(--line-2)!important;background:var(--surface)!important}
+  .card,.gallery-item{border:1px solid var(--line)!important;background:var(--surface)!important;border-radius:16px!important}
+  .meta{color:var(--muted)!important}
+  .modal-inner{background:var(--bg-2)!important;border:1px solid var(--line-2)}
 </style>
 </head>
 <body>
+  <div class="aurora" aria-hidden="true"><span></span><span></span><span></span></div>
+  <div class="grain" aria-hidden="true"></div>
+  <header class="nav" id="nav">
+    <div class="wrap">
+      <a class="logo" href="index.html" aria-label="Bengisu Saraç, home"><i>BS</i> Bengisu Saraç</a>
+      <nav class="nav-links" id="navLinks" aria-label="Main">
+        <a href="index.html#bagent">B-Agent</a>
+        <a href="index.html#projects">Projects</a>
+        <a href="uiux.html">UI / UX</a>
+        <a href="art.html" class="on">Art</a>
+        <a href="index.html#contact">Contact</a>
+      </nav>
+      <button class="menu-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false" aria-controls="navLinks" onclick="var o=document.getElementById('navLinks').classList.toggle('open');this.setAttribute('aria-expanded',o)"><i class="fa-solid fa-bars"></i></button>
+    </div>
+  </header>
+  <main class="wrap sub">
+
 
   <div class="top">
     <h1>Art</h1>
@@ -115,16 +149,14 @@
     </a>
   </div>
 
-  <!-- TODO Bengisu: replace the three src values below with real image URLs
-       (drop the files into this repo, e.g. /img/piece-1.jpg, and use a relative path).
-       Until then each card falls back to a neutral placeholder. -->
+  <!-- Add a piece: drop the image into img/ and add a line to the pieces list below. -->
   <div class="grid" id="grid"></div>
 
 <script>
   const pieces = [
-    { title: "Digital Illustration", meta: "Photoshop", image: "" },
-    { title: "Character Work",       meta: "Photoshop", image: "" },
-    { title: "3D Modeling",          meta: "Blender",   image: "" }
+    { title: "Axolotl growth stages", meta: "WellnessMate · digital illustration", image: "img/personal/wellness-axolotls.webp" },
+    { title: "WellnessMate logo", meta: "App and game art", image: "img/personal/wellness-logo.webp" },
+    { title: "More on ArtStation", meta: "Illustration, characters and 3D", image: "" }
   ];
 
   const grid = document.getElementById("grid");
@@ -159,5 +191,7 @@
   });
 </script>
 
+  </main>
+  <footer class="foot"><div class="wrap"><span>© 2026 Bengisu Saraç</span><a href="index.html">Back to home</a></div></footer>
 </body>
 </html>

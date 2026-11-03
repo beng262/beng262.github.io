@@ -12,6 +12,10 @@ Live site: **[beng262.github.io](https://beng262.github.io)**
 
 ## What I work on
 
+- **B-Agent** – nine production AI apps on Azure for UnifyTech: Law, Research, Roleplay,
+  HYPE, Efor, Atlas, HR, Sign and the platform that ties them together. Screens and details
+  are on the [live site](https://beng262.github.io/#bagent).
+
 - **Retrieval over legal corpora** – daily ingest of legislation and case law, multi-index
   routing, legislation comparison, contract analysis, and document generation.
 - **Agent workflows** – intent routing into specialised agents over live enterprise data
@@ -35,12 +39,17 @@ Live site: **[beng262.github.io](https://beng262.github.io)**
 
 ## This repository
 
-Static site served by GitHub Pages. Each page is self-contained (inline CSS and JS), so
-there is no build step.
+Static site served by GitHub Pages. No build step and no framework: plain HTML, CSS and JS.
 
 | File | Purpose |
 |---|---|
-| `index.html` | Landing page and navigation |
-| `development.html` | Engineering and AI projects |
+| `index.html` | Home page: hero, B-Agent product switcher, approach, personal projects, contact |
+| `assets/data.js` | All products and projects listed on the home page. Edit text here |
+| `assets/site.css` | Shared theme (colours, type, nav, footer) used by every page |
 | `uiux.html` | UI/UX work |
 | `art.html` | Illustration and 3D work |
+| `development.html` | Old URL, redirects to the home page |
+| `img/` | Screenshots (WebP) and `og.png`, the link-preview image |
+
+Screenshots of the B-Agent apps come from the live apps. People, companies and tenant
+figures in them were replaced with made-up ones before capture.
