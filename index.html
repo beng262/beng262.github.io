@@ -526,6 +526,10 @@
       </article>`).join("");
     $("#earlier").insertAdjacentHTML("beforeend", EARLIER.map(([n, d, h]) => `<a href="${h}" target="_blank" rel="noopener"><b>${esc(n)}</b><span class="d">${esc(d)}</span><i class="fa-solid fa-arrow-up-right-from-square"></i></a>`).join(""));
 
+    // Deep links (#bagent, #projects, #law…): land on the target again once fonts have changed the layout
+    const target = location.hash && document.getElementById(location.hash.slice(1)) || (BAGENT.some((p) => "#" + p.id === location.hash) && $("#bagent"));
+    if (target) (document.fonts ? document.fonts.ready : Promise.resolve()).then(() => target.scrollIntoView({ behavior: "instant", block: "start" }));
+
     // Reveal on scroll
     const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } }), { threshold: 0.12 });
     document.querySelectorAll(".reveal").forEach((el, i) => { el.style.transitionDelay = (i % 4) * 70 + "ms"; io.observe(el); });
