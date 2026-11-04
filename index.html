@@ -81,15 +81,19 @@
     .train .text p { color: var(--ink-2); margin: 0 0 10px; font-size: 15px; }
     .train ul { margin: 4px 0 0; padding-left: 18px; color: var(--ink-2); font-size: 14.5px; display: grid; gap: 4px; }
 
-    /* Design and art */
+    /* Design and art: big picture cards with the chosen images */
     .crafts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
-    .craft { overflow: hidden; text-decoration: none; display: flex; flex-direction: column; }
-    .craft .thumb { aspect-ratio: 16 / 10; overflow: hidden; background: rgba(255, 255, 255, 0.5); display: grid; place-items: center; }
-    .craft .thumb img { width: 100%; height: 100%; object-fit: cover; }
-    .craft .thumb img.contain { object-fit: contain; }
-    .craft .body { padding: 14px 16px 18px; }
-    .craft h3 { font-size: 18px; margin-bottom: 4px; }
-    .craft p { margin: 0; font-size: 14px; color: var(--ink-2); }
+    .craft { position: relative; min-height: 300px; border-radius: var(--radius); overflow: hidden; text-decoration: none; display: flex; align-items: flex-end; background: #1f2a36; box-shadow: var(--shadow); border: 1px solid var(--card-line); transition: transform 0.3s, box-shadow 0.3s; }
+    .craft:hover { transform: translateY(-6px); box-shadow: var(--shadow-hover); }
+    .craft > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 0.7s; }
+    .craft:hover > img { transform: scale(1.06); }
+    .craft::before { content: ""; position: absolute; inset: 0; z-index: 1; background: linear-gradient(180deg, transparent 40%, rgba(38, 50, 74, 0.85)); }
+    .craft .txt { position: relative; z-index: 2; padding: 22px; }
+    .craft h3 { font-size: 24px; margin: 0 0 6px; color: #fff; }
+    .craft p { margin: 0; color: rgba(255, 255, 255, 0.85); font-size: 14px; }
+    .craft .arrow { color: #fff; position: absolute; top: 16px; right: 16px; z-index: 2; width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center; background: rgba(255, 255, 255, 0.2); backdrop-filter: blur(8px); transition: transform 0.3s; }
+    .craft:hover .arrow { transform: rotate(-45deg); }
+    .craft .figma { position: absolute; inset: 0; display: grid; place-items: center; color: #fff; background: radial-gradient(circle at 30% 20%, #a259ff66, transparent 55%), radial-gradient(circle at 75% 70%, #ff726266, transparent 50%), #1f2a36; }
 
     .contact { text-align: center; padding: 40px 24px; }
     .contact h2 { font-size: 1.8em; margin-bottom: 10px; }
@@ -127,6 +131,7 @@
     @media (max-width: 620px) {
       .hero h1 { font-size: 2.1em; }
       .grid, .cgrid, .crafts, .train { grid-template-columns: 1fr; }
+      .craft { min-height: 240px; }
       .facts { grid-template-columns: 1fr; }
       .fact + .fact { border-left: 0; border-top: 1px solid var(--card-line); }
     }
@@ -205,9 +210,9 @@
         <p>Illustration and interface design shape how everything I build looks and feels.</p>
       </div>
       <div class="crafts">
-        <a class="craft card lift reveal" href="uiux.html"><div class="thumb"><img src="img/uiux/fortune-teller-app-0.webp" alt="" loading="lazy" style="object-position:center 35%" /></div><div class="body"><h3>UI / UX</h3><p>Three app concepts, screen by screen.</p></div></a>
-        <a class="craft card lift reveal" href="art.html"><div class="thumb"><img class="contain" src="img/personal/wellness-axolotls.webp" alt="" loading="lazy" /></div><div class="body"><h3>Art</h3><p>Illustration, characters and 3D.</p></div></a>
-        <a class="craft card lift reveal" href="https://bengisrc.artstation.com" target="_blank" rel="noopener"><div class="thumb"><img src="img/uiux/whatever-0.webp" alt="" loading="lazy" style="object-position:center 30%" /></div><div class="body"><h3>ArtStation &amp; Figma</h3><p>The full galleries and design files.</p></div></a>
+        <a class="craft reveal" href="uiux.html"><img src="img/personal/wellness-screens.webp" alt="" loading="lazy" /><span class="arrow"><svg class="ic" aria-hidden="true"><use href="#i-right"></use></svg></span><div class="txt"><h3>UI / UX</h3><p>App concepts and screens, from wireframe to polish.</p></div></a>
+        <a class="craft reveal" href="art.html"><img src="img/personal/wellness-axolotls.webp" alt="" loading="lazy" style="object-fit:contain;background:#f5f5f5" /><span class="arrow"><svg class="ic" aria-hidden="true"><use href="#i-right"></use></svg></span><div class="txt"><h3>Art</h3><p>Illustration, characters and 3D.</p></div></a>
+        <a class="craft reveal" href="https://www.figma.com/design/cfYIqVr6bICi37Y1FilpQa/Figma-Portfolio?node-id=0-1&amp;t=ScNDVolUz8QFxUXT-1" target="_blank" rel="noopener"><div class="figma"><svg class="ic" aria-hidden="true" style="width:96px;height:96px;opacity:.9"><use href="#i-figma"></use></svg></div><span class="arrow"><svg class="ic" aria-hidden="true"><use href="#i-right"></use></svg></span><div class="txt"><h3>Figma portfolio</h3><p>The full design file, open to browse.</p></div></a>
       </div>
     </section>
 
