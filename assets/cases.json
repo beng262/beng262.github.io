@@ -1,0 +1,577 @@
+{
+ "law": {
+  "problem": "Turkish lawyers spend hours finding case law and checking whether a provision is still in force. General AI chat tools invent case numbers and quote repealed articles with full confidence, which nobody can put in a petition.",
+  "approach": "Ground every answer in a corpus the app owns: court decisions, legislation and the Official Gazette, collected daily and indexed in Azure AI Search. Retrieval feeds the model, cited provisions are checked against the current law, and a citation guard removes any case number it cannot verify.",
+  "flow": [
+   {
+    "label": "Daily collectors",
+    "detail": "Court portals, legislation catalog, Official Gazette and regulators, one job each"
+   },
+   {
+    "label": "Ingest and dedupe",
+    "detail": "Dedupe by native id, split long texts, skip decisions already held"
+   },
+   {
+    "label": "Azure AI Search",
+    "detail": "About 11 million decisions and 46,000 legislation documents"
+   },
+   {
+    "label": "Retrieval",
+    "detail": "Ranked search over decisions, laws and the lawyer's own case files"
+   },
+   {
+    "label": "Current-law check",
+    "detail": "Cited provisions checked against consolidated texts refreshed every day"
+   },
+   {
+    "label": "Model answer",
+    "detail": "Fast or smart tier; long drafts run as polled background jobs"
+   },
+   {
+    "label": "Citation guard",
+    "detail": "Every case number verified in the index, in the named chamber"
+   }
+  ],
+  "challenges": [
+   {
+    "title": "Indexed is not the same as searchable",
+    "text": "Three times, data was ingested correctly and still unreachable: search pointed at legacy indexes holding 1.45 million of 11 million documents, a scheduled workflow sat on a branch where schedules never fire, and a collector stamped a source value no filter knew. Nothing reported an error. I fixed each one and now checks reachability, not job status, with per-type counts in the run summaries."
+   },
+   {
+    "title": "A 48-day lag and a 429 storm",
+    "text": "Yargıtay publishes decisions about 48 days late, so a 30-day window looked busy and found nothing; daily passes now look back 90 days and the weekly pass 180. One run logged 3,289 rate-limit refusals, most of them re-fetching decisions already indexed. One index lookup per result page, a global back-off that widens after every 429 and a checkpoint per chamber let the pass finish."
+   },
+   {
+    "title": "Answers must follow the current law",
+    "text": "A repealed article kept appearing in answers because the article rows came from a one-off import that nothing refreshed, and the legislation catalog itself ran about eight days behind the Official Gazette. A daily job now rewrites articles from consolidated texts, a collector reads the Gazette directly, and cited provisions are checked before the model runs. Case numbers the guard cannot find in the named chamber are removed, not just flagged."
+   }
+  ],
+  "numbers": [
+   {
+    "value": "11M",
+    "label": "court decisions searchable"
+   },
+   {
+    "value": "48 days",
+    "label": "measured publication lag"
+   },
+   {
+    "value": "892",
+    "label": "laws refreshed article by article"
+   },
+   {
+    "value": "51",
+    "label": "court chambers, each with its own checkpoint"
+   }
+  ],
+  "role": "Built it end to end: the React app, the Node.js API, the Python ingest pipeline and the Azure deployment, and runs it in production."
+ },
+ "research": {
+  "problem": "Company knowledge sits in SharePoint, OneDrive, Outlook, Power BI and databases, and each has its own search and its own permissions. Teams wanted one place to ask questions, without an AI that can see more than the person asking.",
+  "approach": "Index every source through one resumable pipeline into Azure AI Search, and filter every answer through the same access rule, whether the question comes from chat, a scheduled task or an MCP client. People connect their own Microsoft data with delegated consent, so a source reaches only what that person can already open.",
+  "flow": [
+   {
+    "label": "Connectors",
+    "detail": "17 source types: Microsoft 365, databases, GitHub, uploads, web"
+   },
+   {
+    "label": "Queued extract",
+    "detail": "A Storage Queue job splits documents into chunks in Cosmos DB"
+   },
+   {
+    "label": "Embed and index",
+    "detail": "Chunks embedded with Azure OpenAI, uploaded idempotently to Azure AI Search"
+   },
+   {
+    "label": "Permission filter",
+    "detail": "Same access rule for chat, scheduled tasks and MCP clients"
+   },
+   {
+    "label": "Model with tools",
+    "detail": "Retrieval, text-to-SQL on databases, optional web search"
+   },
+   {
+    "label": "Cited sources only",
+    "detail": "Only documents the answer cites are listed, plus follow-up suggestions"
+   },
+   {
+    "label": "Encrypted storage",
+    "detail": "Chats sealed per user with AES-256-GCM before reaching Cosmos DB"
+   }
+  ],
+  "challenges": [
+   {
+    "title": "The pipeline stuck at 0%",
+    "text": "Indexing phases used to chain through a fire-and-forget HTTP call to the app itself, which dropped the admin's token and relied on an internal key that was never configured, so the embed phase got a 401 and progress froze at 0%. I replaced the self-calls with Storage Queue messages, one per phase and continuation. When a slow batch later overran the host timeout, document ids keyed by source and position made uploads idempotent, so a job resumes from its last batch without re-extracting."
+   },
+   {
+    "title": "Refresh tokens that quietly rotate",
+    "text": "Delegated connectors index in a background worker with nobody signed in, so they keep an encrypted refresh token. Entra rotates refresh tokens: the old one keeps working for days, then fails without explanation, so every refresh now writes the new token back to the source. The OAuth callback cannot carry a bearer token either, so an HMAC-signed, 10-minute state value proves the redirect came from a connect call the app issued."
+   },
+   {
+    "title": "Letting a website touch your disk",
+    "text": "Research's AI can work on files on a person's own computer through a small bridge app. The server never relays file contents; it only mints Web PubSub tokens that pair a device with its owner, and the safety rules (a folder jail, a secrets list, a protected-branch confirmation) live on the PC. The model proposes, and every write, commit or command needs a click."
+   }
+  ],
+  "numbers": [
+   {
+    "value": "17",
+    "label": "connector types"
+   },
+   {
+    "value": "11",
+    "label": "slide layouts the AI deck planner picks from"
+   },
+   {
+    "value": "190 s",
+    "label": "deck build budget under a 230 s HTTP cap"
+   },
+   {
+    "value": "5",
+    "label": "review lenses in the code Lab"
+   }
+  ],
+  "role": "Built it end to end: the React front end, the Azure Functions backend, the connectors, the MCP server, the VS Code bridge and the code Lab."
+ },
+ "roleplay": {
+  "problem": "Sales teams practise objections and difficult customers on real customers, which is costly and stressful. Managers had no consistent way to build practice scenarios or to score how a conversation went.",
+  "approach": "An AI persona plays the customer, in text or by live voice, using current product facts for that brand. After the call, a second pass scores the transcript against the scenario's criteria and writes a coaching note.",
+  "flow": [
+   {
+    "label": "Microsoft sign-in",
+    "detail": "Entra ID; API tokens kept only in HttpOnly cookies"
+   },
+   {
+    "label": "Scenario and persona",
+    "detail": "Wizard sets the customer's profile, behaviour and scoring criteria"
+   },
+   {
+    "label": "Product knowledge",
+    "detail": "Catalogue text synced from the brand's site or uploaded files"
+   },
+   {
+    "label": "Text or voice",
+    "detail": "Chat turns, or WebRTC to an Azure OpenAI realtime model"
+   },
+   {
+    "label": "Transcript saved",
+    "detail": "Every line from text and voice stored for feedback"
+   },
+   {
+    "label": "AI feedback",
+    "detail": "Score from 0 to 100, strengths, improvements and next steps"
+   }
+  ],
+  "challenges": [
+   {
+    "title": "Sessions that expired mid-practice",
+    "text": "People kept seeing a \"token missing or invalid\" error because a 60-minute API token lived in a one-day browser cookie, and server routes forwarded it without refreshing. I moved both tokens into HttpOnly cookies behind a proxy that refreshes them on demand, so browser code never sees a token. A per-user token version lets an admin revoke every session at once."
+   },
+   {
+    "title": "Live voice without exposing keys",
+    "text": "Voice calls run over WebRTC straight from the browser to an Azure OpenAI realtime model. The API builds the persona prompt and asks Azure for a short-lived client secret bound to it, so the browser never holds the resource key or the prompt text. The persona speaks first when the call opens, so it feels like a real phone call."
+   }
+  ],
+  "numbers": [
+   {
+    "value": "5",
+    "label": "roles, from trainee to super admin"
+   },
+   {
+    "value": "32",
+    "label": "API tests"
+   },
+   {
+    "value": "0–100",
+    "label": "score on every practice call"
+   },
+   {
+    "value": "~4 s",
+    "label": "cold start removed with an always-ready instance"
+   }
+  ],
+  "role": "Joined a team-built Next.js front end, then wrote the Python Azure Functions API and its v2 rewrite with roles and tenant isolation, added voice calls and took the app to production."
+ },
+ "hype": {
+  "problem": "Small marketing teams juggle separate tools for campaigns, content, email and social posting, and the numbers never agree between them.",
+  "approach": "One React workspace per company, with a campaign store that every dashboard, report and the chatbot compute from. A small Azure Functions backend holds the secrets, publishes to social accounts and runs the timers that send scheduled mail.",
+  "flow": [
+   {
+    "label": "Entra sign-in",
+    "detail": "Company workspace with owner, admin, editor and viewer roles"
+   },
+   {
+    "label": "Functions backend",
+    "detail": "Verifies the token, rate-limits each user, holds every API key"
+   },
+   {
+    "label": "Campaign store",
+    "detail": "One numeric source for KPIs, reports and the chatbot"
+   },
+   {
+    "label": "AI content",
+    "detail": "Copy and images, falling back across four image providers"
+   },
+   {
+    "label": "Asset storage",
+    "detail": "Images saved as blobs with a long-lived read URL"
+   },
+   {
+    "label": "Publish and automate",
+    "detail": "Social posts, seven workflow actions, timed birthday and renewal emails"
+   }
+  ],
+  "challenges": [
+   {
+    "title": "A duplicate route that silently 404'd",
+    "text": "Three Azure Functions registrations shared one route template, one per HTTP verb, and the host bound only one of them. Every other call answered 404 with nothing in the build or the logs, so document sync failed and each workspace quietly ran on browser storage. I merged them into one registration that branches on the verb, and a test now scans the source and fails on any duplicate template or missing OPTIONS handler."
+   },
+   {
+    "title": "One store behind every number",
+    "text": "Campaign fields used to be display strings, so nothing could be summed and each page showed its own figures. Making them numeric let the dashboard, the performance page and the chatbot all compute from one store, so the numbers always agree. The company scope is set during render, not in an effect, because pages read scoped storage in their state initialisers, which run first."
+   },
+   {
+    "title": "Making scheduled actually mean scheduled",
+    "text": "At first, a scheduled mailing only meant someone still had to press Send now, and generated images lived in browser storage that could be cleared. Mailings now live on the server, and a five-minute timer sends whatever is due. Images are stored as blobs with a long-lived read URL, so Instagram and X can fetch them and email clients don't strip them."
+   }
+  ],
+  "numbers": [
+   {
+    "value": "9",
+    "label": "integration services configurable in the app"
+   },
+   {
+    "value": "25",
+    "label": "backend security tests"
+   },
+   {
+    "value": "5 min",
+    "label": "mail scheduler interval"
+   },
+   {
+    "value": "4",
+    "label": "workspace roles"
+   }
+  ],
+  "role": "Built it end to end: the React app, the Azure Functions backend, social publishing and the automation timers."
+ },
+ "efor": {
+  "problem": "Technical teams log effort in whatever they already keep: an Excel sheet, a notepad file or a sentence. Turning that into consistent rows for project reports was manual work, and a model that guesses hours is not acceptable for reporting.",
+  "approach": "AI reads, code decides. The model only interprets layouts and free text; dates, hours, totals, duplicate checks and every database write are tested code, and nothing is saved until the person confirms it next to the source.",
+  "flow": [
+   {
+    "label": "Any input",
+    "detail": "Excel, a text file, a chat sentence or calendar meetings"
+   },
+   {
+    "label": "Pre-read",
+    "detail": "File turned into a grid with a layout fingerprint"
+   },
+   {
+    "label": "Pick a reader",
+    "detail": "Standard form rules, a learned layout, or the model"
+   },
+   {
+    "label": "Normalise and check",
+    "detail": "Code parses Turkish dates and hours, flags duplicates and gaps"
+   },
+   {
+    "label": "Link to Planner",
+    "detail": "Each row matched to a task in the project's plan"
+   },
+   {
+    "label": "Person confirms",
+    "detail": "Draft rows shown beside the source, saved with one click"
+   },
+   {
+    "label": "Reports",
+    "detail": "Excel with live formulas, PDF, scheduled email, missing-day reminders"
+   }
+  ],
+  "challenges": [
+   {
+    "title": "Numbers must trace back to the source",
+    "text": "A model that invents hours is worse than no model. Every hour figure or time range the model extracts must appear in the source text, or the row is blocked, one of six checks that stop a save. The chat assistant follows the same rule: a reply containing a number that no tool result or user message supports is not let through."
+   },
+   {
+    "title": "Learn a layout once, skip the model",
+    "text": "Each sheet gets a fingerprint of its layout that ignores the data underneath. When a person confirms how the model mapped a layout's columns, the mapping is saved, and the next file in that layout is read by fixed rules with no model call. The team's standard daily form is recognised by its header row and never goes to the model at all."
+   },
+   {
+    "title": "Calendar meetings as effort, never twice",
+    "text": "Meetings can become effort, but only from each person's own calendar, read-only, with delegated consent. The consent flow returns to the sign-in redirect that was already registered, routed by a short-lived cookie, so switching it on needed no change to the app registration. Each saved meeting carries its event id, so the same meeting can never be added twice."
+   }
+  ],
+  "numbers": [
+   {
+    "value": "4",
+    "label": "ways to report effort"
+   },
+   {
+    "value": "6",
+    "label": "checks that block a save"
+   },
+   {
+    "value": "2",
+    "label": "Microsoft tenants behind one sign-in"
+   },
+   {
+    "value": "30 min",
+    "label": "Planner re-sync interval"
+   }
+  ],
+  "role": "Built it end to end, including a public, company-free preview repository generated from the private one."
+ },
+ "atlas": {
+  "problem": "IT admins answer security and licence questions about Microsoft 365 by running PowerShell scripts and stitching exports together. The built-in usage reports often hide user names, so even the exports can't say who a row belongs to.",
+  "approach": "A browser app that signs the admin in and reads Microsoft Graph with their own delegated token, then turns users, sign-ins, licences, mailboxes, storage and Teams into one dashboard. A per-user risk level comes from plain rules an admin can read, and an AI assistant answers questions over the same data.",
+  "flow": [
+   {
+    "label": "Admin signs in",
+    "detail": "MSAL, a multi-tenant Entra app with delegated Graph permissions"
+   },
+   {
+    "label": "Graph reads",
+    "detail": "Paged queries and batches of 20 requests"
+   },
+   {
+    "label": "Usage reports",
+    "detail": "Mailbox, OneDrive and SharePoint reports, privacy setting checked"
+   },
+   {
+    "label": "Re-identify rows",
+    "detail": "Hidden names resolved by id lookups and size fingerprints"
+   },
+   {
+    "label": "Risk scoring",
+    "detail": "MFA, admin roles, legacy auth, failed and foreign sign-ins"
+   },
+   {
+    "label": "Dashboards and AI",
+    "detail": "Views with CSV export, chat assistant, emailed Excel reports"
+   }
+  ],
+  "challenges": [
+   {
+    "title": "Reports that hide who is who",
+    "text": "Microsoft 365 usage reports can conceal user names, which makes per-user storage figures useless. Atlas checks the tenant's report setting and can switch concealment off through the Graph admin API, a change that takes hours to apply. Meanwhile it resolves hidden rows itself: ids are looked up in batches, and mailbox rows are matched to users by item count and size within a tolerance, never giving one user two rows."
+   },
+   {
+    "title": "A tenant scan in batches",
+    "text": "A full scan means thousands of Graph calls: every user, their MFA methods, roles, mailboxes and drives. Atlas follows paging links and packs lookups into Graph batches of 20 requests instead of one call each. A failed batch is logged and skipped, so one bad chunk never blanks a page."
+   },
+   {
+    "title": "Risk rules an admin can read",
+    "text": "A black-box risk score is hard to act on, so the rules are explicit and ordered. An admin without MFA is Critical; legacy sign-ins without MFA, 60 or more days inactive without MFA, or sign-ins from more than one country is High; more than five failed sign-ins is Medium. Every level traces to a fact on the same row, so an admin can see why a user was flagged."
+   }
+  ],
+  "numbers": [
+   {
+    "value": "15",
+    "label": "delegated Graph permissions"
+   },
+   {
+    "value": "20",
+    "label": "requests per Graph batch"
+   },
+   {
+    "value": "4",
+    "label": "risk levels, Low to Critical"
+   },
+   {
+    "value": "7",
+    "label": "report views"
+   }
+  ],
+  "role": "Rebuilt a colleague's PowerShell reporting script as a React app, end to end: the Graph data layer, the risk rules, the dashboards and the AI assistant."
+ },
+ "hr": {
+  "problem": "Small companies run HR on spreadsheets and email: leave requests, advances, expenses and the org chart all live in different places. HR chatbots usually only answer questions, so people still had to find the right screen to actually get anything done.",
+  "approach": "One HR portal and one chatbot on top of the same action API. The model chooses an HR action, the app runs it as the signed-in user, and the server decides per action what that user may touch.",
+  "flow": [
+   {
+    "label": "Microsoft sign-in",
+    "detail": "Entra ID through MSAL, in Turkish or English"
+   },
+   {
+    "label": "Portal or chat",
+    "detail": "Click a screen, or ask the chatbot in plain language"
+   },
+   {
+    "label": "Tool choice",
+    "detail": "The model picks one of 13 HR tools"
+   },
+   {
+    "label": "One action API",
+    "detail": "Same endpoint for portal and chatbot, 21 actions"
+   },
+   {
+    "label": "Scope check",
+    "detail": "Self, manager or owner rules decided per action"
+   },
+   {
+    "label": "Cosmos DB records",
+    "detail": "Employees, leave, events, transactions, org chart, trainings"
+   },
+   {
+    "label": "Import or sync",
+    "detail": "Excel import, or sync from an external HR system"
+   }
+  ],
+  "challenges": [
+   {
+    "title": "The chatbot gets no extra powers",
+    "text": "The chatbot has no backend of its own. Every tool call it makes goes to the same action API as the portal, as the same user, so the AI can never do more than that person could do by clicking. Anything the portal can do is available to the chatbot through the same actions."
+   },
+   {
+    "title": "Permissions decided per action, on the server",
+    "text": "Each action declares a scope: any signed-in user, self only, self or a target chosen by an admin, or admin only. For an employee, any target the model passes is ignored and the action runs on their own record, so no wording of a prompt can reach someone else's data. Managers and owners must name the target explicitly, and it is resolved through the user directory."
+   },
+   {
+    "title": "Swap the backend, keep the contract",
+    "text": "The first version called an external HR system for every action. I moved the data into its own Cosmos DB store while keeping the request and response format identical, so neither the portal nor the chatbot had to change. The external system became an optional import with its API token stored encrypted, alongside Excel import and a mock mode that runs the whole app offline."
+   }
+  ],
+  "numbers": [
+   {
+    "value": "21",
+    "label": "actions in the shared API"
+   },
+   {
+    "value": "13",
+    "label": "chatbot tools"
+   },
+   {
+    "value": "3",
+    "label": "roles: employee, manager, owner"
+   },
+   {
+    "value": "2",
+    "label": "languages, Turkish and English"
+   }
+  ],
+  "role": "Built it end to end: the React portal, the chatbot and the Azure Functions backend."
+ },
+ "sign": {
+  "problem": "Teams that process cheques compare the signature on each cheque with the one on the signature circular by eye. It is slow, it varies from person to person, and stamps or a second signature on the page make it harder.",
+  "approach": "Its own ML service finds every signature on both documents, turns each into an embedding and compares them pair by pair. The result is a 0 to 100 score and a clear Match, Review or No match decision, with a stricter bar for simple signatures.",
+  "flow": [
+   {
+    "label": "Upload documents",
+    "detail": "Cheque and signature circular, as images or PDFs"
+   },
+   {
+    "label": "PDF to images",
+    "detail": "Each page rendered so every page is scanned"
+   },
+   {
+    "label": "Detect signatures",
+    "detail": "YOLOv8 crops every signature region it finds"
+   },
+   {
+    "label": "Embed each crop",
+    "detail": "Siamese CNN turns a 105×105 grayscale crop into 256 numbers"
+   },
+   {
+    "label": "Compare all pairs",
+    "detail": "Every reference crop against every query crop, best pair wins"
+   },
+   {
+    "label": "Decide",
+    "detail": "Score from 0 to 100, stricter threshold for simple signatures"
+   },
+   {
+    "label": "Review and history",
+    "detail": "Approve or retry; every comparison is kept"
+   }
+  ],
+  "challenges": [
+   {
+    "title": "A 45-second cap on a 90-second job",
+    "text": "Static Web Apps cuts off proxied API calls at 45 seconds, but a comparison can take 30 to 90 seconds while the ML models load after idle. So the browser calls the API directly with its own Microsoft token instead of going through the proxy. That led to sign-in in three layers: the site, a token check in the API, and an ML service that only accepts traffic from the API's servers."
+   },
+   {
+    "title": "Stamps and second signatures",
+    "text": "Comparing the largest region on each page fails when a stamp or a second signature is bigger than the one that matters. The service embeds every detected region on both documents, scores every pair and reports the best one, along with which regions and pages it came from. For single-page documents it also scores the full page as one more candidate."
+   },
+   {
+    "title": "Simple signatures need a stricter bar",
+    "text": "A short, simple signature looks like many others, so a high score means less. The service measures each crop's ink ratio, contour count and stroke complexity, and raises the match threshold when either side is simple. A fallback model keeps the service working if the main verifier cannot load, and every response says which path was used."
+   }
+  ],
+  "numbers": [
+   {
+    "value": "30–90 s",
+    "label": "ML cold start the design works around"
+   },
+   {
+    "value": "3",
+    "label": "sign-in layers"
+   },
+   {
+    "value": "90 / 92",
+    "label": "match threshold, normal / simple signature"
+   },
+   {
+    "value": "105×105",
+    "label": "grayscale input per signature crop"
+   }
+  ],
+  "role": "Built it end to end: the React app, the Node.js API, the Python ML service and the Entra sign-in."
+ },
+ "platform": {
+  "problem": "B-Agent grew into many separate apps, each on its own subdomain with its own sign-in. Companies needed one place to find the products, sign in once and control which colleagues use which app.",
+  "approach": "One multi-tenant Entra app across every bagent.com.tr site, plus a small licensing control plane that stores seats per company and per product. The marketing site and the signed-in workspace share their content, and product apps check the same tokens and entitlements.",
+  "flow": [
+   {
+    "label": "Marketing site",
+    "detail": "WordPress and React pages sharing one TR/EN translation file"
+   },
+   {
+    "label": "Microsoft sign-in",
+    "detail": "One multi-tenant Entra app, redirect bridge on every origin"
+   },
+   {
+    "label": "Tenant lookup",
+    "detail": "Company workspace resolved from the token's tenant id"
+   },
+   {
+    "label": "Seat check",
+    "detail": "Workspace and per-product seats enforced at sign-in"
+   },
+   {
+    "label": "Admin console",
+    "detail": "Invite colleagues, assign products, pick an Azure region"
+   },
+   {
+    "label": "Product apps",
+    "detail": "Validate the same token and the company's entitlement"
+   }
+  ],
+  "challenges": [
+   {
+    "title": "One sign-in across many subdomains",
+    "text": "Single-page apps cannot register wildcard redirect URIs, so every product origin gets the same small redirect bridge page, registered on one multi-tenant Entra app. Users are identified by tenant id plus object id in every app, and the API accepts a list of audiences, so a product with its own app registration still fits. Customers consent once, and every product validates the same issuer."
+   },
+   {
+    "title": "Two kinds of seats",
+    "text": "Workspace seats cap how many people a company has; product seats cap how many of them can use a given product. A product with zero seats was not bought, so it cannot be assigned and never appears after sign-in, and limits are enforced both on save and at sign-in. Companies created before per-product licensing count as unlimited, so introducing it locked nobody out, and the last tenant admin can never be removed."
+   }
+  ],
+  "numbers": [
+   {
+    "value": "15",
+    "label": "Azure regions to choose from"
+   },
+   {
+    "value": "9",
+    "label": "agents, one per business function"
+   },
+   {
+    "value": "2",
+    "label": "languages, Turkish and English"
+   }
+  ],
+  "role": "Built it end to end: the React landing page and workspace, the Express licensing API, the WordPress theme and the shared Entra setup."
+ }
+}

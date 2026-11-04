@@ -3,12 +3,14 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'; frame-src 'none'" />
+<meta name="referrer" content="strict-origin-when-cross-origin" />
+<link rel="preload" href="assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin />
+<link rel="preload" href="assets/fonts/space-grotesk-latin.woff2" as="font" type="font/woff2" crossorigin />
+<script src="assets/theme.js"></script>
+
 <title>Art – Bengisu Saraç</title>
 <link rel="icon" href="favicon.svg" type="image/svg+xml" />
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500&family=Instrument+Serif:ital@1&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
 <link rel="stylesheet" href="assets/site.css" />
 <style>
   :root{
@@ -109,6 +111,7 @@
 </style>
 </head>
 <body>
+  <script src="assets/icons.js"></script>
   <div class="aurora" aria-hidden="true"><span></span><span></span><span></span></div>
   <div class="grain" aria-hidden="true"></div>
   <header class="nav" id="nav">
@@ -121,7 +124,8 @@
         <a href="art.html" class="on">Art</a>
         <a href="index.html#contact">Contact</a>
       </nav>
-      <button class="menu-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false" aria-controls="navLinks" onclick="var o=document.getElementById('navLinks').classList.toggle('open');this.setAttribute('aria-expanded',o)"><i class="fa-solid fa-bars"></i></button>
+      <button class="theme-btn" id="themeBtn" type="button" aria-label="Switch theme"><svg class="ic sun" aria-hidden="true"><use href="#i-sun"></use></svg><svg class="ic moon" aria-hidden="true"><use href="#i-moon"></use></svg></button>
+      <button class="menu-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false" aria-controls="navLinks"><svg class="ic" aria-hidden="true"><use href="#i-menu"></use></svg></button>
     </div>
   </header>
   <main class="wrap sub">
@@ -142,54 +146,18 @@
 
   <div class="cta-row">
     <a class="cta" href="https://bengisrc.artstation.com" target="_blank" rel="noopener">
-      <i class="fab fa-artstation"></i> View full portfolio on ArtStation
+      <svg class="ic" aria-hidden="true"><use href="#i-artstation"></use></svg> View full portfolio on ArtStation
     </a>
     <a class="cta" href="uiux.html">
-      <i class="fas fa-object-group"></i> See UI / UX work
+      <svg class="ic" aria-hidden="true"><use href="#i-layers"></use></svg> See UI / UX work
     </a>
   </div>
 
   <!-- Add a piece: drop the image into img/ and add a line to the pieces list below. -->
   <div class="grid" id="grid"></div>
 
-<script>
-  const pieces = [
-    { title: "Axolotl growth stages", meta: "WellnessMate · digital illustration", image: "img/personal/wellness-axolotls.webp" },
-    { title: "WellnessMate logo", meta: "App and game art", image: "img/personal/wellness-logo.webp" },
-    { title: "More on ArtStation", meta: "Illustration, characters and 3D", image: "" }
-  ];
-
-  const grid = document.getElementById("grid");
-  pieces.forEach(p => {
-    const card = document.createElement("a");
-    card.className = "card";
-    card.href = "https://bengisrc.artstation.com";
-    card.target = "_blank";
-    card.rel = "noopener";
-    card.style.textDecoration = "none";
-    card.style.color = "white";
-
-    const thumb = document.createElement("div");
-    thumb.className = "thumb";
-    const img = document.createElement("img");
-    img.alt = p.title;
-    const fallback = 'data:image/svg+xml;utf8,' + encodeURIComponent(
-      `<svg xmlns='http://www.w3.org/2000/svg' width='1200' height='800'><rect width='100%' height='100%' fill='#0F1724'/><text x='50%' y='50%' fill='#9CC7EB' font-family='Arial' font-size='34' text-anchor='middle' dominant-baseline='middle'>${p.title}</text></svg>`
-    );
-    img.src = p.image || fallback;
-    img.onerror = () => { img.src = fallback; };
-    thumb.appendChild(img);
-
-    const body = document.createElement("div");
-    body.className = "card-body";
-    const t = document.createElement("div"); t.className = "title"; t.textContent = p.title;
-    const m = document.createElement("div"); m.className = "meta"; m.textContent = p.meta;
-    body.appendChild(t); body.appendChild(m);
-
-    card.appendChild(thumb); card.appendChild(body);
-    grid.appendChild(card);
-  });
-</script>
+<script src="assets/site.js"></script>
+<script src="assets/art.js"></script>
 
   </main>
   <footer class="foot"><div class="wrap"><span>© 2026 Bengisu Saraç</span><a href="index.html">Back to home</a></div></footer>

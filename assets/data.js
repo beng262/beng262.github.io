@@ -110,7 +110,7 @@ window.BAGENT = [
       "AI reads, code decides: dates, hours, totals and every database write are tested code.",
       "A confirmed file layout is remembered, so the next file in that layout skips the model.",
       "Syncs with Microsoft Planner and the ServiceDesk; calendar access is per person and read-only.",
-      "188 tests, with database tests on in-process PostgreSQL.",
+      "Tested end to end, with database tests on in-process PostgreSQL.",
     ],
     stack: ["TypeScript", "Node.js", "PostgreSQL", "Azure OpenAI", "Microsoft Graph", "Vitest"],
     shots: [
@@ -153,7 +153,7 @@ window.BAGENT = [
       "Works on its own with Excel import, or syncs with an HR system.",
     ],
     hood: [
-      "The portal and the chatbot share one action API: 20+ HR actions exposed as AI tools, run with the user's own token.",
+      "The portal and the chatbot share one action API of 21 HR actions; the chatbot reaches them through 13 tools, as the signed-in user.",
       "Roles are enforced on the server: employees reach only their own data, managers act on their team.",
       "A mock mode runs the whole app on local sample data, with no cloud services.",
     ],

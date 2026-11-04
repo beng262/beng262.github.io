@@ -3,6 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'; frame-src 'none'" />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
+  <link rel="preload" href="assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="assets/fonts/space-grotesk-latin.woff2" as="font" type="font/woff2" crossorigin />
+  <script src="assets/theme.js"></script>
   <title>Bengisu Saraç – AI engineer</title>
   <meta name="description" content="Bengisu Saraç builds AI products that businesses use every day: B-Agent Law, Research, Roleplay, HYPE, Efor and more. Plus games, a Godot book and art." />
   <meta property="og:title" content="Bengisu Saraç – I build AI products that businesses actually use" />
@@ -14,11 +19,9 @@
   <meta name="theme-color" content="#07070c" />
   <link rel="icon" href="favicon.svg" type="image/svg+xml" />
   <link rel="alternate icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' x2='1'%3E%3Cstop offset='0' stop-color='%2399cdeb'/%3E%3Cstop offset='.5' stop-color='%23b9a6ff'/%3E%3Cstop offset='1' stop-color='%23ffb6d9'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='18' fill='url(%23g)'/%3E%3Ctext x='32' y='43' font-family='Arial' font-weight='700' font-size='28' text-anchor='middle' fill='%230b0b12'%3EBS%3C/text%3E%3C/svg%3E" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500&family=Instrument+Serif:ital@1&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
   <link rel="stylesheet" href="assets/site.css" />
+  <link rel="canonical" href="https://beng262.github.io/" />
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Person", "name": "Bengisu Saraç", "url": "https://beng262.github.io/", "image": "https://beng262.github.io/img/profile.jpg", "jobTitle": "AI Engineer", "worksFor": {"@type": "Organization", "name": "UnifyTech"}, "email": "mailto:bengsrc@gmail.com", "sameAs": ["https://github.com/beng262", "https://linkedin.com/in/bengisarac14697", "https://bengisrc.artstation.com"], "knowsAbout": ["Retrieval-augmented generation", "AI agents", "Microsoft Azure", "Azure AI Search", "Computer vision", "Godot"], "hasCredential": [{"@type": "EducationalOccupationalCredential", "name": "Microsoft Certified Trainer"}, {"@type": "EducationalOccupationalCredential", "name": "Microsoft Certified: Azure Solutions Architect Expert"}]}</script>
   <style>
     /* ---------- Hero ---------- */
     .hero { padding: 72px 0 40px; min-height: calc(100vh - 64px); display: flex; align-items: center; }
@@ -46,8 +49,8 @@
     .stage .c1 { top: 0; right: 0; transform: rotateY(-14deg) rotateX(6deg) translateZ(-40px); }
     .stage .c2 { top: 150px; left: 0; transform: rotateY(-14deg) rotateX(6deg) translateZ(20px); }
     .stage .c3 { top: 300px; right: 6%; transform: rotateY(-14deg) rotateX(6deg) translateZ(80px); }
-    .chip { position: absolute; z-index: 5; display: inline-flex; align-items: center; gap: 8px; padding: 9px 14px; border-radius: 999px; font: 500 13px var(--body); background: rgba(16,16,26,.82); border: 1px solid var(--line-2); backdrop-filter: blur(10px); box-shadow: 0 10px 30px -10px rgba(0,0,0,.8); animation: float 6s ease-in-out infinite; }
-    .chip i { color: var(--violet); }
+    .chip { position: absolute; z-index: 5; display: inline-flex; align-items: center; gap: 8px; padding: 9px 14px; border-radius: 999px; font: 500 13px var(--body); background: color-mix(in srgb, var(--bg-2) 86%, transparent); border: 1px solid var(--line-2); backdrop-filter: blur(10px); box-shadow: 0 10px 30px -10px rgba(0,0,0,.8); animation: float 6s ease-in-out infinite; }
+    .chip .ic { color: var(--accent-ink); }
     .chip.k1 { top: 96px; left: -12px; }
     .chip.k2 { top: 268px; right: -14px; animation-delay: -2s; }
     .chip.k3 { bottom: 28px; left: 10%; animation-delay: -4s; }
@@ -81,16 +84,16 @@
     .browser .bar { display: flex; align-items: center; gap: 7px; padding: 10px 14px; background: #14141e; border-bottom: 1px solid var(--line); }
     .browser .bar i { width: 10px; height: 10px; border-radius: 50%; background: #34344a; }
     .browser .bar i:nth-child(1) { background: #ff5f57; } .browser .bar i:nth-child(2) { background: #febc2e; } .browser .bar i:nth-child(3) { background: #28c840; }
-    .url { margin: 0 auto; display: inline-flex; align-items: center; gap: 8px; padding: 5px 14px; border-radius: 8px; background: rgba(255,255,255,.05); font: 12px var(--mono); color: var(--muted); max-width: 70%; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
-    .url .fa-lock { font-size: 10px; color: #3ddc97; }
+    .url { margin: 0 auto; display: inline-flex; align-items: center; gap: 8px; padding: 5px 14px; border-radius: 8px; background: rgba(255,255,255,.05); font: 12px var(--mono); color: #a1a1b5; max-width: 70%; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+    .url .ic { width: 11px; height: 11px; color: #3ddc97; }
     .viewport { position: relative; aspect-ratio: 16 / 10; background: #0b0b12; cursor: zoom-in; overflow: hidden; }
     .viewport img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: top center; opacity: 0; transform: scale(1.015); transition: opacity .55s ease, transform 1.2s ease; }
     .viewport img.on { opacity: 1; transform: none; }
     .viewport .zoom { position: absolute; right: 12px; bottom: 12px; z-index: 2; padding: 6px 10px; border-radius: 8px; font: 12px var(--mono); background: rgba(0,0,0,.6); color: #fff; opacity: 0; transition: opacity .2s; }
     .viewport:hover .zoom { opacity: 1; }
     .thumbs { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 8px; margin-top: 12px; }
-    .thumb { position: relative; padding: 0; border: 1px solid var(--line); border-radius: 10px; overflow: hidden; background: #0b0b12; cursor: pointer; text-align: left; color: var(--muted); font: inherit; }
-    .thumb img { width: 100%; aspect-ratio: 16/10; object-fit: cover; object-position: top; opacity: .55; transition: opacity .25s; }
+    .thumb { position: relative; padding: 0; border: 1px solid var(--line); border-radius: 10px; overflow: hidden; background: var(--bg-2); cursor: pointer; text-align: left; color: var(--muted); font: inherit; }
+    .thumb img { background: #0b0b12; width: 100%; aspect-ratio: 16/10; object-fit: cover; object-position: top; opacity: .55; transition: opacity .25s; }
     .thumb span { display: block; padding: 7px 9px 8px; font-size: 11.5px; line-height: 1.35; }
     .thumb.on { border-color: color-mix(in srgb, var(--c) 70%, transparent); color: var(--text); }
     .thumb.on img, .thumb:hover img { opacity: 1; }
@@ -101,12 +104,15 @@
     .ptitle { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
     .ptitle h3 { font-size: clamp(26px, 3vw, 34px); }
     .ptitle h3 em { font-style: normal; color: var(--c); filter: brightness(1.25); }
+    :root[data-theme="light"] .ptitle h3 em { filter: brightness(.82); }
+    .ptitle .btn.primary { margin-left: auto; }
+    .ptitle .btn.primary + .btn { margin-left: 0; }
     .ptitle .btn { margin-left: auto; }
     .ptag { color: var(--muted); font-size: 17px; margin: 8px 0 22px; }
     .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
     .cols h4 { margin: 0 0 12px; font: 500 12px var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--dim); }
     .cols ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 10px; }
-    .cols li { position: relative; padding-left: 22px; color: #d4d4de; font-size: 15px; line-height: 1.5; }
+    .cols li { position: relative; padding-left: 22px; color: var(--text-2); font-size: 15px; line-height: 1.5; }
     .cols li::before { content: ""; position: absolute; left: 2px; top: 9px; width: 8px; height: 8px; border-radius: 3px; background: var(--c); opacity: .9; }
     .cols .hood li::before { background: transparent; border: 1.5px solid var(--c); }
     .stack { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 24px; }
@@ -138,7 +144,8 @@
     .game:hover .bg { transform: scale(1.05); }
     .game .shot::after { content: ""; position: absolute; inset: auto 0 0 0; height: 40%; background: linear-gradient(180deg, transparent, #120d0b); }
     .game .txt { position: relative; padding: 4px 30px 30px; margin-top: -40px; }
-    .game h3 { font-size: clamp(30px, 3.4vw, 44px); margin: 12px 0 10px; }
+    .game h3 { font-size: clamp(30px, 3.4vw, 44px); margin: 12px 0 10px; color: #fff; }
+    .game .tag { color: #e2dcd6; border-color: rgba(255,255,255,.2); background: rgba(255,255,255,.08); }
     .game p { color: #e2dcd6; max-width: 560px; margin: 0 0 14px; }
     .game ul { margin: 0 0 18px; padding-left: 18px; color: #b8aea6; font-size: 14.5px; max-width: 600px; display: grid; gap: 4px; }
     .game .strip { display: flex; gap: 8px; flex-wrap: wrap; }
@@ -165,7 +172,7 @@
     .proj .k { font: 500 11px var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--dim); }
     .proj h3 { font-size: 22px; margin: 8px 0 8px; }
     .proj p { margin: 0 0 12px; color: var(--muted); font-size: 14.5px; }
-    .proj ul { margin: 0 0 16px; padding-left: 18px; color: #c9c9d4; font-size: 13.5px; display: grid; gap: 5px; }
+    .proj ul { margin: 0 0 16px; padding-left: 18px; color: var(--text-2); font-size: 13.5px; display: grid; gap: 5px; }
     .proj .links { margin-top: auto; display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
     .proj .links small { color: var(--dim); font: 12px var(--mono); }
 
@@ -181,9 +188,9 @@
     .craft:hover img { transform: scale(1.06); }
     .craft::before { content: ""; position: absolute; inset: 0; z-index: 1; background: linear-gradient(180deg, transparent 35%, rgba(7,7,12,.9)); }
     .craft .txt { position: relative; z-index: 2; padding: 24px; }
-    .craft h3 { font-size: 26px; margin: 0 0 6px; }
-    .craft p { margin: 0; color: var(--muted); font-size: 14px; }
-    .craft .arrow { position: absolute; top: 18px; right: 18px; z-index: 2; width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center; background: rgba(255,255,255,.1); backdrop-filter: blur(8px); transition: transform .3s; }
+    .craft h3 { font-size: 26px; margin: 0 0 6px; color: #fff; }
+    .craft p { margin: 0; color: rgba(255,255,255,.75); font-size: 14px; }
+    .craft .arrow { color: #fff; position: absolute; top: 18px; right: 18px; z-index: 2; width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center; background: rgba(255,255,255,.1); backdrop-filter: blur(8px); transition: transform .3s; }
     .craft:hover .arrow { transform: rotate(-45deg); }
 
     /* ---------- Contact ---------- */
@@ -240,6 +247,7 @@
   </style>
 </head>
 <body>
+  <script src="assets/icons.js"></script>
   <div class="aurora" aria-hidden="true"><span></span><span></span><span></span></div>
   <div class="grain" aria-hidden="true"></div>
 
@@ -253,8 +261,9 @@
         <a href="#craft">Design &amp; Art</a>
         <a href="#contact">Contact</a>
       </nav>
-      <a class="btn sm nav-cta" href="https://drive.google.com/file/d/15oH0CYgk0YsIZLbqNvHkg4cGzW2810-0/view?usp=drive_link" target="_blank" rel="noopener"><i class="fa-solid fa-arrow-down"></i> CV</a>
-      <button class="menu-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false" aria-controls="navLinks"><i class="fa-solid fa-bars"></i></button>
+      <button class="theme-btn" id="themeBtn" type="button" aria-label="Switch theme"><svg class="ic sun" aria-hidden="true"><use href="#i-sun"></use></svg><svg class="ic moon" aria-hidden="true"><use href="#i-moon"></use></svg></button>
+      <a class="btn sm nav-cta" href="https://drive.google.com/file/d/15oH0CYgk0YsIZLbqNvHkg4cGzW2810-0/view?usp=drive_link" target="_blank" rel="noopener"><svg class="ic" aria-hidden="true"><use href="#i-down"></use></svg> CV</a>
+      <button class="menu-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false" aria-controls="navLinks"><svg class="ic" aria-hidden="true"><use href="#i-menu"></use></svg></button>
     </div>
   </header>
 
@@ -267,15 +276,15 @@
           <h1 class="reveal">I build AI products that businesses <span class="serif grad">actually use.</span></h1>
           <p class="lead reveal">Computer scientist and AI engineer at UnifyTech. I design, build and ship <b>B-Agent</b>: nine AI apps on Azure, from a legal assistant that searches <b>millions of court decisions</b> to a sales coach you can talk to. After hours I make games, write about Godot, and draw.</p>
           <div class="cta-row reveal">
-            <a class="btn primary" href="#bagent">See the B-Agent apps <i class="fa-solid fa-arrow-right"></i></a>
+            <a class="btn primary" href="#bagent">See the B-Agent apps <svg class="ic" aria-hidden="true"><use href="#i-right"></use></svg></a>
             <a class="btn" href="#projects">Personal projects</a>
           </div>
           <div class="socials reveal">
-            <a href="mailto:bengsrc@gmail.com" title="Email" aria-label="Email"><i class="fa-solid fa-envelope"></i></a>
-            <a href="https://github.com/beng262" target="_blank" rel="noopener" title="GitHub" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
-            <a href="https://linkedin.com/in/bengisarac14697" target="_blank" rel="noopener" title="LinkedIn" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
-            <a href="https://bengisrc.artstation.com" target="_blank" rel="noopener" title="ArtStation" aria-label="ArtStation"><i class="fa-brands fa-artstation"></i></a>
-            <a href="https://www.figma.com/design/cfYIqVr6bICi37Y1FilpQa/Figma-Portfolio?node-id=0-1&amp;t=ScNDVolUz8QFxUXT-1" target="_blank" rel="noopener" title="Figma" aria-label="Figma"><i class="fa-brands fa-figma"></i></a>
+            <a href="mailto:bengsrc@gmail.com" title="Email" aria-label="Email"><svg class="ic" aria-hidden="true"><use href="#i-mail"></use></svg></a>
+            <a href="https://github.com/beng262" target="_blank" rel="noopener" title="GitHub" aria-label="GitHub"><svg class="ic" aria-hidden="true"><use href="#i-github"></use></svg></a>
+            <a href="https://linkedin.com/in/bengisarac14697" target="_blank" rel="noopener" title="LinkedIn" aria-label="LinkedIn"><svg class="ic" aria-hidden="true"><use href="#i-linkedin"></use></svg></a>
+            <a href="https://bengisrc.artstation.com" target="_blank" rel="noopener" title="ArtStation" aria-label="ArtStation"><svg class="ic" aria-hidden="true"><use href="#i-artstation"></use></svg></a>
+            <a href="https://www.figma.com/design/cfYIqVr6bICi37Y1FilpQa/Figma-Portfolio?node-id=0-1&amp;t=ScNDVolUz8QFxUXT-1" target="_blank" rel="noopener" title="Figma" aria-label="Figma"><svg class="ic" aria-hidden="true"><use href="#i-figma"></use></svg></a>
           </div>
           <div class="creds reveal">Microsoft Certified Trainer · Azure Solutions Architect Expert</div>
         </div>
@@ -283,9 +292,9 @@
           <div class="card3d c1"><div class="bar"><i></i><i></i><i></i><span>research.bagent.com.tr</span></div><img src="img/research/answer.webp" alt="" /></div>
           <div class="card3d c2"><div class="bar"><i></i><i></i><i></i><span>law.bagent.com.tr</span></div><img src="img/law/chat.webp" alt="" /></div>
           <div class="card3d c3"><div class="bar"><i></i><i></i><i></i><span>roleplay.bagent.com.tr</span></div><img src="img/roleplay/chat.webp" alt="" /></div>
-          <span class="chip k1"><i class="fa-solid fa-scale-balanced"></i> 11M court decisions</span>
-          <span class="chip k2"><i class="fa-solid fa-lock"></i> Encrypted per user</span>
-          <span class="chip k3"><i class="fa-solid fa-microphone"></i> Real-time voice</span>
+          <span class="chip k1"><svg class="ic" aria-hidden="true"><use href="#i-scale"></use></svg> 11M court decisions</span>
+          <span class="chip k2"><svg class="ic" aria-hidden="true"><use href="#i-lock"></use></svg> Encrypted per user</span>
+          <span class="chip k3"><svg class="ic" aria-hidden="true"><use href="#i-mic"></use></svg> Real-time voice</span>
         </div>
       </div>
     </section>
@@ -368,7 +377,7 @@
               <span class="k">A free short book · ★ 2</span>
               <h3>Learning Godot by reading one game</h3>
               <p>Most tutorials build a toy and stop. This one opens up my finished game: 12,040 lines of real code, 4 parts, 11 chapters and 24 exercises you can check.</p>
-              <span class="go">Read it online <i class="fa-solid fa-arrow-right"></i></span>
+              <span class="go">Read it online <svg class="ic" aria-hidden="true"><use href="#i-right"></use></svg></span>
             </div>
           </a>
         </div>
@@ -386,9 +395,9 @@
           <p>Illustration and interface design shape how my products look and feel. The axolotls in WellnessMate are mine.</p>
         </div>
         <div class="crafts">
-          <a class="craft reveal" href="uiux.html"><img src="img/personal/wellness-screens.webp" alt="" /><span class="arrow"><i class="fa-solid fa-arrow-right"></i></span><div class="txt"><h3>UI / UX</h3><p>App concepts and screens, from wireframe to polish.</p></div></a>
-          <a class="craft reveal" href="art.html"><img src="img/personal/wellness-axolotls.webp" alt="" style="object-fit:contain;background:#f5f5f5" /><span class="arrow"><i class="fa-solid fa-arrow-right"></i></span><div class="txt"><h3>Art</h3><p>Illustration, characters and 3D.</p></div></a>
-          <a class="craft reveal" href="https://www.figma.com/design/cfYIqVr6bICi37Y1FilpQa/Figma-Portfolio?node-id=0-1&amp;t=ScNDVolUz8QFxUXT-1" target="_blank" rel="noopener"><div style="position:absolute;inset:0;display:grid;place-items:center;background:radial-gradient(circle at 30% 20%,#a259ff55,transparent 55%),radial-gradient(circle at 75% 70%,#ff726255,transparent 50%),#101018"><i class="fa-brands fa-figma" style="font-size:96px;opacity:.85"></i></div><span class="arrow"><i class="fa-solid fa-arrow-right"></i></span><div class="txt"><h3>Figma portfolio</h3><p>The full design file, open to browse.</p></div></a>
+          <a class="craft reveal" href="uiux.html"><img src="img/personal/wellness-screens.webp" alt="" /><span class="arrow"><svg class="ic" aria-hidden="true"><use href="#i-right"></use></svg></span><div class="txt"><h3>UI / UX</h3><p>App concepts and screens, from wireframe to polish.</p></div></a>
+          <a class="craft reveal" href="art.html"><img src="img/personal/wellness-axolotls.webp" alt="" style="object-fit:contain;background:#f5f5f5" /><span class="arrow"><svg class="ic" aria-hidden="true"><use href="#i-right"></use></svg></span><div class="txt"><h3>Art</h3><p>Illustration, characters and 3D.</p></div></a>
+          <a class="craft reveal" href="https://www.figma.com/design/cfYIqVr6bICi37Y1FilpQa/Figma-Portfolio?node-id=0-1&amp;t=ScNDVolUz8QFxUXT-1" target="_blank" rel="noopener"><div style="position:absolute;inset:0;display:grid;place-items:center;background:radial-gradient(circle at 30% 20%,#a259ff55,transparent 55%),radial-gradient(circle at 75% 70%,#ff726255,transparent 50%),#101018"><svg class="ic" aria-hidden="true" style="width:96px;height:96px;opacity:.85"><use href="#i-figma"></use></svg></div><span class="arrow"><svg class="ic" aria-hidden="true"><use href="#i-right"></use></svg></span><div class="txt"><h3>Figma portfolio</h3><p>The full design file, open to browse.</p></div></a>
         </div>
       </div>
     </section>
@@ -401,15 +410,15 @@
           <h2>Have an idea that needs AI to <span class="serif grad">really work?</span></h2>
           <p>I'm happy to talk about AI products, retrieval systems, Azure, or games.</p>
           <div class="cta-row">
-            <a class="btn primary" href="mailto:bengsrc@gmail.com"><i class="fa-solid fa-envelope"></i> bengsrc@gmail.com</a>
-            <a class="btn" href="https://linkedin.com/in/bengisarac14697" target="_blank" rel="noopener"><i class="fa-brands fa-linkedin-in"></i> LinkedIn</a>
-            <a class="btn" href="https://drive.google.com/file/d/15oH0CYgk0YsIZLbqNvHkg4cGzW2810-0/view?usp=drive_link" target="_blank" rel="noopener"><i class="fa-solid fa-arrow-down"></i> Download CV</a>
+            <a class="btn primary" href="mailto:bengsrc@gmail.com"><svg class="ic" aria-hidden="true"><use href="#i-mail"></use></svg> bengsrc@gmail.com</a>
+            <a class="btn" href="https://linkedin.com/in/bengisarac14697" target="_blank" rel="noopener"><svg class="ic" aria-hidden="true"><use href="#i-linkedin"></use></svg> LinkedIn</a>
+            <a class="btn" href="https://drive.google.com/file/d/15oH0CYgk0YsIZLbqNvHkg4cGzW2810-0/view?usp=drive_link" target="_blank" rel="noopener"><svg class="ic" aria-hidden="true"><use href="#i-down"></use></svg> Download CV</a>
           </div>
           <div class="socials">
-            <a href="tel:+905316112140" title="Call" aria-label="Call"><i class="fa-solid fa-phone"></i></a>
-            <a href="https://github.com/beng262" target="_blank" rel="noopener" title="GitHub" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
-            <a href="https://bengisrc.artstation.com" target="_blank" rel="noopener" title="ArtStation" aria-label="ArtStation"><i class="fa-brands fa-artstation"></i></a>
-            <a href="https://www.figma.com/design/cfYIqVr6bICi37Y1FilpQa/Figma-Portfolio?node-id=0-1&amp;t=ScNDVolUz8QFxUXT-1" target="_blank" rel="noopener" title="Figma" aria-label="Figma"><i class="fa-brands fa-figma"></i></a>
+            <a href="tel:+905316112140" title="Call" aria-label="Call"><svg class="ic" aria-hidden="true"><use href="#i-phone"></use></svg></a>
+            <a href="https://github.com/beng262" target="_blank" rel="noopener" title="GitHub" aria-label="GitHub"><svg class="ic" aria-hidden="true"><use href="#i-github"></use></svg></a>
+            <a href="https://bengisrc.artstation.com" target="_blank" rel="noopener" title="ArtStation" aria-label="ArtStation"><svg class="ic" aria-hidden="true"><use href="#i-artstation"></use></svg></a>
+            <a href="https://www.figma.com/design/cfYIqVr6bICi37Y1FilpQa/Figma-Portfolio?node-id=0-1&amp;t=ScNDVolUz8QFxUXT-1" target="_blank" rel="noopener" title="Figma" aria-label="Figma"><svg class="ic" aria-hidden="true"><use href="#i-figma"></use></svg></a>
           </div>
         </div>
       </div>
@@ -425,150 +434,13 @@
 
   <figure class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Screenshot viewer">
     <div><img id="lbImg" alt="" /><figcaption id="lbCap"></figcaption></div>
-    <button class="prev" id="lbPrev" aria-label="Previous"><i class="fa-solid fa-arrow-left"></i></button>
-    <button class="next" id="lbNext" aria-label="Next"><i class="fa-solid fa-arrow-right"></i></button>
-    <button class="x" id="lbX" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
+    <button class="prev" id="lbPrev" aria-label="Previous"><svg class="ic" aria-hidden="true"><use href="#i-left"></use></svg></button>
+    <button class="next" id="lbNext" aria-label="Next"><svg class="ic" aria-hidden="true"><use href="#i-right"></use></svg></button>
+    <button class="x" id="lbX" aria-label="Close"><svg class="ic" aria-hidden="true"><use href="#i-x"></use></svg></button>
   </figure>
 
   <script src="assets/data.js"></script>
-  <script>
-  (() => {
-    const $ = (s, el = document) => el.querySelector(s);
-    const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
-    const calm = matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const mark = '<svg class="bmark" viewBox="0 0 55.7 62" aria-hidden="true"><path d="M55.15,51.03c-.88,2.93-2.63,5.61-5.26,7.44-3.05,2.13-6.4,3.49-10.11,3.5l-36.16.04c-2.22,0-3.62-1.37-3.61-3.67l.05-10.87L0,40.77c-.02-1.73.5-3.77,2.23-4.57l16.8-7.73c.78-.2,1.71.3,1.71,1.13v16.29s23.01-10.33,23.01-10.33c.29-.13.6-.23.91-.29.29-.05.58-.09.87-.11,1.41-.09,2.82.33,3.99,1.13,4.94,3.33,7.35,9.02,5.62,14.74ZM2.49,16.38l12.69,5.68,23.58,10.48c.9.4,1.77.46,2.7-.05,9-4.82,13.49-15.51,8.29-24.03C47,3.94,41.25.03,35.77.03L3.37,0C1.33,0,.06,1.64.07,3.5l.02,9.33c0,1.69.93,2.89,2.4,3.55Z"/></svg>';
-
-    // Nav
-    const nav = $("#nav"), links = $("#navLinks"), menu = $("#menuBtn");
-    addEventListener("scroll", () => nav.classList.toggle("scrolled", scrollY > 10), { passive: true });
-    menu.addEventListener("click", () => { const o = links.classList.toggle("open"); menu.setAttribute("aria-expanded", o); });
-    links.addEventListener("click", (e) => { if (e.target.closest("a")) { links.classList.remove("open"); menu.setAttribute("aria-expanded", false); } });
-    const sections = ["bagent", "approach", "projects", "craft", "contact"].map((id) => document.getElementById(id));
-    const navObs = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) links.querySelectorAll("a").forEach((a) => a.classList.toggle("on", a.getAttribute("href") === "#" + e.target.id)); }), { rootMargin: "-45% 0px -50% 0px" });
-    sections.forEach((s) => navObs.observe(s));
-
-    // Marquee
-    const tech = ["Azure OpenAI", "Azure AI Search", "Cosmos DB", "Azure Functions", "Entra ID", "Microsoft Graph", "React", "TypeScript", "Node.js", "Next.js", "Python", "PyTorch", "YOLOv8", "PostgreSQL", ".NET 8", "WebRTC", "MCP", "Flutter", "Godot 4", "Docker", "OpenCV"];
-    $("#track").innerHTML = [...tech, ...tech].map((t) => `<span class="tag">${t}</span>`).join("");
-
-    // B-Agent switcher
-    const plist = $("#plist"), panel = $("#panel");
-    let current = 0, shot = 0, timer = null, hovering = false;
-    plist.innerHTML = BAGENT.map((p, i) => `<button class="pbtn" role="tab" id="tab-${p.id}" aria-controls="panel" aria-selected="false" style="--c:${p.color}" data-i="${i}">${mark}<span><strong>${esc(p.name)}</strong><small>${esc(p.tagline)}</small></span></button>`).join("");
-
-    function renderProduct(i, focus) {
-      current = i; shot = 0;
-      const p = BAGENT[i];
-      plist.querySelectorAll(".pbtn").forEach((b, j) => { b.setAttribute("aria-selected", j === i); b.tabIndex = j === i ? 0 : -1; });
-      if (focus) plist.children[i].focus();
-      panel.style.setProperty("--c", p.color);
-      panel.setAttribute("aria-labelledby", "tab-" + p.id);
-      panel.innerHTML = `
-        <div class="browser">
-          <div class="bar"><i></i><i></i><i></i><span class="url"><i class="fa-solid fa-lock"></i>${esc(p.url)}</span></div>
-          <div class="viewport" id="vp" title="Click to enlarge">
-            ${p.shots.map((s, j) => `<img src="img/${s[0]}.webp" alt="${esc("B-Agent " + p.name + ": " + s[1])}" ${j ? 'loading="lazy"' : ""} class="${j ? "" : "on"}" />`).join("")}
-            <span class="zoom"><i class="fa-solid fa-expand"></i> Enlarge</span>
-          </div>
-        </div>
-        ${p.shots.length > 1 ? `<div class="thumbs">${p.shots.map((s, j) => `<button class="thumb ${j ? "" : "on"}" data-j="${j}"><span class="prog"></span><img src="img/${s[0]}.webp" alt="" loading="lazy" /><span>${esc(s[1])}</span></button>`).join("")}</div>` : `<p class="note" style="margin:10px 4px 0">${esc(p.shots[0][1])}</p>`}
-        <div class="pbody fade-swap">
-          <div class="ptitle"><h3>B-Agent <em>${esc(p.name)}</em></h3>
-            <a class="btn sm" href="https://${p.url}" target="_blank" rel="noopener">${esc(p.url)} <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
-            ${p.extra ? `<a class="btn sm" href="${p.extra.href}" target="_blank" rel="noopener"><i class="fa-brands fa-github"></i> ${esc(p.extra.label)}</a>` : ""}
-          </div>
-          <p class="ptag">${esc(p.tagline)}</p>
-          <div class="cols">
-            <div><h4>What it does</h4><ul>${p.does.map((d) => `<li>${esc(d)}</li>`).join("")}</ul></div>
-            <div class="hood"><h4>Under the hood</h4><ul>${p.hood.map((d) => `<li>${esc(d)}</li>`).join("")}</ul></div>
-          </div>
-          <div class="stack">${p.stack.map((s) => `<span class="tag">${esc(s)}</span>`).join("")}</div>
-        </div>`;
-      panel.querySelectorAll(".thumb").forEach((t) => t.addEventListener("click", () => { showShot(+t.dataset.j); }));
-      $("#vp").addEventListener("click", () => openLb(p.shots.map((s) => ["img/" + s[0] + ".webp", "B-Agent " + p.name + " · " + s[1]]), shot));
-      showShot(0);
-    }
-    function showShot(j) {
-      const p = BAGENT[current];
-      shot = j;
-      panel.querySelectorAll(".viewport img").forEach((im, k) => im.classList.toggle("on", k === j));
-      panel.querySelectorAll(".thumb").forEach((t, k) => {
-        t.classList.toggle("on", k === j);
-        const bar = t.querySelector(".prog"); bar.classList.remove("run"); void bar.offsetWidth;
-        if (k === j && !calm && !hovering) bar.classList.add("run");
-      });
-      clearTimeout(timer);
-      if (!calm && p.shots.length > 1 && !hovering) timer = setTimeout(() => showShot((shot + 1) % p.shots.length), 6000);
-    }
-    panel.addEventListener("mouseenter", () => { hovering = true; clearTimeout(timer); panel.querySelectorAll(".prog").forEach((b) => b.classList.remove("run")); });
-    panel.addEventListener("mouseleave", () => { hovering = false; showShot(shot); });
-    plist.addEventListener("click", (e) => { const b = e.target.closest(".pbtn"); if (b) { renderProduct(+b.dataset.i); if (innerWidth < 1080) b.scrollIntoView({ inline: "center", block: "nearest", behavior: "smooth" }); } });
-    plist.addEventListener("keydown", (e) => {
-      const k = { ArrowDown: 1, ArrowRight: 1, ArrowUp: -1, ArrowLeft: -1 }[e.key];
-      if (k) { e.preventDefault(); renderProduct((current + k + BAGENT.length) % BAGENT.length, true); }
-    });
-    const start = Math.max(0, BAGENT.findIndex((p) => "#" + p.id === location.hash));
-    renderProduct(start);
-
-    $("#more").innerHTML = BAGENT_MORE.map((m) => `<article class="mini reveal" style="--c:${m.color}">${mark}<h4>${esc(m.name)}</h4><p>${esc(m.text)}</p></article>`).join("");
-
-    // Personal projects
-    $("#pgrid").innerHTML = PROJECTS.map((p) => `
-      <article class="proj reveal" style="--c:${p.color}">
-        <div class="media">${p.img ? `<img src="img/${p.img}.webp" alt="${esc(p.name)}" loading="lazy" class="${p.contain ? "contain" : ""}" />` : `<div class="tile">${esc(p.tile)}</div>`}</div>
-        <div class="body">
-          <span class="k">${esc(p.kind)}</span>
-          <h3>${esc(p.name)}</h3>
-          <p>${esc(p.line)}</p>
-          <ul>${p.points.map((x) => `<li>${esc(x)}</li>`).join("")}</ul>
-          <div class="links">${p.links.map(([t, h]) => `<a class="btn sm" href="${h}" target="_blank" rel="noopener">${t === "GitHub" ? '<i class="fa-brands fa-github"></i> ' : ""}${esc(t)}</a>`).join("")}${p.note ? `<small>${esc(p.note)}</small>` : ""}</div>
-        </div>
-      </article>`).join("");
-    $("#earlier").insertAdjacentHTML("beforeend", EARLIER.map(([n, d, h]) => `<a href="${h}" target="_blank" rel="noopener"><b>${esc(n)}</b><span class="d">${esc(d)}</span><i class="fa-solid fa-arrow-up-right-from-square"></i></a>`).join(""));
-
-    // Deep links (#bagent, #projects, #law…): land on the target again once fonts have changed the layout
-    const target = location.hash && document.getElementById(location.hash.slice(1)) || (BAGENT.some((p) => "#" + p.id === location.hash) && $("#bagent"));
-    if (target) (document.fonts ? document.fonts.ready : Promise.resolve()).then(() => target.scrollIntoView({ behavior: "instant", block: "start" }));
-
-    // Reveal on scroll
-    const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } }), { threshold: 0.12 });
-    document.querySelectorAll(".reveal").forEach((el, i) => { el.style.transitionDelay = (i % 4) * 70 + "ms"; io.observe(el); });
-
-    // Count-up stats
-    const cio = new IntersectionObserver((es) => es.forEach((e) => {
-      if (!e.isIntersecting) return; cio.unobserve(e.target);
-      const el = e.target, to = +el.dataset.count, suf = el.dataset.suffix || "", t0 = performance.now();
-      const step = (t) => { const k = Math.min(1, (t - t0) / 1400); el.textContent = Math.round(to * (1 - Math.pow(1 - k, 3))) + suf; if (k < 1) requestAnimationFrame(step); };
-      calm ? (el.textContent = to + suf) : requestAnimationFrame(step);
-    }), { threshold: 0.6 });
-    document.querySelectorAll("[data-count]").forEach((el) => cio.observe(el));
-
-    // Spotlight that follows the cursor
-    document.addEventListener("pointermove", (e) => {
-      const s = e.target.closest(".spot"); if (!s) return;
-      const r = s.getBoundingClientRect(); s.style.setProperty("--mx", e.clientX - r.left + "px"); s.style.setProperty("--my", e.clientY - r.top + "px");
-    });
-
-    // Hero cards tilt with the mouse
-    const stage = $("#stage");
-    if (!calm && matchMedia("(pointer: fine)").matches) {
-      addEventListener("pointermove", (e) => {
-        const x = e.clientX / innerWidth - 0.5, y = e.clientY / innerHeight - 0.5;
-        stage.querySelectorAll(".card3d").forEach((c, i) => { const z = [-40, 20, 80][i]; c.style.transform = `rotateY(${-14 + x * 10}deg) rotateX(${6 - y * 8}deg) translateZ(${z}px) translate(${x * (i + 1) * 8}px, ${y * (i + 1) * 6}px)`; });
-      }, { passive: true });
-    }
-
-    // Lightbox
-    const lb = $("#lb"), lbImg = $("#lbImg"), lbCap = $("#lbCap");
-    let lbList = [], lbI = 0, lbFrom = null;
-    function openLb(list, i) { lbList = list; lbFrom = document.activeElement; lb.classList.add("open"); document.body.style.overflow = "hidden"; showLb(i); $("#lbX").focus(); }
-    function showLb(i) { lbI = (i + lbList.length) % lbList.length; lbImg.src = lbList[lbI][0]; lbImg.alt = lbList[lbI][1]; lbCap.textContent = lbList[lbI][1]; $("#lbPrev").hidden = $("#lbNext").hidden = lbList.length < 2; }
-    function closeLb() { lb.classList.remove("open"); document.body.style.overflow = ""; lbFrom && lbFrom.focus && lbFrom.focus(); }
-    $("#lbPrev").onclick = () => showLb(lbI - 1); $("#lbNext").onclick = () => showLb(lbI + 1); $("#lbX").onclick = closeLb;
-    lb.addEventListener("click", (e) => { if (e.target === lb) closeLb(); });
-    addEventListener("keydown", (e) => { if (!lb.classList.contains("open")) return; if (e.key === "Escape") closeLb(); if (e.key === "ArrowLeft") showLb(lbI - 1); if (e.key === "ArrowRight") showLb(lbI + 1); });
-    document.querySelectorAll("[data-zoom]").forEach((im, i, all) => im.addEventListener("click", () => openLb([...all].map((a) => [a.src, a.dataset.zoom]), i)));
-  })();
-  </script>
+  <script src="assets/site.js"></script>
+  <script src="assets/home.js"></script>
 </body>
 </html>

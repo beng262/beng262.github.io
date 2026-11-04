@@ -39,17 +39,30 @@ Live site: **[beng262.github.io](https://beng262.github.io)**
 
 ## This repository
 
-Static site served by GitHub Pages. No build step and no framework: plain HTML, CSS and JS.
+Static site served by GitHub Pages: plain HTML, CSS and JS, no framework. Everything is
+served from this repo (fonts and icons included), so each page carries a strict Content
+Security Policy that allows no third-party scripts or requests.
 
-| File | Purpose |
+| Path | Purpose |
 |---|---|
-| `index.html` | Home page: hero, B-Agent product switcher, approach, personal projects, contact |
-| `assets/data.js` | All products and projects listed on the home page. Edit text here |
-| `assets/site.css` | Shared theme (colours, type, nav, footer) used by every page |
-| `uiux.html` | UI/UX work |
-| `art.html` | Illustration and 3D work |
+| `index.html` | Home: hero, B-Agent product switcher, approach, personal projects, contact |
+| `work/*.html` | One case study per B-Agent app (generated, see below) |
+| `uiux.html`, `art.html` | Design and art pages |
+| `assets/data.js` | Products and projects on the home page. Edit text here |
+| `assets/cases.json` | The longer case-study story per app: problem, approach, flow, hard problems, numbers |
+| `assets/site.css`, `site.js` | Shared theme (dark and light), nav, scroll reveal, image viewer |
+| `assets/home.js`, `uiux.js`, `art.js` | Page scripts |
+| `assets/theme.js`, `icons.js`, `fonts/` | Theme before first paint, icon sprite (Lucide, Simple Icons), self-hosted fonts (OFL) |
+| `tools/build-work.mjs` | Writes `work/*.html` from `data.js` and `cases.json` |
+| `img/` | Screenshots (WebP), link-preview images (`og.png`, `og/<app>.png`) |
+| `404.html`, `sitemap.xml`, `robots.txt` | Not-found page and search-engine files |
 | `development.html` | Old URL, redirects to the home page |
-| `img/` | Screenshots (WebP) and `og.png`, the link-preview image |
+
+After editing `assets/data.js` or `assets/cases.json`, rebuild the case studies:
+
+```bash
+node tools/build-work.mjs
+```
 
 Screenshots of the B-Agent apps come from the live apps. People, companies and tenant
 figures in them were replaced with made-up ones before capture.
