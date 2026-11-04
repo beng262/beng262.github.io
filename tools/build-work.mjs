@@ -27,7 +27,7 @@ apps.forEach((p, i) => {
   const shots = p.shots.map(([src, cap], j) => `
         <figure class="${j ? "shot" : "shot main"}">
           <div class="browser"><div class="bar"><i></i><i></i><i></i><span class="url">${icon("lock")}${esc(p.url)}</span></div>
-          <img src="../img/${src}.webp" alt="${esc(`B-Agent ${p.name}: ${cap}`)}" width="1440" height="900" ${j ? 'loading="lazy"' : 'fetchpriority="high"'} data-zoom="${esc(`B-Agent ${p.name} · ${cap}`)}" data-group="shots" /></div>
+          <picture>${p.themed ? `<source srcset="../img/${src}-dark.webp" media="(prefers-color-scheme: dark)" />` : ""}<img src="../img/${src}.webp" alt="${esc(`B-Agent ${p.name}: ${cap}`)}" width="1440" height="900" ${j ? 'loading="lazy"' : 'fetchpriority="high"'} data-zoom="${esc(`B-Agent ${p.name} · ${cap}`)}" data-group="shots" /></picture></div>
           <figcaption>${esc(cap)}</figcaption>
         </figure>`).join("");
   const numbers = (c.numbers || []).map((n) => `<div class="num"><b>${esc(n.value)}</b><span>${esc(n.label)}</span></div>`).join("");
@@ -51,42 +51,27 @@ apps.forEach((p, i) => {
   <meta name="twitter:card" content="summary_large_image" />
   <link rel="canonical" href="https://beng262.github.io/work/${p.id}.html" />
   <link rel="icon" href="../favicon.svg" type="image/svg+xml" />
-  <link rel="preload" href="../assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin />
-  <link rel="preload" href="../assets/fonts/space-grotesk-latin.woff2" as="font" type="font/woff2" crossorigin />
   <script src="../assets/theme.js"></script>
   <link rel="stylesheet" href="../assets/site.css" />
   <link rel="stylesheet" href="../assets/work.css" />
 </head>
 <body style="--c:${p.color}">
   <script src="../assets/icons.js"></script>
-  <div class="aurora" aria-hidden="true"><span></span><span></span><span></span></div>
-  <div class="grain" aria-hidden="true"></div>
-  <header class="nav" id="nav">
-    <div class="wrap">
-      <a class="logo" href="../index.html" aria-label="Bengisu Saraç, home"><i>BS</i> Bengisu Saraç</a>
-      <nav class="nav-links" id="navLinks" aria-label="Main">
-        <a href="../index.html#bagent" class="on">B-Agent</a>
-        <a href="../index.html#projects">Projects</a>
-        <a href="../uiux.html">UI / UX</a>
-        <a href="../art.html">Art</a>
-        <a href="../index.html#contact">Contact</a>
-      </nav>
-      <button class="theme-btn" id="themeBtn" type="button" aria-label="Switch theme">${icon("sun").replace('class="ic"', 'class="ic sun"')}${icon("moon").replace('class="ic"', 'class="ic moon"')}</button>
-      <button class="menu-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false" aria-controls="navLinks">${icon("menu")}</button>
-    </div>
-  </header>
+  <div class="wrap top">
+    <a class="back" href="../bagent.html#${p.id}">${icon("left")} All B-Agent apps</a>
+    <a class="back" href="../index.html">Home</a>
+  </div>
 
   <main>
     <section class="case-hero wrap">
-      <a class="crumb" href="../index.html#${p.id}">${icon("left")} All B-Agent apps</a>
       <div class="hero-grid">
         <div>
-          <span class="eyebrow">Case study · B-Agent</span>
+          <span class="kicker">Case study · B-Agent</span>
           <h1 class="reveal">${mark(p.color)} B-Agent <em>${esc(p.name)}</em></h1>
           <p class="lead reveal">${esc(p.tagline)}</p>
           ${c.role ? `<p class="role reveal">${icon("sparkles")} ${esc(c.role)}</p>` : ""}
           <div class="cta-row reveal">
-            <a class="btn primary" href="https://${p.url}" target="_blank" rel="noopener">${esc(p.url)} ${icon("ext")}</a>
+            <a class="btn solid" href="https://${p.url}" target="_blank" rel="noopener">${esc(p.url)} ${icon("ext")}</a>
             ${p.extra ? `<a class="btn" href="${p.extra.href}" target="_blank" rel="noopener">${icon("github")} ${esc(p.extra.label)}</a>` : ""}
           </div>
         </div>
@@ -98,12 +83,12 @@ apps.forEach((p, i) => {
     </section>
 
     ${c.problem || c.approach ? `<section class="wrap story">
-      ${c.problem ? `<div class="reveal"><span class="eyebrow">The problem</span><p>${esc(c.problem)}</p></div>` : ""}
-      ${c.approach ? `<div class="reveal"><span class="eyebrow">The approach</span><p>${esc(c.approach)}</p></div>` : ""}
+      ${c.problem ? `<div class="reveal"><span class="kicker">The problem</span><p>${esc(c.problem)}</p></div>` : ""}
+      ${c.approach ? `<div class="reveal"><span class="kicker">The approach</span><p>${esc(c.approach)}</p></div>` : ""}
     </section>` : ""}
 
     ${flow ? `<section class="wrap block">
-      <span class="eyebrow">How it works</span>
+      <span class="kicker">How it works</span>
       <h2 class="reveal">From request to answer, step by step.</h2>
       <ol class="flow">${flow}</ol>
     </section>` : ""}
@@ -114,13 +99,13 @@ apps.forEach((p, i) => {
     </section>
 
     ${challenges ? `<section class="wrap block">
-      <span class="eyebrow">Hard problems</span>
+      <span class="kicker">Hard problems</span>
       <h2 class="reveal">What took real engineering.</h2>
       <div class="hards">${challenges}</div>
     </section>` : ""}
 
     <section class="wrap block">
-      <span class="eyebrow">Built with</span>
+      <span class="kicker">Built with</span>
       <div class="stack reveal">${p.stack.map((s) => `<span class="tag">${esc(s)}</span>`).join("")}</div>
     </section>
 
@@ -130,7 +115,7 @@ apps.forEach((p, i) => {
     </nav>
   </main>
 
-  <footer class="foot"><div class="wrap"><span>© 2026 Bengisu Saraç · Screens are from the live app; people, companies and tenant figures are replaced with made-up ones.</span><a href="../index.html">Back to home</a></div></footer>
+  <footer class="foot">Screens are from the live app; people, companies and tenant figures are replaced with made-up ones.<br />© 2026 Bengisu Saraç · <a href="../index.html">Back to home</a></footer>
 
   <figure class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Screenshot viewer">
     <div><img id="lbImg" alt="" /><figcaption id="lbCap"></figcaption></div>

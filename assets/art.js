@@ -20,7 +20,7 @@ const pieces = [
     const img = document.createElement("img");
     img.alt = p.title;
     const fallback = 'data:image/svg+xml;utf8,' + encodeURIComponent(
-      `<svg xmlns='http://www.w3.org/2000/svg' width='1200' height='800'><rect width='100%' height='100%' fill='#0F1724'/><text x='50%' y='50%' fill='#9CC7EB' font-family='Arial' font-size='34' text-anchor='middle' dominant-baseline='middle'>${p.title}</text></svg>`
+      `<svg xmlns='http://www.w3.org/2000/svg' width='1200' height='800'><defs><linearGradient id='g' x1='0' x2='1' y1='0' y2='1'><stop offset='0' stop-color='#99CDEB'/><stop offset='1' stop-color='#FFB6D9'/></linearGradient></defs><rect width='100%' height='100%' fill='url(#g)'/><text x='50%' y='50%' fill='#ffffff' font-weight='bold' font-family='Arial' font-size='34' text-anchor='middle' dominant-baseline='middle'>${p.title}</text></svg>`
     );
     img.src = p.image || fallback;
     img.onerror = () => { img.src = fallback; };

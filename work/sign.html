@@ -15,42 +15,27 @@
   <meta name="twitter:card" content="summary_large_image" />
   <link rel="canonical" href="https://beng262.github.io/work/sign.html" />
   <link rel="icon" href="../favicon.svg" type="image/svg+xml" />
-  <link rel="preload" href="../assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin />
-  <link rel="preload" href="../assets/fonts/space-grotesk-latin.woff2" as="font" type="font/woff2" crossorigin />
   <script src="../assets/theme.js"></script>
   <link rel="stylesheet" href="../assets/site.css" />
   <link rel="stylesheet" href="../assets/work.css" />
 </head>
 <body style="--c:#14b8a6">
   <script src="../assets/icons.js"></script>
-  <div class="aurora" aria-hidden="true"><span></span><span></span><span></span></div>
-  <div class="grain" aria-hidden="true"></div>
-  <header class="nav" id="nav">
-    <div class="wrap">
-      <a class="logo" href="../index.html" aria-label="Bengisu Saraç, home"><i>BS</i> Bengisu Saraç</a>
-      <nav class="nav-links" id="navLinks" aria-label="Main">
-        <a href="../index.html#bagent" class="on">B-Agent</a>
-        <a href="../index.html#projects">Projects</a>
-        <a href="../uiux.html">UI / UX</a>
-        <a href="../art.html">Art</a>
-        <a href="../index.html#contact">Contact</a>
-      </nav>
-      <button class="theme-btn" id="themeBtn" type="button" aria-label="Switch theme"><svg class="ic sun" aria-hidden="true"><use href="#i-sun"></use></svg><svg class="ic moon" aria-hidden="true"><use href="#i-moon"></use></svg></button>
-      <button class="menu-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false" aria-controls="navLinks"><svg class="ic" aria-hidden="true"><use href="#i-menu"></use></svg></button>
-    </div>
-  </header>
+  <div class="wrap top">
+    <a class="back" href="../bagent.html#sign"><svg class="ic" aria-hidden="true"><use href="#i-left"></use></svg> All B-Agent apps</a>
+    <a class="back" href="../index.html">Home</a>
+  </div>
 
   <main>
     <section class="case-hero wrap">
-      <a class="crumb" href="../index.html#sign"><svg class="ic" aria-hidden="true"><use href="#i-left"></use></svg> All B-Agent apps</a>
       <div class="hero-grid">
         <div>
-          <span class="eyebrow">Case study · B-Agent</span>
+          <span class="kicker">Case study · B-Agent</span>
           <h1 class="reveal"><svg class="bmark" viewBox="0 0 55.7 62" aria-hidden="true"><path fill="#14b8a6" d="M55.15,51.03c-.88,2.93-2.63,5.61-5.26,7.44-3.05,2.13-6.4,3.49-10.11,3.5l-36.16.04c-2.22,0-3.62-1.37-3.61-3.67l.05-10.87L0,40.77c-.02-1.73.5-3.77,2.23-4.57l16.8-7.73c.78-.2,1.71.3,1.71,1.13v16.29s23.01-10.33,23.01-10.33c.29-.13.6-.23.91-.29.29-.05.58-.09.87-.11,1.41-.09,2.82.33,3.99,1.13,4.94,3.33,7.35,9.02,5.62,14.74ZM2.49,16.38l12.69,5.68,23.58,10.48c.9.4,1.77.46,2.7-.05,9-4.82,13.49-15.51,8.29-24.03C47,3.94,41.25.03,35.77.03L3.37,0C1.33,0,.06,1.64.07,3.5l.02,9.33c0,1.69.93,2.89,2.4,3.55Z"/></svg> B-Agent <em>Sign</em></h1>
           <p class="lead reveal">Checks whether a cheque signature matches the one on file.</p>
           <p class="role reveal"><svg class="ic" aria-hidden="true"><use href="#i-sparkles"></use></svg> Built it end to end: the React app, the Node.js API, the Python ML service and the Entra sign-in.</p>
           <div class="cta-row reveal">
-            <a class="btn primary" href="https://sign.bagent.com.tr" target="_blank" rel="noopener">sign.bagent.com.tr <svg class="ic" aria-hidden="true"><use href="#i-ext"></use></svg></a>
+            <a class="btn solid" href="https://sign.bagent.com.tr" target="_blank" rel="noopener">sign.bagent.com.tr <svg class="ic" aria-hidden="true"><use href="#i-ext"></use></svg></a>
             
           </div>
         </div>
@@ -61,18 +46,18 @@
     <section class="wrap gallery">
         <figure class="shot main">
           <div class="browser"><div class="bar"><i></i><i></i><i></i><span class="url"><svg class="ic" aria-hidden="true"><use href="#i-lock"></use></svg>sign.bagent.com.tr</span></div>
-          <img src="../img/sign/result.webp" alt="B-Agent Sign: A synthetic test cheque, scored and explained" width="1440" height="900" fetchpriority="high" data-zoom="B-Agent Sign · A synthetic test cheque, scored and explained" data-group="shots" /></div>
+          <picture><img src="../img/sign/result.webp" alt="B-Agent Sign: A synthetic test cheque, scored and explained" width="1440" height="900" fetchpriority="high" data-zoom="B-Agent Sign · A synthetic test cheque, scored and explained" data-group="shots" /></picture></div>
           <figcaption>A synthetic test cheque, scored and explained</figcaption>
         </figure>
     </section>
 
     <section class="wrap story">
-      <div class="reveal"><span class="eyebrow">The problem</span><p>Teams that process cheques compare the signature on each cheque with the one on the signature circular by eye. It is slow, it varies from person to person, and stamps or a second signature on the page make it harder.</p></div>
-      <div class="reveal"><span class="eyebrow">The approach</span><p>Its own ML service finds every signature on both documents, turns each into an embedding and compares them pair by pair. The result is a 0 to 100 score and a clear Match, Review or No match decision, with a stricter bar for simple signatures.</p></div>
+      <div class="reveal"><span class="kicker">The problem</span><p>Teams that process cheques compare the signature on each cheque with the one on the signature circular by eye. It is slow, it varies from person to person, and stamps or a second signature on the page make it harder.</p></div>
+      <div class="reveal"><span class="kicker">The approach</span><p>Its own ML service finds every signature on both documents, turns each into an embedding and compares them pair by pair. The result is a 0 to 100 score and a clear Match, Review or No match decision, with a stricter bar for simple signatures.</p></div>
     </section>
 
     <section class="wrap block">
-      <span class="eyebrow">How it works</span>
+      <span class="kicker">How it works</span>
       <h2 class="reveal">From request to answer, step by step.</h2>
       <ol class="flow"><li class="step reveal"><span class="k">01</span><b>Upload documents</b><span>Cheque and signature circular, as images or PDFs</span></li><li class="step reveal"><span class="k">02</span><b>PDF to images</b><span>Each page rendered so every page is scanned</span></li><li class="step reveal"><span class="k">03</span><b>Detect signatures</b><span>YOLOv8 crops every signature region it finds</span></li><li class="step reveal"><span class="k">04</span><b>Embed each crop</b><span>Siamese CNN turns a 105×105 grayscale crop into 256 numbers</span></li><li class="step reveal"><span class="k">05</span><b>Compare all pairs</b><span>Every reference crop against every query crop, best pair wins</span></li><li class="step reveal"><span class="k">06</span><b>Decide</b><span>Score from 0 to 100, stricter threshold for simple signatures</span></li><li class="step reveal"><span class="k">07</span><b>Review and history</b><span>Approve or retry; every comparison is kept</span></li></ol>
     </section>
@@ -83,13 +68,13 @@
     </section>
 
     <section class="wrap block">
-      <span class="eyebrow">Hard problems</span>
+      <span class="kicker">Hard problems</span>
       <h2 class="reveal">What took real engineering.</h2>
       <div class="hards"><article class="hard spot reveal"><span class="k">Problem 1</span><h3>A 45-second cap on a 90-second job</h3><p>Static Web Apps cuts off proxied API calls at 45 seconds, but a comparison can take 30 to 90 seconds while the ML models load after idle. So the browser calls the API directly with its own Microsoft token instead of going through the proxy. That led to sign-in in three layers: the site, a token check in the API, and an ML service that only accepts traffic from the API's servers.</p></article><article class="hard spot reveal"><span class="k">Problem 2</span><h3>Stamps and second signatures</h3><p>Comparing the largest region on each page fails when a stamp or a second signature is bigger than the one that matters. The service embeds every detected region on both documents, scores every pair and reports the best one, along with which regions and pages it came from. For single-page documents it also scores the full page as one more candidate.</p></article><article class="hard spot reveal"><span class="k">Problem 3</span><h3>Simple signatures need a stricter bar</h3><p>A short, simple signature looks like many others, so a high score means less. The service measures each crop's ink ratio, contour count and stroke complexity, and raises the match threshold when either side is simple. A fallback model keeps the service working if the main verifier cannot load, and every response says which path was used.</p></article></div>
     </section>
 
     <section class="wrap block">
-      <span class="eyebrow">Built with</span>
+      <span class="kicker">Built with</span>
       <div class="stack reveal"><span class="tag">React</span><span class="tag">TypeScript</span><span class="tag">Node.js</span><span class="tag">Python</span><span class="tag">PyTorch</span><span class="tag">YOLOv8</span><span class="tag">Docker</span></div>
     </section>
 
@@ -99,7 +84,7 @@
     </nav>
   </main>
 
-  <footer class="foot"><div class="wrap"><span>© 2026 Bengisu Saraç · Screens are from the live app; people, companies and tenant figures are replaced with made-up ones.</span><a href="../index.html">Back to home</a></div></footer>
+  <footer class="foot">Screens are from the live app; people, companies and tenant figures are replaced with made-up ones.<br />© 2026 Bengisu Saraç · <a href="../index.html">Back to home</a></footer>
 
   <figure class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Screenshot viewer">
     <div><img id="lbImg" alt="" /><figcaption id="lbCap"></figcaption></div>

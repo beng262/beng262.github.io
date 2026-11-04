@@ -39,24 +39,25 @@ Live site: **[beng262.github.io](https://beng262.github.io)**
 
 ## This repository
 
-Static site served by GitHub Pages: plain HTML, CSS and JS, no framework. Everything is
-served from this repo (fonts and icons included), so each page carries a strict Content
-Security Policy that allows no third-party scripts or requests.
+Static site served by GitHub Pages: plain HTML, CSS and JS, no framework, no build step for the
+site itself. Everything is served from this repo, so each page carries a strict Content Security
+Policy that allows no third-party scripts or requests. Colours follow the system light or dark
+setting: light is the original #99CDEB to #FFB6D9 gradient, dark is the Bengimini blog palette.
 
 | Path | Purpose |
 |---|---|
-| `index.html` | Home: hero, B-Agent product switcher, approach, personal projects, contact |
+| `index.html` | Home: hero, projects with filters, client work, training, design and art, contact |
+| `bagent.html` | The nine B-Agent apps in a switcher |
 | `work/*.html` | One case study per B-Agent app (generated, see below) |
 | `uiux.html`, `art.html` | Design and art pages |
-| `assets/data.js` | Products and projects on the home page. Edit text here |
-| `assets/cases.json` | The longer case-study story per app: problem, approach, flow, hard problems, numbers |
-| `assets/site.css`, `site.js` | Shared theme (dark and light), nav, scroll reveal, image viewer |
-| `assets/home.js`, `uiux.js`, `art.js` | Page scripts |
-| `assets/theme.js`, `icons.js`, `fonts/` | Theme before first paint, icon sprite (Lucide, Simple Icons), self-hosted fonts (OFL) |
+| `assets/data.js` | All content: `PROJECTS`, `CLIENTS` (industry only, no client names), `TRAINING`, `BAGENT` |
+| `assets/cases.json` | The longer case-study story per B-Agent app |
+| `assets/site.css`, `site.js` | Shared theme, scroll reveal, image viewer |
+| `assets/home.js`, `bagent.js`, `uiux.js`, `art.js` | Page scripts |
+| `assets/theme.js`, `icons.js` | Reveal guard in `<head>`, icon sprite (Lucide, Simple Icons) |
 | `tools/build-work.mjs` | Writes `work/*.html` from `data.js` and `cases.json` |
-| `img/` | Screenshots (WebP), link-preview images (`og.png`, `og/<app>.png`) |
+| `img/` | Screenshots and covers (WebP), training photos, link previews (`og.png`, `og/<app>.png`) |
 | `404.html`, `sitemap.xml`, `robots.txt` | Not-found page and search-engine files |
-| `development.html` | Old URL, redirects to the home page |
 
 After editing `assets/data.js` or `assets/cases.json`, rebuild the case studies:
 
@@ -64,5 +65,9 @@ After editing `assets/data.js` or `assets/cases.json`, rebuild the case studies:
 node tools/build-work.mjs
 ```
 
-Screenshots of the B-Agent apps come from the live apps. People, companies and tenant
-figures in them were replaced with made-up ones before capture.
+A B-Agent app with `themed: true` in `data.js` has two captures per screen: `img/<shot>.webp`
+(light) and `img/<shot>-dark.webp` (dark), and the page picks the one matching the system theme.
+
+Screenshots of the B-Agent apps come from the live apps. People, companies and tenant figures in
+them were replaced with made-up ones before capture, and company names in the training photos
+are blurred.

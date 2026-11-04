@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'; frame-src 'none'" />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
+  <title>B-Agent – Bengisu Saraç</title>
+  <meta name="description" content="B-Agent: nine AI products Bengisu Saraç built end to end for UnifyTech, from legal research to sales coaching." />
+  <meta property="og:title" content="B-Agent: nine AI products by Bengisu Saraç" />
+  <meta property="og:image" content="https://beng262.github.io/img/og.png" />
+  <meta property="og:url" content="https://beng262.github.io/bagent.html" />
+  <link rel="canonical" href="https://beng262.github.io/bagent.html" />
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+  <script src="assets/theme.js"></script>
+  <link rel="stylesheet" href="assets/site.css" />
+  <style>
+    .intro { max-width: 720px; margin: 8px 0 28px; color: var(--ink); font-size: 17px; }
+    .switcher { display: grid; grid-template-columns: 270px 1fr; gap: 20px; align-items: start; }
+    .plist { padding: 8px; display: flex; flex-direction: column; gap: 4px; position: sticky; top: 16px; }
+    .pbtn { --c: #517df6; display: flex; align-items: center; gap: 12px; width: 100%; text-align: left; padding: 11px 12px; border-radius: 12px; border: 0; background: transparent; color: var(--ink); cursor: pointer; font: inherit; transition: background 0.2s; }
+    .pbtn:hover { background: var(--chip); }
+    .pbtn[aria-selected="true"] { background: var(--card-solid); box-shadow: inset 3px 0 0 var(--c), var(--shadow); }
+    .pbtn strong { display: block; font-size: 15px; }
+    .pbtn small { display: block; font-size: 12.5px; line-height: 1.35; color: var(--ink-3); margin-top: 1px; }
+    .bmark { width: 20px; height: 22px; flex: none; }
+    .pbtn .bmark path { fill: var(--c); }
+    .panel { --c: #517df6; padding: 16px; }
+    .browser { border-radius: 12px; overflow: hidden; border: 1px solid var(--card-line); background: #f1f3f8; }
+    @media (prefers-color-scheme: dark) { .browser { background: #16202b; } }
+    .browser .bar { display: flex; align-items: center; gap: 7px; padding: 9px 12px; background: var(--chip); }
+    .browser .bar i { width: 10px; height: 10px; border-radius: 50%; } .bar i:nth-child(1) { background: #ff5f57; } .bar i:nth-child(2) { background: #febc2e; } .bar i:nth-child(3) { background: #28c840; }
+    .url { margin: 0 auto; font-size: 12px; color: var(--ink-2); background: var(--card); border-radius: 8px; padding: 3px 12px; display: inline-flex; gap: 6px; align-items: center; }
+    .url .ic { width: 11px; height: 11px; color: #28a764; }
+    .viewport { position: relative; aspect-ratio: 16 / 10; cursor: zoom-in; overflow: hidden; }
+    .viewport picture, .viewport img { position: absolute; inset: 0; width: 100%; height: 100%; }
+    .viewport img { object-fit: cover; object-position: top; opacity: 0; transition: opacity 0.45s; }
+    .viewport .on img, .viewport img.on { opacity: 1; }
+    .thumbs { display: grid; grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); gap: 8px; margin-top: 10px; }
+    .thumb { padding: 0; border: 2px solid transparent; border-radius: 10px; overflow: hidden; background: var(--card-solid); cursor: pointer; text-align: left; color: var(--ink-2); font: inherit; }
+    .thumb img { width: 100%; aspect-ratio: 16 / 10; object-fit: cover; object-position: top; opacity: 0.6; }
+    .thumb span { display: block; font-size: 11.5px; padding: 5px 7px 6px; line-height: 1.3; }
+    .thumb.on { border-color: var(--c); color: var(--ink); } .thumb.on img, .thumb:hover img { opacity: 1; }
+    .pbody { padding: 16px 4px 4px; }
+    .ptitle { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 4px; }
+    .ptitle h2 { font-size: 26px; margin-right: auto; }
+    .ptitle h2 em { font-style: normal; color: var(--c); }
+    .ptag { color: var(--ink-2); margin: 0 0 16px; }
+    .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
+    .cols h3 { font-size: 13px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-3); margin-bottom: 8px; }
+    .cols ul { margin: 0; padding-left: 18px; display: grid; gap: 6px; color: var(--ink-2); font-size: 14.5px; }
+    .stack { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 16px; }
+    .note { font-size: 13px; color: var(--ink-2); margin: 16px 0 0; text-align: center; }
+    .more { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-top: 24px; }
+    .mini { padding: 16px; }
+    .mini h3 { font-size: 16px; margin: 10px 0 6px; }
+    .mini p { margin: 0; color: var(--ink-2); font-size: 14px; }
+    .mini .bmark path { fill: var(--c); }
+    @media (max-width: 960px) {
+      .switcher { grid-template-columns: 1fr; }
+      .plist { position: static; flex-direction: row; overflow-x: auto; }
+      .pbtn { flex: none; width: auto; } .pbtn small { display: none; }
+      .more { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 620px) { .cols, .more { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <script src="assets/icons.js"></script>
+  <main class="wrap">
+    <div class="top">
+      <h1 class="on-page">B-Agent</h1>
+      <a class="back" href="index.html#projects"><svg class="ic" aria-hidden="true"><use href="#i-left"></use></svg> Back</a>
+    </div>
+    <p class="intro">B-Agent is UnifyTech's family of AI agents for businesses. I built these nine apps end to end: the product, the AI, the data pipelines and the cloud. Pick one to see it, or open its case study for the full story.</p>
+    <div class="switcher">
+      <div class="plist card" id="plist" role="tablist" aria-label="B-Agent apps"></div>
+      <div class="panel card" id="panel" role="tabpanel"></div>
+    </div>
+    <p class="note">Screens are from the live apps, in Turkish. People, companies and tenant figures in them are replaced with made-up ones.</p>
+    <div class="more" id="more"></div>
+  </main>
+  <footer class="foot">© 2026 Bengisu Saraç · <a href="index.html">Back to home</a></footer>
+
+  <figure class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Screenshot viewer">
+    <div><img id="lbImg" alt="" /><figcaption id="lbCap"></figcaption></div>
+    <button class="prev" id="lbPrev" aria-label="Previous"><svg class="ic" aria-hidden="true"><use href="#i-left"></use></svg></button>
+    <button class="next" id="lbNext" aria-label="Next"><svg class="ic" aria-hidden="true"><use href="#i-right"></use></svg></button>
+    <button class="x" id="lbX" aria-label="Close"><svg class="ic" aria-hidden="true"><use href="#i-x"></use></svg></button>
+  </figure>
+
+  <script src="assets/data.js"></script>
+  <script src="assets/site.js"></script>
+  <script src="assets/bagent.js"></script>
+</body>
+</html>
