@@ -29,15 +29,9 @@
   .piece:hover { transform: translateY(-5px); box-shadow: var(--shadow-hover); }
   .piece[hidden] { display: none; }
   .shot { position: relative; display: block; width: 100%; padding: 0; border: 0; background: var(--card-solid); cursor: zoom-in; overflow: hidden; }
-  .shot img { width: 100%; height: auto; transition: transform 0.6s; }
+  .shot img { width: 100%; height: auto; display: block; transition: transform 0.6s; }
   .piece:hover .shot img { transform: scale(1.03); }
   .count { position: absolute; top: 12px; right: 12px; display: inline-flex; align-items: center; gap: 6px; padding: 5px 10px; border-radius: 999px; font: bold 12px var(--font); color: #fff; background: rgba(16, 20, 44, 0.55); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); }
-  .piece figcaption { padding: 14px 16px 16px; display: grid; gap: 3px; }
-  .piece b { font-size: 17px; color: var(--ink); }
-  .piece .kind { font-size: 13px; color: var(--ink-3); }
-  .piece .note { font-size: 14.5px; color: var(--ink-2); margin-top: 4px; }
-  .piece a { justify-self: start; display: inline-flex; align-items: center; gap: 6px; margin-top: 8px; font-size: 13.5px; font-weight: bold; color: var(--accent); text-decoration: none; }
-  .piece a:hover { text-decoration: underline; }
 </style>
 </head>
 <body>
