@@ -61,6 +61,7 @@
       <article class="client card reveal">
         <div class="ind"><i></i>${esc(c.industry)}</div>
         <h3>${esc(c.title)}</h3>
+        ${c.live ? `<span class="live"><i></i>${esc(c.live)}</span>` : ""}
         <p>${esc(c.text)}</p>
         <div class="tags">${c.stack.map((t) => `<span class="tag">${esc(t)}</span>`).join("")}</div>
       </article>`).join("");

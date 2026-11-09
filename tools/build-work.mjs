@@ -51,6 +51,8 @@ apps.forEach((p, i) => {
   <meta name="twitter:card" content="summary_large_image" />
   <link rel="canonical" href="https://beng262.github.io/work/${p.id}.html" />
   <link rel="icon" href="../favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="../favicon-32.png" type="image/png" sizes="32x32" />
+  <link rel="apple-touch-icon" href="../apple-touch-icon.png" />
   <script src="../assets/theme.js"></script>
   <link rel="stylesheet" href="../assets/site.css" />
   <link rel="stylesheet" href="../assets/work.css" />
@@ -115,7 +117,7 @@ apps.forEach((p, i) => {
     </nav>
   </main>
 
-  <footer class="foot">Screens are from the live app; people, companies and tenant figures are replaced with made-up ones.<br />© 2026 Bengisu Saraç · <a href="../index.html">Back to home</a></footer>
+  <footer class="foot">Screens are from the live app.<br />© 2026 Bengisu Saraç · <a href="../index.html">Back to home</a></footer>
 
   <figure class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Screenshot viewer">
     <div><img id="lbImg" alt="" /><figcaption id="lbCap"></figcaption></div>

@@ -17,6 +17,8 @@
   <meta name="theme-color" content="#0f1116" media="(prefers-color-scheme: dark)" />
   <link rel="canonical" href="https://beng262.github.io/" />
   <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="favicon-32.png" type="image/png" sizes="32x32" />
+  <link rel="apple-touch-icon" href="apple-touch-icon.png" />
   <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Person", "name": "Bengisu Saraç", "url": "https://beng262.github.io/", "image": "https://beng262.github.io/img/profile.jpg", "jobTitle": "Computer Scientist", "email": "mailto:bengsrc@gmail.com", "sameAs": ["https://github.com/beng262", "https://linkedin.com/in/bengisarac14697", "https://bengisrc.artstation.com"], "knowsAbout": ["Retrieval-augmented generation", "AI agents", "Microsoft Azure", "Computer vision", "Godot", "UI design"], "hasCredential": [{"@type": "EducationalOccupationalCredential", "name": "Microsoft Certified Trainer"}, {"@type": "EducationalOccupationalCredential", "name": "Microsoft Certified: Azure Solutions Architect Expert"}]}</script>
   <script src="assets/theme.js"></script>
   <link rel="stylesheet" href="assets/site.css" />
@@ -32,8 +34,9 @@
     .icons a:hover { transform: translateY(-5px); }
     .hero .row { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
     .jump { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; margin-top: 28px; }
-    .jump a { text-decoration: none; color: var(--ink); background: var(--chip); border: 1px solid var(--card-line); padding: 7px 16px; border-radius: 999px; font-size: 14px; transition: background 0.2s, transform 0.2s; }
-    .jump a:hover { background: var(--card); transform: translateY(-2px); }
+    .jump a { text-decoration: none; color: #fff; background: rgba(255, 255, 255, 0.2); border: 1px solid rgba(255, 255, 255, 0.7); padding: 7px 16px; border-radius: 999px; font-size: 14px; font-weight: bold; text-shadow: 0 1px 2px rgba(38, 50, 74, 0.3); transition: background 0.2s, transform 0.2s; }
+    .jump a:hover { background: rgba(255, 255, 255, 0.32); transform: translateY(-2px); }
+    @media (prefers-color-scheme: dark) { .jump a { background: rgba(255, 255, 255, 0.06); border-color: rgba(255, 255, 255, 0.3); text-shadow: none; } .jump a:hover { background: rgba(174, 188, 242, 0.16); } }
 
     /* Highlights: one soft strip, an icon bubble per item in the palette's four tints */
     .facts { display: grid; grid-template-columns: repeat(4, 1fr); margin-top: 40px; padding: 8px; text-align: left; }
@@ -66,6 +69,9 @@
     .client h3 { font-size: 17px; margin-bottom: 6px; }
     .client p { font-size: 14px; color: var(--ink-2); margin: 0 0 10px; }
     .client .tags { display: flex; gap: 6px; flex-wrap: wrap; }
+    .client .live { display: inline-flex; align-items: center; gap: 7px; margin: 0 0 8px; padding: 4px 10px; border-radius: 999px; font-size: 12.5px; font-weight: bold; color: #16794a; background: rgba(40, 167, 100, 0.12); border: 1px solid rgba(40, 167, 100, 0.3); }
+    .client .live i { width: 7px; height: 7px; border-radius: 50%; background: #28a764; box-shadow: 0 0 0 3px rgba(40, 167, 100, 0.2); }
+    @media (prefers-color-scheme: dark) { .client .live { color: #7fe0ad; background: rgba(40, 167, 100, 0.14); border-color: rgba(127, 224, 173, 0.3); } }
 
     /* Training */
     .train { display: grid; grid-template-columns: 1.25fr 0.8fr 1fr; gap: 16px; align-items: stretch; }
@@ -117,9 +123,8 @@
     .modal-inner .meta { color: var(--ink-3); font-size: 14px; margin-bottom: 12px; }
     .modal-inner ul { margin: 0 0 14px; padding-left: 20px; color: var(--ink-2); display: grid; gap: 6px; }
     .modal-inner .tags, .modal-inner .links { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px; align-items: center; }
-    .modal-inner .links .btn { color: var(--ink); border-color: var(--ink-3); }
-    .modal-inner .links .btn.solid { background: var(--accent); border-color: var(--accent); color: #fff; }
-    .modal-inner .links .btn.solid { color: var(--on-accent); }
+    .modal-inner .links .btn { color: #fff; background: var(--btn-soft); border-color: transparent; text-shadow: none; }
+    .modal-inner .links .btn.solid { background: var(--btn-main); }
     .modal-inner .gal { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px; }
     .modal-inner .gal img { height: 84px; width: auto; border-radius: 10px; cursor: zoom-in; box-shadow: var(--shadow); }
     .modal-inner .note { font-size: 13px; color: var(--ink-3); }
@@ -192,7 +197,7 @@
     <section class="section wrap" id="clients">
       <div class="section-head reveal">
         <h2>Client work</h2>
-        <p>Projects I delivered or designed for companies across many industries. Client names stay private.</p>
+        <p>Projects I delivered or designed for companies across many industries.</p>
       </div>
       <div class="cgrid" id="cgrid"></div>
     </section>
@@ -200,7 +205,7 @@
     <section class="section wrap" id="training">
       <div class="section-head reveal">
         <h2>Training</h2>
-        <p>I teach as well as build. Company names are hidden.</p>
+        <p>I teach as well as build.</p>
       </div>
       <div class="train">
         <figure class="reveal"><img src="img/training/session-1.webp" alt="Bengisu teaching a What is AI? session in a meeting room" loading="lazy" width="1600" height="1200" data-zoom="A What is AI? session for a corporate team" data-group="training" /></figure>
