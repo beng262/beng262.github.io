@@ -252,7 +252,7 @@ window.PROJECTS = [
     line: "A habit tracker where finishing your daily goals keeps a pet axolotl growing.",
     points: ["Daily goals, a mood diary, a calendar and colour themes.", "Flutter app with Firebase sign-in and cloud sync.", "All the art is drawn by me."],
     tags: ["Flutter", "Dart", "Firebase", "Illustration"],
-    links: [["GitHub", "https://github.com/beng262/WellnessMate"]], gallery: ["personal/wellness-screens", "art/axolotls"],
+    links: [["GitHub", "https://github.com/beng262/WellnessMate"]], gallery: ["personal/wellness-screens", "personal/wellness-axolotls"],
   },
   {
     id: "loudtown", name: "Loud Town", cat: "Games", img: "personal/loudtown", kind: "Flutter · graduation project",

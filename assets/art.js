@@ -1,4 +1,4 @@
-// art.html: the gallery. Pieces come from my ArtStation (bengisrc) plus game art from WellnessMate.
+// art.html: the gallery. Pieces come from my ArtStation (bengisrc).
 // imgs: files in img/art/ (full size) and img/art/t/ (thumbnail). The first one is the cover.
 (() => {
   const AS = "https://www.artstation.com/artwork/";
@@ -13,10 +13,8 @@
     { title: "Digital Eye", cat: "Painting", kind: "Digital painting · MediBang Paint", note: "My second digital drawing, at fifteen.", imgs: ["eye-1"], link: AS + "Rn81KD" },
     { title: "Some Kind of Kitty", cat: "Painting", kind: "Digital painting · MediBang Paint", note: "My very first digital piece, at fourteen, on a tablet bought with my savings.", imgs: ["kitty-1"], link: AS + "LeoLYl" },
     { title: "Cute Bunny", cat: "Painting", kind: "Digital painting", note: "A short, happy one.", imgs: ["bunny-1"], link: AS + "ZeyKkN" },
-    { title: "Axolotl growth stages", cat: "Game art", kind: "Game art · WellnessMate", note: "The pet grows up as you finish your daily goals.", imgs: ["axolotls"] },
-    { title: "WellnessMate logo", cat: "Game art", kind: "Game art · logo", note: "The logo for my wellness pet game.", imgs: ["wellness-logo"] },
   ];
-  const CATS = ["All", "Painting", "Illustration", "3D", "Game art"];
+  const CATS = ["All", "Painting", "Illustration", "3D"];
 
   const grid = document.getElementById("gallery");
   const bar = document.getElementById("cats");
