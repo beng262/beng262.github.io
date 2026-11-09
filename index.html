@@ -14,7 +14,7 @@
   <meta property="og:type" content="website" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="theme-color" content="#99cdeb" media="(prefers-color-scheme: light)" />
-  <meta name="theme-color" content="#1a252f" media="(prefers-color-scheme: dark)" />
+  <meta name="theme-color" content="#0e1530" media="(prefers-color-scheme: dark)" />
   <link rel="canonical" href="https://beng262.github.io/" />
   <link rel="icon" href="favicon.svg" type="image/svg+xml" />
   <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Person", "name": "Bengisu Saraç", "url": "https://beng262.github.io/", "image": "https://beng262.github.io/img/profile.jpg", "jobTitle": "Computer Scientist", "email": "mailto:bengsrc@gmail.com", "sameAs": ["https://github.com/beng262", "https://linkedin.com/in/bengisarac14697", "https://bengisrc.artstation.com"], "knowsAbout": ["Retrieval-augmented generation", "AI agents", "Microsoft Azure", "Computer vision", "Godot", "UI design"], "hasCredential": [{"@type": "EducationalOccupationalCredential", "name": "Microsoft Certified Trainer"}, {"@type": "EducationalOccupationalCredential", "name": "Microsoft Certified: Azure Solutions Architect Expert"}]}</script>
@@ -46,11 +46,6 @@
     .fact:nth-child(1) { --tint: #7fb6e6; } .fact:nth-child(2) { --tint: #f391b5; } .fact:nth-child(3) { --tint: #a995ea; } .fact:nth-child(4) { --tint: #6fc7c9; }
 
     /* Projects */
-    .filters { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; margin-bottom: 26px; }
-    .filters button { font: bold 14px var(--font); color: #fff; background: transparent; border: 2px solid #fff; border-radius: 25px; padding: 8px 18px; cursor: pointer; transition: background 0.2s, color 0.2s, transform 0.2s; }
-    .filters button:hover { transform: translateY(-2px); }
-    .filters button[aria-pressed="true"] { background: #fff; color: var(--ink); }
-    @media (prefers-color-scheme: dark) { .filters button[aria-pressed="true"] { color: #1a252f; } }
     .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
     .proj { overflow: hidden; display: flex; flex-direction: column; cursor: pointer; text-align: left; padding: 0; font: inherit; color: inherit; }
     .proj .thumb { aspect-ratio: 16 / 10; overflow: hidden; background: rgba(255, 255, 255, 0.4); }
@@ -82,18 +77,28 @@
     .train ul { margin: 4px 0 0; padding-left: 18px; color: var(--ink-2); font-size: 14.5px; display: grid; gap: 4px; }
 
     /* Design and art: big picture cards with the chosen images */
-    .crafts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
-    .craft { position: relative; min-height: 300px; border-radius: var(--radius); overflow: hidden; text-decoration: none; display: flex; align-items: flex-end; background: #1f2a36; box-shadow: var(--shadow); border: 1px solid var(--card-line); transition: transform 0.3s, box-shadow 0.3s; }
+    /* Design & Art: a big art card made of the paintings, then UI/UX and Figma */
+    .crafts { display: grid; grid-template-columns: 1.35fr 1fr; grid-template-rows: repeat(2, minmax(260px, auto)); gap: 20px; }
+    .craft { position: relative; min-height: 260px; border-radius: var(--radius); overflow: hidden; text-decoration: none; display: flex; align-items: flex-end; background: var(--card-solid); box-shadow: var(--shadow); border: 1px solid var(--card-line); transition: transform 0.3s, box-shadow 0.3s; isolation: isolate; }
+    .craft.big { grid-row: span 2; }
     .craft:hover { transform: translateY(-6px); box-shadow: var(--shadow-hover); }
-    .craft > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 0.7s; }
-    .craft:hover > img { transform: scale(1.06); }
-    .craft::before { content: ""; position: absolute; inset: 0; z-index: 1; background: linear-gradient(180deg, transparent 40%, rgba(38, 50, 74, 0.85)); }
-    .craft .txt { position: relative; z-index: 2; padding: 22px; }
-    .craft h3 { font-size: 24px; margin: 0 0 6px; color: #fff; }
-    .craft p { margin: 0; color: rgba(255, 255, 255, 0.85); font-size: 14px; }
-    .craft .arrow { color: #fff; position: absolute; top: 16px; right: 16px; z-index: 2; width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center; background: rgba(255, 255, 255, 0.2); backdrop-filter: blur(8px); transition: transform 0.3s; }
-    .craft:hover .arrow { transform: rotate(-45deg); }
-    .craft .figma { position: absolute; inset: 0; display: grid; place-items: center; color: #fff; background: radial-gradient(circle at 30% 20%, #a259ff66, transparent 55%), radial-gradient(circle at 75% 70%, #ff726266, transparent 50%), #1f2a36; }
+    .craft > img, .craft .mosaic { position: absolute; inset: 0; width: 100%; height: 100%; }
+    .craft > img { object-fit: cover; transition: transform 0.7s; }
+    .craft:hover > img { transform: scale(1.05); }
+    .craft::before { content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none; background: linear-gradient(180deg, transparent 48%, rgba(14, 19, 46, 0.55) 70%, rgba(14, 19, 46, 0.9)); }
+    .craft .txt { position: relative; z-index: 2; padding: 22px 24px; }
+    .craft h3 { font-size: 26px; margin: 0 0 6px; color: #fff; }
+    .craft p { margin: 0; color: rgba(255, 255, 255, 0.88); font-size: 14.5px; }
+    .craft .arrow { color: #fff; position: absolute; top: 16px; right: 16px; z-index: 2; width: 42px; height: 42px; border-radius: 50%; display: grid; place-items: center; background: rgba(14, 19, 46, 0.42); border: 1px solid rgba(255, 255, 255, 0.45); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); transition: transform 0.3s, background 0.3s; }
+    .craft:hover .arrow { transform: rotate(-45deg); background: rgba(14, 19, 46, 0.6); }
+    .mosaic { display: grid; grid-template-columns: 1.15fr 1fr 1fr; grid-template-rows: 1.25fr 1fr; gap: 3px; background: rgba(14, 19, 46, 0.9); }
+    .mosaic img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.7s; }
+    .mosaic img:first-child { grid-column: span 2; }
+    .craft:hover .mosaic img { transform: scale(1.04); }
+    .craft.ui .txt { max-width: 52%; }
+    .craft .figma { position: absolute; inset: 0; display: grid; place-items: center; color: #fff; background: radial-gradient(circle at 28% 22%, #a259ff88, transparent 55%), radial-gradient(circle at 78% 72%, #ff7262aa, transparent 52%), radial-gradient(circle at 70% 18%, #1abcfe66, transparent 45%), #241d4f; }
+    .craft .figma .ic { width: 88px; height: 88px; opacity: 0.92; margin-bottom: 40px; transition: transform 0.6s; }
+    .craft:hover .figma .ic { transform: scale(1.08) rotate(-4deg); }
 
     .contact { text-align: center; padding: 40px 24px; }
     .contact h2 { font-size: 1.8em; margin-bottom: 10px; }
@@ -114,14 +119,16 @@
     .modal-inner .tags, .modal-inner .links { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px; align-items: center; }
     .modal-inner .links .btn { color: var(--ink); border-color: var(--ink-3); }
     .modal-inner .links .btn.solid { background: var(--accent); border-color: var(--accent); color: #fff; }
-    @media (prefers-color-scheme: dark) { .modal-inner .links .btn.solid { color: #1a252f; } }
+    .modal-inner .links .btn.solid { color: var(--on-accent); }
     .modal-inner .gal { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px; }
     .modal-inner .gal img { height: 84px; width: auto; border-radius: 10px; cursor: zoom-in; box-shadow: var(--shadow); }
     .modal-inner .note { font-size: 13px; color: var(--ink-3); }
     .close { position: absolute; top: 12px; right: 12px; width: 38px; height: 38px; border-radius: 50%; border: 0; background: rgba(255, 255, 255, 0.9); color: #26324a; cursor: pointer; display: grid; place-items: center; box-shadow: var(--shadow); z-index: 2; }
 
     @media (max-width: 960px) {
-      .grid, .cgrid, .crafts { grid-template-columns: repeat(2, 1fr); }
+      .grid, .cgrid { grid-template-columns: repeat(2, 1fr); }
+      .crafts { grid-template-columns: 1fr 1fr; grid-template-rows: auto; }
+      .craft.big { grid-column: 1 / -1; grid-row: auto; min-height: 420px; }
       .facts { grid-template-columns: repeat(2, 1fr); }
       .fact:nth-child(3) { border-left: 0; }
       .fact:nth-child(n+3) { border-top: 1px solid var(--card-line); }
@@ -132,6 +139,7 @@
       .hero h1 { font-size: 2.1em; }
       .grid, .cgrid, .crafts, .train { grid-template-columns: 1fr; }
       .craft { min-height: 240px; }
+      .craft.big { min-height: 380px; }
       .facts { grid-template-columns: 1fr; }
       .fact + .fact { border-left: 0; border-top: 1px solid var(--card-line); }
     }
@@ -207,12 +215,22 @@
     <section class="section wrap" id="craft">
       <div class="section-head reveal">
         <h2>Design &amp; Art</h2>
-        <p>Illustration and interface design shape how everything I build looks and feels.</p>
+        <p>I paint, illustrate and design interfaces. It shapes how everything I build looks and feels.</p>
       </div>
       <div class="crafts">
-        <a class="craft reveal" href="uiux.html"><img src="img/personal/wellness-screens.webp" alt="" loading="lazy" /><span class="arrow"><svg class="ic" aria-hidden="true"><use href="#i-right"></use></svg></span><div class="txt"><h3>UI / UX</h3><p>App concepts and screens, from wireframe to polish.</p></div></a>
-        <a class="craft reveal" href="art.html"><img src="img/personal/wellness-axolotls.webp" alt="" loading="lazy" style="object-fit:contain;background:#f5f5f5" /><span class="arrow"><svg class="ic" aria-hidden="true"><use href="#i-right"></use></svg></span><div class="txt"><h3>Art</h3><p>Illustration, characters and 3D.</p></div></a>
-        <a class="craft reveal" href="https://www.figma.com/design/cfYIqVr6bICi37Y1FilpQa/Figma-Portfolio?node-id=0-1&amp;t=ScNDVolUz8QFxUXT-1" target="_blank" rel="noopener"><div class="figma"><svg class="ic" aria-hidden="true" style="width:96px;height:96px;opacity:.9"><use href="#i-figma"></use></svg></div><span class="arrow"><svg class="ic" aria-hidden="true"><use href="#i-right"></use></svg></span><div class="txt"><h3>Figma portfolio</h3><p>The full design file, open to browse.</p></div></a>
+        <a class="craft big reveal" href="art.html">
+          <div class="mosaic" aria-hidden="true">
+            <img src="img/art/t/scarlet-1.webp" alt="" loading="lazy" style="object-position:72% 30%" />
+            <img src="img/art/t/miraak-1.webp" alt="" loading="lazy" style="object-position:50% 20%" />
+            <img src="img/art/t/arcane-1.webp" alt="" loading="lazy" style="object-position:42% 30%" />
+            <img src="img/art/t/sonic-1.webp" alt="" loading="lazy" />
+            <img src="img/art/t/fall-1.webp" alt="" loading="lazy" style="object-position:50% 35%" />
+          </div>
+          <span class="arrow"><svg class="ic" aria-hidden="true"><use href="#i-right"></use></svg></span>
+          <div class="txt"><h3>Art</h3><p>Digital paintings, illustration, 3D and game art. 12 pieces.</p></div>
+        </a>
+        <a class="craft ui reveal" href="uiux.html"><img src="img/uiux/wellness-cover.webp" alt="" loading="lazy" style="object-position:right top" /><span class="arrow"><svg class="ic" aria-hidden="true"><use href="#i-right"></use></svg></span><div class="txt"><h3>UI / UX</h3><p>App concepts and screens, from wireframe to polish.</p></div></a>
+        <a class="craft reveal" href="https://www.figma.com/design/cfYIqVr6bICi37Y1FilpQa/Figma-Portfolio?node-id=0-1&amp;t=ScNDVolUz8QFxUXT-1" target="_blank" rel="noopener"><div class="figma"><svg class="ic" aria-hidden="true"><use href="#i-figma"></use></svg></div><span class="arrow"><svg class="ic" aria-hidden="true"><use href="#i-right"></use></svg></span><div class="txt"><h3>Figma portfolio</h3><p>The full design file, open to browse.</p></div></a>
       </div>
     </section>
 

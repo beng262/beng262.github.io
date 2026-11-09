@@ -6,139 +6,68 @@
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'; frame-src 'none'" />
 <meta name="referrer" content="strict-origin-when-cross-origin" />
 <script src="assets/theme.js"></script>
-
 <title>Art – Bengisu Saraç</title>
+<meta name="description" content="Digital paintings, illustration, 3D and game art by Bengisu Saraç." />
+<meta property="og:title" content="Art – Bengisu Saraç" />
+<meta property="og:image" content="https://beng262.github.io/img/art/scarlet-1.webp" />
+<meta name="theme-color" content="#99cdeb" media="(prefers-color-scheme: light)" />
+<meta name="theme-color" content="#0e1530" media="(prefers-color-scheme: dark)" />
 <link rel="icon" href="favicon.svg" type="image/svg+xml" />
 <link rel="stylesheet" href="assets/site.css" />
 <style>
-  :root{
-    --gradient: linear-gradient(135deg,#99CDEB,#FFB6D9);
-    --card-bg: rgba(255,255,255,0.04);
-    --muted: rgba(255,255,255,0.9);
-    --btn-hover: rgba(255,255,255,0.12);
-  }
-  html, body { height: 100%; }
-  *{box-sizing:border-box}
-  body{
-    margin:0;
-    font-family:Arial,Helvetica,sans-serif;
-    background:var(--gradient);
-    background-size: cover;
-    color:white;
-    padding:22px;
-    min-height:100vh;
-  }
-  .top{
-    display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;
-  }
-  h1{margin:0}
-  .back{
-    color:white;
-    text-decoration:none;
-    padding:8px 12px;
-    border-radius:8px;
-    transition:background 0.22s ease, transform 0.12s ease;
-    display:inline-flex;
-    align-items:center;
-    gap:8px;
-  }
-  .back:hover{
-    background:var(--btn-hover);
-    transform:translateY(-2px);
-  }
-  .intro{
-    margin-top:14px;
-    max-width:680px;
-    line-height:1.6;
-    color:var(--muted);
-  }
-  .cta-row{
-    margin-top:18px;
-    display:flex;
-    gap:12px;
-    flex-wrap:wrap;
-  }
-  .cta{
-    background:rgba(255,255,255,0.08);
-    border:2px solid rgba(255,255,255,0.16);
-    color:white;
-    text-decoration:none;
-    padding:12px 20px;
-    border-radius:25px;
-    font-weight:700;
-    display:inline-flex;
-    align-items:center;
-    gap:10px;
-    transition:transform .2s, box-shadow .2s;
-  }
-  .cta:hover{transform:translateY(-3px); box-shadow:0 10px 30px rgba(0,0,0,0.18)}
+  .art-hero { padding: 6px 0 26px; max-width: 720px; }
+  .art-hero h1 { font-size: clamp(34px, 5vw, 48px); color: var(--head); text-shadow: var(--head-shadow); margin: 6px 0 12px; }
+  .art-hero p { font-size: 17px; margin: 0 0 20px; color: var(--ink); }
+  .art-hero .row { display: flex; gap: 12px; flex-wrap: wrap; }
+  .filters { justify-content: flex-start; }
 
-  .grid{
-    margin-top:26px;
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
-    gap:16px;
-  }
-  .card{
-    background:var(--card-bg);
-    border-radius:10px;
-    overflow:hidden;
-    border:1px solid rgba(255,255,255,0.06);
-    transition:transform .15s, box-shadow .15s;
-    display:flex;
-    flex-direction:column;
-  }
-  .card:hover{transform:translateY(-6px); box-shadow:0 10px 30px rgba(0,0,0,0.2)}
-  .thumb{width:100%;height:200px;display:block;background:rgba(255,255,255,0.03)}
-  .thumb img{width:100%;height:100%;object-fit:contain;display:block;background:#f5f5f5}
-  .card-body{padding:12px;text-align:left}
-  .title{font-weight:700;margin-bottom:4px}
-  .meta{font-size:13px;color:var(--muted)}
-
-  /* Shared theme (assets/site.css) owns the background and dark mode */
-  body{background:transparent!important;padding:0!important;color:var(--ink)}
-  main.sub{padding:22px 0 40px}
-  .top h1{color:var(--head);text-shadow:var(--head-shadow)}
-  .intro{color:var(--ink)!important;font-size:17px}
-  .cta{color:#fff!important;border-color:#fff!important;background:transparent!important}
-  .card{background:var(--card)!important;border:1px solid var(--card-line)!important;border-radius:16px!important;box-shadow:var(--shadow);color:var(--ink)!important}
-  .meta{color:var(--ink-3)!important}
+  /* Masonry: pieces keep their own shape */
+  .gallery { columns: 3 300px; column-gap: 20px; }
+  .piece { break-inside: avoid; margin: 0 0 20px; overflow: hidden; border-radius: var(--radius); background: var(--card); border: 1px solid var(--card-line); box-shadow: var(--shadow); transition: transform 0.3s, box-shadow 0.3s; }
+  .piece:hover { transform: translateY(-5px); box-shadow: var(--shadow-hover); }
+  .piece[hidden] { display: none; }
+  .shot { position: relative; display: block; width: 100%; padding: 0; border: 0; background: var(--card-solid); cursor: zoom-in; overflow: hidden; }
+  .shot img { width: 100%; height: auto; transition: transform 0.6s; }
+  .piece:hover .shot img { transform: scale(1.03); }
+  .count { position: absolute; top: 12px; right: 12px; display: inline-flex; align-items: center; gap: 6px; padding: 5px 10px; border-radius: 999px; font: bold 12px var(--font); color: #fff; background: rgba(16, 20, 44, 0.55); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); }
+  .piece figcaption { padding: 14px 16px 16px; display: grid; gap: 3px; }
+  .piece b { font-size: 17px; color: var(--ink); }
+  .piece .kind { font-size: 13px; color: var(--ink-3); }
+  .piece .note { font-size: 14.5px; color: var(--ink-2); margin-top: 4px; }
+  .piece a { justify-self: start; display: inline-flex; align-items: center; gap: 6px; margin-top: 8px; font-size: 13.5px; font-weight: bold; color: var(--accent); text-decoration: none; }
+  .piece a:hover { text-decoration: underline; }
 </style>
 </head>
 <body>
   <script src="assets/icons.js"></script>
-  <main class="wrap sub">
-
-
-  <div class="top">
-    <h1>Art</h1>
-    <div>
-      <a class="back" href="index.html" aria-label="Back to home"><svg class="ic" aria-hidden="true"><use href="#i-left"></use></svg> Back</a>
+  <main class="wrap">
+    <div class="top">
+      <a class="back" href="index.html#craft"><svg class="ic" aria-hidden="true"><use href="#i-left"></use></svg> Back</a>
     </div>
-  </div>
 
-  <p class="intro">
-    Illustration, 2D and 3D work. I draw and model outside of engineering, and it feeds
-    directly into how I approach interface and product design. The full, regularly updated
-    gallery lives on ArtStation.
-  </p>
+    <header class="art-hero">
+      <h1>Art</h1>
+      <p>I've drawn since I was a kid and painted digitally since fourteen, on a tablet I bought with my savings. Portraits and characters are my favourite; I also make illustration, 3D and the art for my own games.</p>
+      <div class="row">
+        <a class="btn solid" href="https://bengisrc.artstation.com" target="_blank" rel="noopener"><svg class="ic" aria-hidden="true"><use href="#i-artstation"></use></svg> ArtStation</a>
+        <a class="btn" href="uiux.html"><svg class="ic" aria-hidden="true"><use href="#i-layers"></use></svg> UI / UX work</a>
+      </div>
+    </header>
 
-  <div class="cta-row">
-    <a class="cta" href="https://bengisrc.artstation.com" target="_blank" rel="noopener">
-      <svg class="ic" aria-hidden="true"><use href="#i-artstation"></use></svg> View full portfolio on ArtStation
-    </a>
-    <a class="cta" href="uiux.html">
-      <svg class="ic" aria-hidden="true"><use href="#i-layers"></use></svg> See UI / UX work
-    </a>
-  </div>
-
-  <!-- Add a piece: drop the image into img/ and add a line to the pieces list below. -->
-  <div class="grid" id="grid"></div>
-
-<script src="assets/site.js"></script>
-<script src="assets/art.js"></script>
-
+    <div class="filters" id="cats" role="group" aria-label="Filter by kind"></div>
+    <div class="gallery" id="gallery"></div>
   </main>
+
   <footer class="foot">© 2026 Bengisu Saraç · <a href="index.html">Back to home</a></footer>
+
+  <figure class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Image viewer">
+    <div><img id="lbImg" alt="" /><figcaption id="lbCap"></figcaption></div>
+    <button class="prev" id="lbPrev" aria-label="Previous"><svg class="ic" aria-hidden="true"><use href="#i-left"></use></svg></button>
+    <button class="next" id="lbNext" aria-label="Next"><svg class="ic" aria-hidden="true"><use href="#i-right"></use></svg></button>
+    <button class="x" id="lbX" aria-label="Close"><svg class="ic" aria-hidden="true"><use href="#i-x"></use></svg></button>
+  </figure>
+
+  <script src="assets/site.js"></script>
+  <script src="assets/art.js"></script>
 </body>
 </html>

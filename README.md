@@ -42,7 +42,8 @@ Live site: **[beng262.github.io](https://beng262.github.io)**
 Static site served by GitHub Pages: plain HTML, CSS and JS, no framework, no build step for the
 site itself. Everything is served from this repo, so each page carries a strict Content Security
 Policy that allows no third-party scripts or requests. Colours follow the system light or dark
-setting: light is the original #99CDEB to #FFB6D9 gradient, dark is the Bengimini blog palette.
+setting: light is the original #99CDEB to #FFB6D9 gradient, dark is the same sky at night
+(deep indigo to plum, a few stars, sky blue and pink kept as glows and accents).
 
 | Path | Purpose |
 |---|---|
@@ -57,6 +58,7 @@ setting: light is the original #99CDEB to #FFB6D9 gradient, dark is the Bengimin
 | `assets/theme.js`, `icons.js` | Reveal guard in `<head>`, icon sprite (Lucide, Simple Icons) |
 | `tools/build-work.mjs` | Writes `work/*.html` from `data.js` and `cases.json` |
 | `img/` | Screenshots and covers (WebP), training photos, link previews (`og.png`, `og/<app>.png`) |
+| `img/art/` | Paintings from my ArtStation: full size, plus `t/` thumbnails; the list lives in `assets/art.js` |
 | `404.html`, `sitemap.xml`, `robots.txt` | Not-found page and search-engine files |
 
 After editing `assets/data.js` or `assets/cases.json`, rebuild the case studies:

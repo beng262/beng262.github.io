@@ -1,11 +1,14 @@
 /* Shared look for every page.
    Light: the original portfolio gradient (#99CDEB to #FFB6D9) with white headings.
-   Dark (system setting): the Bengimini blog's dark gradient (#1a252f to #34495e).
+   Dark (system setting): the same sky at night. Deep indigo to plum, a few stars,
+   and the day colours (sky blue, pink) kept as soft glows and accents.
    Font: Arial, as on the original site. */
 :root {
   --g1: #99cdeb;
   --g2: #ffb6d9;
   --page: linear-gradient(135deg, var(--g1), var(--g2));
+  --stars: none;
+  --on-accent: #ffffff;
   --head: #ffffff;
   --head-shadow: 0 2px 14px rgba(38, 50, 74, 0.18);
   --ink: #26324a;
@@ -26,20 +29,27 @@
 }
 @media (prefers-color-scheme: dark) {
   :root {
-    --page: linear-gradient(135deg, #1a252f, #34495e);
+    --g1: #0e1530;
+    --night: #0e1530;
+    --page:
+      radial-gradient(70vmax 50vmax at 8% -6%, rgba(153, 205, 235, 0.16), transparent 62%),
+      radial-gradient(60vmax 50vmax at 100% 104%, rgba(255, 182, 217, 0.15), transparent 60%),
+      linear-gradient(160deg, #0e1530 0%, #18204a 48%, #2e2250 100%);
+    --stars: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='460' height='460'%3E%3Cg fill='%23fff'%3E%3Ccircle cx='31' cy='42' r='1.1' opacity='.75'/%3E%3Ccircle cx='118' cy='160' r='.7' opacity='.5'/%3E%3Ccircle cx='212' cy='64' r='1.4' opacity='.85'/%3E%3Ccircle cx='301' cy='211' r='.8' opacity='.45'/%3E%3Ccircle cx='402' cy='92' r='1' opacity='.65'/%3E%3Ccircle cx='66' cy='300' r='.9' opacity='.55'/%3E%3Ccircle cx='170' cy='392' r='1.2' opacity='.7'/%3E%3Ccircle cx='262' cy='330' r='.6' opacity='.4'/%3E%3Ccircle cx='366' cy='402' r='1.1' opacity='.6'/%3E%3Ccircle cx='440' cy='268' r='.7' opacity='.45'/%3E%3Ccircle cx='12' cy='190' r='.6' opacity='.35'/%3E%3Ccircle cx='330' cy='20' r='.7' opacity='.4'/%3E%3C/g%3E%3C/svg%3E");
     --head: #ffffff;
-    --head-shadow: none;
-    --ink: #eef2f8;
-    --ink-2: #c7cfdc;
-    --ink-3: #97a2b6;
-    --card: rgba(31, 42, 54, 0.78);
-    --card-solid: #1f2a36;
-    --card-line: rgba(255, 255, 255, 0.08);
-    --chip: rgba(255, 255, 255, 0.08);
+    --head-shadow: 0 0 26px rgba(153, 205, 235, 0.28);
+    --ink: #eef0fb;
+    --ink-2: #c5c9e6;
+    --ink-3: #959cc4;
+    --card: rgba(30, 37, 82, 0.6);
+    --card-solid: #1b2150;
+    --card-line: rgba(176, 196, 255, 0.15);
+    --chip: rgba(153, 205, 235, 0.12);
     --accent: #99cdeb;
     --accent-2: #ffb6d9;
-    --shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
-    --shadow-hover: 0 16px 40px rgba(0, 0, 0, 0.35);
+    --on-accent: #0e1530;
+    --shadow: 0 12px 34px rgba(3, 5, 22, 0.45);
+    --shadow-hover: 0 18px 46px rgba(3, 5, 22, 0.62), 0 0 0 1px rgba(153, 205, 235, 0.22);
     color-scheme: dark;
   }
 }
@@ -47,7 +57,6 @@
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
 html { background: var(--g1); }
-@media (prefers-color-scheme: dark) { html { background: #1a252f; } }
 body {
   margin: 0;
   min-height: 100vh;
@@ -57,7 +66,7 @@ body {
   overflow-x: hidden;
 }
 /* The gradient sits on a fixed layer, which works everywhere (iOS ignores fixed backgrounds) */
-body::before { content: ""; position: fixed; inset: 0; z-index: -1; background: var(--page); pointer-events: none; }
+body::before { content: ""; position: fixed; inset: 0; z-index: -1; background: var(--stars), var(--page); pointer-events: none; }
 img { max-width: 100%; display: block; }
 figure { margin: 0; }
 a { color: inherit; }
@@ -97,10 +106,24 @@ h1, h2, h3, h4 { margin: 0; line-height: 1.2; }
 .btn.sm { padding: 7px 14px; font-size: 13px; border-width: 1.5px; }
 .card .btn { color: var(--ink); border-color: var(--ink-3); }
 .card .btn:hover { background: var(--chip); }
-.card .btn.solid { background: var(--accent); border-color: var(--accent); color: #fff; }
+.card .btn.solid { background: var(--accent); border-color: var(--accent); color: var(--on-accent); }
 @media (prefers-color-scheme: dark) {
-  .btn.solid { color: #1a252f; }
-  .card .btn.solid { color: #1a252f; }
+  .btn { border-color: rgba(255, 255, 255, 0.85); }
+  .btn:hover { background: rgba(153, 205, 235, 0.14); }
+  .btn.solid { background: linear-gradient(135deg, #bfe2f5, #ffd1e6); border-color: transparent; color: var(--night); }
+  .btn.solid:hover { background: linear-gradient(135deg, #cdeaf8, #ffdcec); box-shadow: 0 8px 26px rgba(255, 182, 217, 0.25); }
+  .card .btn.solid { background: var(--accent); border-color: var(--accent); }
+}
+
+/* Filter pills (projects and art) */
+.filters { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; margin-bottom: 26px; }
+.filters button { font: bold 14px var(--font); color: #fff; background: transparent; border: 2px solid #fff; border-radius: 25px; padding: 8px 18px; cursor: pointer; transition: background 0.2s, color 0.2s, transform 0.2s; }
+.filters button:hover { transform: translateY(-2px); }
+.filters button[aria-pressed="true"] { background: #fff; color: var(--ink); }
+@media (prefers-color-scheme: dark) {
+  .filters button { border-color: rgba(255, 255, 255, 0.55); }
+  .filters button:hover { border-color: #fff; }
+  .filters button[aria-pressed="true"] { background: linear-gradient(135deg, #bfe2f5, #ffd1e6); border-color: transparent; color: var(--night); }
 }
 
 .tag { display: inline-block; font-size: 12px; padding: 4px 10px; border-radius: 999px; background: var(--chip); color: var(--ink-2); border: 1px solid var(--card-line); }
@@ -135,4 +158,11 @@ h1, h2, h3, h4 { margin: 0; line-height: 1.2; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
   .js .reveal { opacity: 1; transform: none; }
+}
+
+/* White outline controls on the light gradient: a soft shadow keeps them readable on the pale blue */
+@media (prefers-color-scheme: light) {
+  .btn:not(.solid), .filters button:not([aria-pressed="true"]), .back { text-shadow: 0 1px 8px rgba(38, 50, 74, 0.3); }
+  .btn:not(.solid), .filters button:not([aria-pressed="true"]) { background: rgba(255, 255, 255, 0.16); }
+  .btn:not(.solid) .ic, .filters button .ic, .back .ic { filter: drop-shadow(0 1px 4px rgba(38, 50, 74, 0.3)); }
 }

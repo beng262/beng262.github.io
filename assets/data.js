@@ -245,11 +245,11 @@ window.PROJECTS = [
     links: [["Live page", "https://beng262.github.io/AI-Powered-Finance-Agent/"], ["GitHub", "https://github.com/beng262/AI-Powered-Finance-Agent"]],
   },
   {
-    id: "wellness", name: "WellnessMate", cat: "Apps", img: "personal/wellness-screens", kind: "Flutter · Firebase",
+    id: "wellness", name: "WellnessMate", cat: "Apps", img: "personal/wellness-card", kind: "Flutter · Firebase",
     line: "A habit tracker where finishing your daily goals keeps a pet axolotl growing.",
     points: ["Daily goals, a mood diary, a calendar and colour themes.", "Flutter app with Firebase sign-in and cloud sync.", "All the art is drawn by me."],
     tags: ["Flutter", "Dart", "Firebase", "Illustration"],
-    links: [["GitHub", "https://github.com/beng262/WellnessMate"]], gallery: ["personal/wellness-axolotls"],
+    links: [["GitHub", "https://github.com/beng262/WellnessMate"]], gallery: ["personal/wellness-screens", "art/axolotls"],
   },
   {
     id: "loudtown", name: "Loud Town", cat: "Games", img: "personal/loudtown", kind: "Flutter · graduation project",
