@@ -52,6 +52,32 @@
     }));
   }
 
+  // Dark theme layers: soft glows and bokeh lights that drift a little with scroll and the pointer.
+  // Only their transform changes, so the rest of the page is never restyled.
+  const glow = document.createElement("div"), bokeh = document.createElement("div");
+  glow.className = "bg-glow"; bokeh.className = "bg-bokeh";
+  glow.setAttribute("aria-hidden", "true"); bokeh.setAttribute("aria-hidden", "true");
+  document.body.prepend(glow, bokeh);
+  if (!calm) {
+    let sy = 0, px = 0, py = 0, queued = false;
+    const paint = () => {
+      queued = false;
+      glow.style.transform = `translate3d(${(-26 * px).toFixed(1)}px, ${(-20 * py - 90 * sy).toFixed(1)}px, 0) rotate(${(8 * sy).toFixed(2)}deg)`;
+      bokeh.style.transform = `translate3d(${(-60 * px).toFixed(1)}px, ${(-44 * py - 260 * sy).toFixed(1)}px, 0)`;
+    };
+    const queue = () => { if (!queued) { queued = true; requestAnimationFrame(paint); } };
+    addEventListener("scroll", () => { const m = document.documentElement.scrollHeight - innerHeight; sy = m > 0 ? scrollY / m : 0; queue(); }, { passive: true });
+    if (matchMedia("(pointer: fine)").matches) addEventListener("pointermove", (e) => { px = e.clientX / innerWidth - 0.5; py = e.clientY / innerHeight - 0.5; queue(); }, { passive: true });
+  }
+  // Cards light up under the pointer (dark theme)
+  document.addEventListener("pointermove", (e) => {
+    const c = e.target.closest && e.target.closest(".card, .piece");
+    if (!c) return;
+    const r = c.getBoundingClientRect();
+    c.style.setProperty("--mx", (e.clientX - r.left).toFixed(0) + "px");
+    c.style.setProperty("--my", (e.clientY - r.top).toFixed(0) + "px");
+  }, { passive: true });
+
   window.SITE = { reveal, open, zoomables, calm, $ };
   reveal(); zoomables();
 })();

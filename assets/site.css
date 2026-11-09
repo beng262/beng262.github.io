@@ -1,13 +1,13 @@
 /* Shared look for every page.
    Light: the original portfolio gradient (#99CDEB to #FFB6D9) with white headings.
-   Dark (system setting): the same sky at night. Deep indigo to plum, a few stars,
-   and the day colours (sky blue, pink) kept as soft glows and accents.
+   Dark (system setting): the dark style of my Wallpaper App design. Near-black blue,
+   slate-blue and lavender glows, a touch of pink, soft bokeh lights, and the
+   iridescent blue-lavender-pink of its "W" logo on edges, headings and buttons.
    Font: Arial, as on the original site. */
 :root {
   --g1: #99cdeb;
   --g2: #ffb6d9;
   --page: linear-gradient(135deg, var(--g1), var(--g2));
-  --stars: none;
   --on-accent: #ffffff;
   --head: #ffffff;
   --head-shadow: 0 2px 14px rgba(38, 50, 74, 0.18);
@@ -29,27 +29,28 @@
 }
 @media (prefers-color-scheme: dark) {
   :root {
-    --g1: #0e1530;
-    --night: #0e1530;
+    --g1: #0f1116;
+    --night: #0f1116;
+    /* the "W" logo shimmer */
+    --iris: linear-gradient(120deg, #9fc4ff 0%, #b9a6ff 45%, #ffb6d9 100%);
+    --iris-soft: linear-gradient(135deg, rgba(159, 196, 255, 0.55), rgba(185, 166, 255, 0.22) 45%, rgba(255, 182, 217, 0.5));
     --page:
-      radial-gradient(70vmax 50vmax at 8% -6%, rgba(153, 205, 235, 0.16), transparent 62%),
-      radial-gradient(60vmax 50vmax at 100% 104%, rgba(255, 182, 217, 0.15), transparent 60%),
-      linear-gradient(160deg, #0e1530 0%, #18204a 48%, #2e2250 100%);
-    --stars: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='460' height='460'%3E%3Cg fill='%23fff'%3E%3Ccircle cx='31' cy='42' r='1.1' opacity='.75'/%3E%3Ccircle cx='118' cy='160' r='.7' opacity='.5'/%3E%3Ccircle cx='212' cy='64' r='1.4' opacity='.85'/%3E%3Ccircle cx='301' cy='211' r='.8' opacity='.45'/%3E%3Ccircle cx='402' cy='92' r='1' opacity='.65'/%3E%3Ccircle cx='66' cy='300' r='.9' opacity='.55'/%3E%3Ccircle cx='170' cy='392' r='1.2' opacity='.7'/%3E%3Ccircle cx='262' cy='330' r='.6' opacity='.4'/%3E%3Ccircle cx='366' cy='402' r='1.1' opacity='.6'/%3E%3Ccircle cx='440' cy='268' r='.7' opacity='.45'/%3E%3Ccircle cx='12' cy='190' r='.6' opacity='.35'/%3E%3Ccircle cx='330' cy='20' r='.7' opacity='.4'/%3E%3C/g%3E%3C/svg%3E");
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .045 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"),
+      linear-gradient(180deg, #0d0f15 0%, #121624 55%, #171a2b 100%);
     --head: #ffffff;
-    --head-shadow: 0 0 26px rgba(153, 205, 235, 0.28);
-    --ink: #eef0fb;
-    --ink-2: #c5c9e6;
-    --ink-3: #959cc4;
-    --card: rgba(30, 37, 82, 0.6);
-    --card-solid: #1b2150;
-    --card-line: rgba(176, 196, 255, 0.15);
-    --chip: rgba(153, 205, 235, 0.12);
-    --accent: #99cdeb;
+    --head-shadow: none;
+    --ink: #eef1f7;
+    --ink-2: #c3cad9;
+    --ink-3: #8f99b0;
+    --card: rgba(22, 26, 40, 0.58);
+    --card-solid: #171c2b;
+    --card-line: rgba(140, 158, 205, 0.22);
+    --chip: rgba(140, 158, 205, 0.15);
+    --accent: #aebcf2;
     --accent-2: #ffb6d9;
-    --on-accent: #0e1530;
-    --shadow: 0 12px 34px rgba(3, 5, 22, 0.45);
-    --shadow-hover: 0 18px 46px rgba(3, 5, 22, 0.62), 0 0 0 1px rgba(153, 205, 235, 0.22);
+    --on-accent: #0f1116;
+    --shadow: 0 14px 36px rgba(0, 0, 0, 0.45);
+    --shadow-hover: 0 22px 54px rgba(0, 0, 0, 0.55), 0 0 40px rgba(130, 120, 230, 0.2);
     color-scheme: dark;
   }
 }
@@ -66,7 +67,7 @@ body {
   overflow-x: hidden;
 }
 /* The gradient sits on a fixed layer, which works everywhere (iOS ignores fixed backgrounds) */
-body::before { content: ""; position: fixed; inset: 0; z-index: -1; background: var(--stars), var(--page); pointer-events: none; }
+body::before { content: ""; position: fixed; inset: 0; z-index: -1; background: var(--page); pointer-events: none; }
 img { max-width: 100%; display: block; }
 figure { margin: 0; }
 a { color: inherit; }
@@ -109,9 +110,9 @@ h1, h2, h3, h4 { margin: 0; line-height: 1.2; }
 .card .btn.solid { background: var(--accent); border-color: var(--accent); color: var(--on-accent); }
 @media (prefers-color-scheme: dark) {
   .btn { border-color: rgba(255, 255, 255, 0.85); }
-  .btn:hover { background: rgba(153, 205, 235, 0.14); }
-  .btn.solid { background: linear-gradient(135deg, #bfe2f5, #ffd1e6); border-color: transparent; color: var(--night); }
-  .btn.solid:hover { background: linear-gradient(135deg, #cdeaf8, #ffdcec); box-shadow: 0 8px 26px rgba(255, 182, 217, 0.25); }
+  .btn:hover { background: rgba(174, 188, 242, 0.14); box-shadow: 0 0 24px rgba(174, 188, 242, 0.18); }
+  .btn.solid { background: var(--iris); border-color: transparent; color: var(--night); }
+  .btn.solid:hover { background: var(--iris); box-shadow: 0 8px 30px rgba(185, 166, 255, 0.4); }
   .card .btn.solid { background: var(--accent); border-color: var(--accent); }
 }
 
@@ -123,7 +124,7 @@ h1, h2, h3, h4 { margin: 0; line-height: 1.2; }
 @media (prefers-color-scheme: dark) {
   .filters button { border-color: rgba(255, 255, 255, 0.55); }
   .filters button:hover { border-color: #fff; }
-  .filters button[aria-pressed="true"] { background: linear-gradient(135deg, #bfe2f5, #ffd1e6); border-color: transparent; color: var(--night); }
+  .filters button[aria-pressed="true"] { background: var(--iris); border-color: transparent; color: var(--night); box-shadow: 0 6px 22px rgba(185, 166, 255, 0.3); }
 }
 
 .tag { display: inline-block; font-size: 12px; padding: 4px 10px; border-radius: 999px; background: var(--chip); color: var(--ink-2); border: 1px solid var(--card-line); }
@@ -165,4 +166,62 @@ h1, h2, h3, h4 { margin: 0; line-height: 1.2; }
   .btn:not(.solid), .filters button:not([aria-pressed="true"]), .back { text-shadow: 0 1px 8px rgba(38, 50, 74, 0.3); }
   .btn:not(.solid), .filters button:not([aria-pressed="true"]) { background: rgba(255, 255, 255, 0.16); }
   .btn:not(.solid) .ic, .filters button .ic, .back .ic { filter: drop-shadow(0 1px 4px rgba(38, 50, 74, 0.3)); }
+}
+
+/* Dark: immersive layers. Glows (slow) and bokeh lights (faster) sit behind everything and drift a
+   little with scroll and the pointer (site.js adds the two layers and moves them). Nothing moves while idle. */
+.bg-glow, .bg-bokeh { display: none; }
+@media (prefers-color-scheme: dark) {
+  .bg-glow, .bg-bokeh { display: block; position: fixed; z-index: -1; pointer-events: none; will-change: transform; transition: transform 0.9s cubic-bezier(0.2, 0.7, 0.2, 1); }
+  .bg-glow {
+    inset: -18%;
+    background:
+      radial-gradient(36vmax 24vmax at 50% 10%, rgba(150, 132, 255, 0.26), transparent 70%),
+      radial-gradient(46vmax 34vmax at 12% 16%, rgba(88, 120, 182, 0.62), transparent 66%),
+      radial-gradient(40vmax 32vmax at 90% 84%, rgba(112, 116, 205, 0.58), transparent 66%),
+      radial-gradient(30vmax 24vmax at 84% 16%, rgba(255, 170, 214, 0.26), transparent 66%),
+      radial-gradient(32vmax 26vmax at 16% 88%, rgba(126, 160, 220, 0.28), transparent 66%),
+      radial-gradient(28vmax 22vmax at 55% 58%, rgba(150, 120, 240, 0.14), transparent 70%);
+  }
+  .bg-bokeh {
+    inset: -10%;
+    background:
+      radial-gradient(70px 70px at 72% 28%, rgba(185, 166, 255, 0.16), transparent),
+      radial-gradient(90px 90px at 18% 52%, rgba(159, 196, 255, 0.12), transparent),
+      radial-gradient(56px 56px at 40% 82%, rgba(255, 182, 217, 0.14), transparent),
+      radial-gradient(110px 110px at 88% 62%, rgba(185, 166, 255, 0.1), transparent),
+      radial-gradient(48px 48px at 30% 14%, rgba(220, 228, 255, 0.12), transparent),
+      radial-gradient(6px 6px at 12% 22%, rgba(230, 236, 255, 0.7), transparent),
+      radial-gradient(4px 4px at 38% 12%, rgba(255, 255, 255, 0.65), transparent),
+      radial-gradient(5px 5px at 58% 34%, rgba(255, 220, 238, 0.6), transparent),
+      radial-gradient(4px 4px at 77% 9%, rgba(230, 236, 255, 0.6), transparent),
+      radial-gradient(8px 8px at 86% 40%, rgba(170, 205, 255, 0.45), transparent),
+      radial-gradient(5px 5px at 6% 84%, rgba(255, 220, 238, 0.5), transparent),
+      radial-gradient(3px 3px at 63% 92%, rgba(255, 255, 255, 0.6), transparent),
+      radial-gradient(4px 4px at 47% 66%, rgba(230, 236, 255, 0.5), transparent),
+      radial-gradient(3px 3px at 93% 18%, rgba(255, 255, 255, 0.55), transparent);
+  }
+
+  /* Glass cards with the logo shimmer on the edge, and a soft light that follows the pointer */
+  .card, .piece {
+    border: 1px solid transparent;
+    background:
+      radial-gradient(420px circle at var(--mx, -500px) var(--my, -500px), rgba(174, 188, 242, 0.13), transparent 60%) padding-box,
+      linear-gradient(var(--card), var(--card)) padding-box,
+      var(--iris-soft) border-box;
+    backdrop-filter: blur(16px) saturate(140%); -webkit-backdrop-filter: blur(16px) saturate(140%);
+  }
+  .card.lift:hover, .piece:hover { box-shadow: var(--shadow-hover); }
+  .proj .thumb, .shot { background: #10131c; }
+
+  /* Iridescent headings, like the logo */
+  html .hero h1, .section-head h2, .art-hero h1 {
+    background: var(--iris); -webkit-background-clip: text; background-clip: text; color: transparent;
+    text-shadow: none; filter: drop-shadow(0 0 22px rgba(160, 150, 255, 0.28));
+    width: fit-content; max-width: 100%;
+  }
+  html .hero h1, .section-head h2 { margin-left: auto; margin-right: auto; }
+  html .avatar { border: 3px solid transparent; background: var(--iris) border-box; box-shadow: 0 0 0 6px rgba(185, 166, 255, 0.08), 0 0 50px rgba(160, 150, 255, 0.35); }
+  .lb { background: rgba(8, 10, 16, 0.9); }
+  ::selection { background: rgba(185, 166, 255, 0.35); }
 }
