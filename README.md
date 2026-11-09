@@ -42,9 +42,9 @@ Live site: **[beng262.github.io](https://beng262.github.io)**
 Static site served by GitHub Pages: plain HTML, CSS and JS, no framework, no build step for the
 site itself. Everything is served from this repo, so each page carries a strict Content Security
 Policy that allows no third-party scripts or requests. Colours follow the system light or dark
-setting: light is the original #99CDEB to #FFB6D9 gradient, dark is
-(the dark style of my Wallpaper App design: near-black blue, blue and lavender glows, soft bokeh,
-and the iridescent "W" logo colours on edges, headings and buttons).
+setting: light is the original #99CDEB to #FFB6D9 gradient, dark follows my Wallpaper App
+design: near-black blue, blue and lavender glows, soft bokeh, and the iridescent "W" logo colours
+on edges, headings and buttons.
 
 | Path | Purpose |
 |---|---|
