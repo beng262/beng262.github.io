@@ -55,18 +55,21 @@ window.BAGENT = [
     id: "roleplay", name: "Roleplay", color: "#d9a10b", url: "roleplay.bagent.com.tr",
     tagline: "Practise sales conversations with an AI customer first.",
     does: [
-      "Pick a scenario, like a price objection or an angry customer, and talk to an AI customer.",
-      "Practise in text or by voice, against the clock.",
+      "Pick a scenario, like a price objection or a security-minded IT manager, and talk to an AI customer.",
+      "Talk face to face with an avatar that listens and answers out loud in Turkish, or practise by voice or text, against the clock.",
       "Get a score and a coaching note: strengths, what to improve, next steps.",
       "Managers build scenarios with a 5-step wizard, or let AI fill it in from one paragraph.",
     ],
     hood: [
+      "Talking avatars from Azure AI Speech over WebRTC: Turkish speech-to-text in, the scenario's character answers, the avatar says it with lip-sync. 15 faces to choose from.",
       "The AI customer knows current product facts, synced from the brand's website and uploaded files.",
       "Real-time voice over WebRTC to an Azure OpenAI realtime model, with short-lived secrets.",
       "Each company's data is kept apart, with 5 roles. Tokens live only in HttpOnly cookies.",
     ],
     stack: ["Next.js", "React", "TypeScript", "Tailwind", "Python", "PostgreSQL", "Azure OpenAI"],
     shots: [
+      ["roleplay/avatar", "A live avatar call: Emre, an IT manager, asks about data security"],
+      ["roleplay/avatar-pick", "Pick who you talk to: 15 avatar faces"],
       ["roleplay/chat", "A live practice call with an upset customer"],
       ["roleplay/summary", "Score and coaching note after the call"],
       ["roleplay/pick", "Choose your role: seller or customer"],

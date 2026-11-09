@@ -10,11 +10,11 @@
     { title: "Garden of Aesthetic", cat: "Illustration", kind: "Illustration series · 7 prints", note: "Prints for my room, in the colours I couldn't find in shops.", imgs: ["garden-1", "garden-2", "garden-3", "garden-4", "garden-5", "garden-6", "garden-7"], link: AS + "kl0qJ6" },
     { title: "Sonic", cat: "Painting", kind: "Digital painting", note: "For my little brother, the biggest Sonic fan I know.", imgs: ["sonic-1"], link: AS + "B3Bn2m" },
     { title: "Mr. Mime", cat: "3D", kind: "3D model · Blender", note: "Most of my 3D lives inside my games; this one I could share.", imgs: ["mime-1", "mime-2"], link: AS + "XJoz3Y" },
-    { title: "Axolotl growth stages", cat: "Game art", kind: "Game art · WellnessMate", note: "The pet grows up as you finish your daily goals.", imgs: ["axolotls"] },
     { title: "Digital Eye", cat: "Painting", kind: "Digital painting · MediBang Paint", note: "My second digital drawing, at fifteen.", imgs: ["eye-1"], link: AS + "Rn81KD" },
     { title: "Some Kind of Kitty", cat: "Painting", kind: "Digital painting · MediBang Paint", note: "My very first digital piece, at fourteen, on a tablet bought with my savings.", imgs: ["kitty-1"], link: AS + "LeoLYl" },
-    { title: "WellnessMate logo", cat: "Game art", kind: "Game art · logo", note: "The logo for my wellness pet game.", imgs: ["wellness-logo"] },
     { title: "Cute Bunny", cat: "Painting", kind: "Digital painting", note: "A short, happy one.", imgs: ["bunny-1"], link: AS + "ZeyKkN" },
+    { title: "Axolotl growth stages", cat: "Game art", kind: "Game art · WellnessMate", note: "The pet grows up as you finish your daily goals.", imgs: ["axolotls"] },
+    { title: "WellnessMate logo", cat: "Game art", kind: "Game art · logo", note: "The logo for my wellness pet game.", imgs: ["wellness-logo"] },
   ];
   const CATS = ["All", "Painting", "Illustration", "3D", "Game art"];
 
