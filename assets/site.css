@@ -102,6 +102,10 @@ h1, h2, h3, h4 { margin: 0; line-height: 1.2; }
   transition: transform 0.3s, background 0.3s, box-shadow 0.3s;
 }
 .btn:hover { transform: translateY(-3px); background: rgba(255, 255, 255, 0.26); }
+/* Gradients span the whole button, border included; otherwise they repeat into the transparent
+   border and leave a pink sliver on the left edge and a blue one on the right */
+/* !important because every `background:` shorthand below (solid, card, hover, popup links) would reset it */
+.btn, .filters button { background-origin: border-box !important; }
 .btn.sm { padding: 7px 14px; font-size: 13px; border-width: 1.5px; }
 /* Every button has white text. The main one is a deeper version of the site gradient, so white reads on it;
    secondary buttons inside cards get a soft filled colour instead of a dark outline. */
